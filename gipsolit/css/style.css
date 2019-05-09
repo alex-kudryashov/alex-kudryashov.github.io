@@ -29,6 +29,7 @@ a:hover {
   color: #ffffff;
   text-transform: uppercase;
   border: none;
+  -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
 .button:hover {
@@ -115,7 +116,8 @@ section {
   padding: 0.5rem;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
   font-size: 1.2rem;
 }
 .main-form small {
@@ -181,7 +183,8 @@ section {
   height: 2rem;
   border: none;
   top: 50%;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 .prev {
   background: url("../img/leftarrow.svg") center no-repeat;
@@ -225,7 +228,8 @@ section {
 .price-block {
   padding: 1rem 3rem 3rem;
   background-color: #ffffff;
-  box-shadow: 0 14px 21px rgba(0, 0, 0, 0.17);
+  -webkit-box-shadow: 0 14px 21px rgba(0, 0, 0, 0.17);
+          box-shadow: 0 14px 21px rgba(0, 0, 0, 0.17);
   text-align: center;
 }
 .price-block h4 {
@@ -281,7 +285,8 @@ section {
   left: 50%;
   top: 10%;
   background-color: #ffffff;
-  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   padding: 4rem 6rem;
 }
 .popup-form {
