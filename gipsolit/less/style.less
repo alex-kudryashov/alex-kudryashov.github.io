@@ -1,0 +1,416 @@
+/* Fonts settings */
+@font-face {
+	font-family: "ProximaNova_bold";
+	src: url("../fonts/Proxima Nova Bold.otf");
+}
+@font-face {
+	font-family: "ProximaNova_reg";
+	src: url("../fonts/Proxima Nova Regular.otf");
+}
+
+.reg() {
+	font-family: 'ProximaNova_reg', sans-serif;
+}
+
+.bold() {
+	font-family: 'ProximaNova_bold', sans-serif;
+}
+
+/* colors */
+
+@btn-color:  #fcb303;
+@icons: #46b814;
+@text: #1a1820;
+@danger: #ff0000;
+@bg-light: #f5f5f5;
+@light: #fff;
+@border-input: #dddddd;
+
+/* basic settings */
+* {
+	outline: none;
+}
+html {
+	font-size: 10px;
+}
+body{
+	.reg();
+}
+a:hover {
+	text-decoration: none;
+}
+.button {
+	padding: 1rem 3rem;
+	border-radius: 8px;
+	font-size: 1.2rem;
+	background-color: @btn-color;
+	color: @light;
+	text-transform: uppercase;
+	border: none;
+	transition: all 0.2s;
+	&:hover {
+		cursor: pointer;
+		background-color: darken(@btn-color, 5%);
+	}
+}
+/* Typography */
+
+section {
+	padding: 10rem 0;
+}
+
+/* main */
+
+.main {
+	padding: 3rem 0 5rem;
+	background: url("../img/bg-screen1.png") top center no-repeat;
+	background-size: cover;
+	&-content {
+		margin-top: 10rem;
+
+		/* заголовок */
+
+		h1 {
+			margin-top: -10px;
+			margin-bottom: 4rem;
+			.bold ();
+			font-size: 4rem;
+			text-transform: uppercase;
+			line-height: 1.45;
+		}
+	}
+
+	/* подзаголовок */
+
+	&-subtitle {
+		font-size: 2.4rem;
+		margin-bottom: 4rem;
+	}
+
+	/* зеленый ярлык */
+
+	span {
+		display: inline-block;
+		padding: 3rem 5rem;
+		background-color: @icons;
+		color: @light;
+		font-size: 1.8rem;
+		text-align: center;
+
+		/* цифра 300 */
+
+		strong {
+			font-size: 3rem;
+			.bold();
+		}
+	}
+
+	/* оплата по факту */
+
+	&-trigger {
+		font-size: 2.2rem;
+		text-transform: uppercase;
+		.bold();
+		display: block;
+		margin-top: 3rem;
+	}
+
+	/* главная форма */
+	&-form {
+		padding: 4rem 5rem;
+		background-color: @light;
+		text-align: center;
+		/* заголовок формы */
+		&-header {
+			margin-bottom: 4rem;
+			font-size: 1.8rem;
+			strong {
+				font-size: 1.9rem;
+			}
+		}
+		/* поле для ввода */
+		&-input {
+			display: block;
+			border: 1px solid @border-input;
+			width: 100%;
+			padding: 1.5rem;
+			margin: 2rem 0;
+			border-radius: 5px;
+		}
+		/* подписи к полям */
+		label {
+			background-color: @light;
+			padding: 0.5rem;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%) translateY(-50%);
+			font-size: 1.2rem;
+		}
+		/* подпись под кнопкой */
+		small {
+			display: block;
+			margin-top: 1.5rem;
+			font-size: 1.2rem;
+		}
+		/* кнопка отправить заявку */
+		&-btn {
+			display: block;
+			height: 5.5rem;
+			width: 100%;
+			font-size: 1.6rem;
+		}
+	}
+}
+
+
+.header {
+	height: 7rem;
+}
+
+.phone-block {
+	display: inline-block;
+}
+.phone-link {
+	.bold();
+	height: 7rem;
+	line-height: 7rem;
+	font-size: 2rem;
+	color: @text;
+}
+
+.wrap {
+	display: table;
+	width: 100%;
+	height: 7rem;
+	&-block {
+		display: table-cell;
+		vertical-align: middle;
+		text-align: right;
+	}
+}
+
+/* оформление секции с преимуществами */
+.features {
+	&-block {
+		text-align: center;
+		h3 {
+			font-size: 2rem;
+			.bold();
+			margin-bottom: 3rem;
+		}
+		p {
+			font-size: 1.4rem;	
+			display: inline-block;
+			width: 80%;	
+		}
+	}
+	&-img {
+		height: 8rem;
+		margin-bottom: 3rem;
+		img {
+			display: block;
+			margin: 0 auto;
+		}
+	}
+}
+.arrow {
+	position: absolute;
+	z-index: 99;
+	width: 2rem;
+	height: 2rem;
+	border: none;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.prev {
+	background: url("../img/leftarrow.svg") center no-repeat;
+	left: 0;
+	background-size: 70%;
+}
+.next {
+	background: url("../img/rightarrow.svg") center no-repeat;
+	right: 0;
+	background-size: 70%;
+}
+section {
+	padding: 10rem 0;
+}
+.section-header {
+	&_light {
+		color: @light;
+		margin-top: 0;
+	}
+	h2 {
+		.bold();
+		font-size: 3.6rem;
+	}
+	p {
+		font-size: 1.4rem;
+	}
+	margin: 2rem 0 10rem;
+	text-align: center;
+}
+
+
+/* Секция с ценами */
+.price {
+	background: @icons url("../img/price/price-bg.png") center;
+	&-button {
+		text-align: right;
+	}
+	&-header-btn {
+		margin-top: 2.5rem;
+	}
+	/* карточки с тарифами */
+	&-block {
+		padding: 1rem 3rem 3rem;
+		// min-height: 55rem;
+		background-color: @light;
+		box-shadow: 0 14px 21px rgba(0, 0, 0, 0.17);
+		text-align: center;
+		h4 {
+			font-size: 1.9rem;
+			.bold();
+			margin: 3rem 0;
+		}
+		img {
+			display: inline-block;
+			margin-bottom: 2rem;
+			max-width: 20rem;
+		}
+		button {
+			float: bottom;
+		}
+	}
+	&-tag {
+		display: inline-block;
+		margin-bottom: 2rem;
+		font-size: 1.9rem;
+		.bold();
+	}
+	&-list {
+		list-style: none;
+		padding: 0;
+		min-height: 18rem;
+		line-height: 1.6;
+		font-size: 1.6rem;
+		li {
+			&:before {
+				content: '';
+				display: inline-block;
+				margin-right: 1rem;
+				width: 1.4rem;
+				height: 1.4rem;
+				background: url("../img/price/check.png") no-repeat center;
+				vertical-align: middle;
+				background-size: 100%;
+			}
+		}
+	}
+}
+
+
+/* оформление всплывающих окон */
+.popup {
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	&-content {
+		position: fixed;
+		left: 50%;
+		top: 10%;
+		background-color: @light;
+		transform: translateX(-50%);
+		padding: 4rem 6rem;
+	}
+	&-form {
+		margin-top: 3rem;
+		padding: 0;
+	}
+	&-close {
+		position: absolute;
+		top: -1.5rem;
+		right: -2rem;
+		width: 2rem;
+		text-align: center;
+		border: none;
+		background-color: transparent;
+		font-size: 3rem;
+		color: @light;
+	}
+	&-content {
+		text-align: center;
+	}
+	&-header {
+		.bold();
+	}
+}
+
+@media (max-width: 991px) {
+	.phone-block {
+		text-align: center;
+	}
+	
+	.main-title {
+		text-align: center;
+	}
+	.main {
+		background-position: top right;
+	}
+	.price {
+		&-button {
+			text-align: center;
+			padding: 2rem 0;
+		}
+		&-header-btn {
+			margin-top: 0;
+			margin-bottom: 2rem;
+		}
+		&-block {
+			margin-top: 2rem;
+		}
+		img {
+			min-width: 30rem;
+		}
+	}
+	.section-header_light {
+		margin-bottom: 0;
+	}
+}
+
+@media (max-width: 767px) {
+	.phone-link,.phone-block {
+		text-align: center;
+	}
+	.header {
+		text-align: center;
+	}
+	.wrap-block {
+		text-align: center;
+	}
+	.main {
+		background-position: top left;
+	}
+	.main-title h1 {
+		font-size: 3rem;
+	}
+	.price {
+		img {
+			min-width: 42rem;
+		}
+	}
+}
+
+@media (max-width: 610px) {
+	.price {
+		img {
+			min-width: 30rem;
+		}
+	}
+}
