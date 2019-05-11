@@ -114,6 +114,7 @@ section {
 .main-form label {
   background-color: #ffffff;
   padding: 0.5rem;
+  font-family: 'ProximaNova_reg', sans-serif;
   position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%) translateY(-50%);
@@ -268,6 +269,95 @@ section {
   vertical-align: middle;
   background-size: 100%;
 }
+/* Секцсия с отзывами */
+.feedback {
+  background: url("../img/recalls/bg.png") no-repeat center;
+  background-size: cover;
+  position: relative;
+  /* форма обратной связи  */
+}
+.feedback .arm {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  max-width: 30rem;
+}
+.feedback-prev-btn {
+  left: -4rem;
+}
+.feedback-btn {
+  max-width: 30rem;
+  margin: auto;
+}
+.feedback-next-btn {
+  right: -4rem;
+}
+.feedback-text {
+  margin-top: 2rem;
+  font-style: italic;
+  border: 2px solid #46b814;
+  padding: 1rem;
+  position: relative;
+}
+.feedback-text::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -2rem;
+  left: 4rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: #ffffff;
+  border: 2px solid #46b814;
+  border-bottom: none;
+  border-top-right-radius: 100px;
+}
+.feedback-slider {
+  padding: 5rem 6rem;
+  -webkit-box-shadow: 0 12px 18px rgba(0, 0, 0, 0.11);
+          box-shadow: 0 12px 18px rgba(0, 0, 0, 0.11);
+  background-color: #ffffff;
+}
+.feedback-slider .meadia {
+  font-size: 1.4rem;
+  margin-top: 5rem;
+}
+.feedback-slider .meadia h4 {
+  font-family: 'ProximaNova_bold', sans-serif;
+}
+.feedback-slider p {
+  font-size: 1.6rem;
+}
+.feedback-slider-btn {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 4rem;
+  height: 5rem;
+  background-color: #46b814;
+  border: none;
+}
+.feedback-slider-btn img {
+  width: 50%;
+}
+.feedback-form {
+  margin-top: 5rem;
+  padding: 4rem 10rem;
+  background-color: #ffffff;
+  text-align: center;
+}
+.feedback-form h3 {
+  font-family: 'ProximaNova_bold', sans-serif;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+.feedback-form label {
+  -webkit-transform: translateY(4rem);
+          transform: translateY(4rem);
+  background-color: #ffffff;
+  padding: 4px;
+}
 /* оформление всплывающих окон */
 .popup {
   display: none;
@@ -310,7 +400,16 @@ section {
 .popup-header {
   font-family: 'ProximaNova_bold', sans-serif;
 }
+/* адаптив */
+@media (max-width: 1199px) {
+  .feedback .fotorama {
+    margin-bottom: 3rem;
+  }
+}
 @media (max-width: 991px) {
+  .arm {
+    display: none;
+  }
   .phone-block {
     text-align: center;
   }
@@ -339,6 +438,12 @@ section {
   }
 }
 @media (max-width: 767px) {
+  .feedback-prev-btn {
+    left: 0rem;
+  }
+  .feedback-next-btn {
+    right: 0rem;
+  }
   .phone-link,
   .phone-block {
     text-align: center;

@@ -141,6 +141,7 @@ section {
 		label {
 			background-color: @light;
 			padding: 0.5rem;
+			.reg();
 			position: absolute;
 			left: 50%;
 			transform: translateX(-50%) translateY(-50%);
@@ -309,6 +310,94 @@ section {
 	}
 }
 
+/* Секцсия с отзывами */
+.feedback {
+	background: url("../img/recalls/bg.png") no-repeat center;
+	background-size: cover;
+	position: relative;
+	.arm {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		max-width: 30rem;
+	}
+	&-prev-btn {
+		left: -4rem;
+	}
+	&-btn {
+		max-width: 30rem;
+		margin: auto;
+	}
+	&-next-btn {
+		right: -4rem;
+	}
+	&-text {
+		margin-top: 2rem;
+		font-style: italic;
+		border: 2px solid @icons;
+		padding: 1rem;
+		position: relative;
+		&::before {
+			content: '';
+			display: block;
+			position: absolute;
+			top: -2rem;
+			left: 4rem;
+			width: 2rem;
+			height: 2rem;
+			background-color: @light;
+			border: 2px solid @icons;
+			border-bottom: none;
+			border-top-right-radius: 100px;
+		}
+	}
+	&-slider {
+		padding: 5rem 6rem;
+		box-shadow: 0 12px 18px rgba(0, 0, 0, 0.11);
+		background-color: @light;
+		.meadia {
+			font-size: 1.4rem;
+			margin-top: 5rem;
+			h4 {
+				.bold();
+			}
+		}
+		p {
+			font-size: 1.6rem;
+		}
+		&-btn {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 4rem;
+			height: 5rem;
+			background-color: @icons;
+			border: none;
+			img {
+				width: 50%;
+			}
+		}
+	}
+	/* форма обратной связи  */
+	&-form {
+		margin-top: 5rem;
+		padding: 4rem 10rem;
+		background-color: @light;
+		text-align: center;
+		h3 {
+			.bold();
+			margin-bottom: 1rem;
+			font-size: 2rem;
+		}
+		label {
+			transform: translateY(4rem);
+			background-color: @light;
+			padding: 4px;
+		}
+	}
+}
+
+
 
 /* оформление всплывающих окон */
 .popup {
@@ -352,7 +441,24 @@ section {
 	}
 }
 
+
+
+
+
+/* адаптив */
+
+@media (max-width: 1199px){
+	.feedback {
+		.fotorama {
+			margin-bottom: 3rem;
+		}
+	}
+}
+
 @media (max-width: 991px) {
+	.arm {
+		display: none;
+	}
 	.phone-block {
 		text-align: center;
 	}
@@ -385,6 +491,14 @@ section {
 }
 
 @media (max-width: 767px) {
+	.feedback {
+		&-prev-btn {
+			left: 0rem;
+		}
+		&-next-btn {
+			right: 0rem;
+		}
+	}
 	.phone-link,.phone-block {
 		text-align: center;
 	}
