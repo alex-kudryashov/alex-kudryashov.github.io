@@ -398,6 +398,54 @@ section {
 }
 
 
+/* Схемы работ */
+.scheme {
+	background: #fff url("../img/scheme/arm.png") bottom -10rem right -15rem no-repeat;
+	background-size: 65rem;
+	&-block {
+		min-height: 30rem;
+		h3 {
+			font-size: 2rem;
+			.bold();
+		}
+	}
+}
+
+/* Всё включено */
+.all-inclusive {
+	background: @bg-light;
+	.media {
+		min-height: 9rem;
+		h4 {
+			.bold();
+			font-size: 1.6rem;
+		}
+		p {
+			font-size: 1.1rem;
+		}
+	}
+}
+
+.circle {
+	display: inline-block;
+	background-color: @icons;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	&-border {
+		padding: 0.3rem;
+		display: inline-block;
+		height: 5rem;
+		width: 5rem;
+		border: 2px solid @icons;
+		border-radius: 50%;
+		text-align: center;
+		line-height: 4rem;
+		color: @light;
+		.bold();
+		font-size: 1.9rem;
+	}
+}
 
 /* оформление всплывающих окон */
 .popup {
@@ -448,6 +496,11 @@ section {
 /* адаптив */
 
 @media (max-width: 1199px){
+	.all-inclusive {
+		.media {
+			min-height: 11rem;
+			}
+		}
 	.feedback {
 		.fotorama {
 			margin-bottom: 3rem;
@@ -491,6 +544,13 @@ section {
 }
 
 @media (max-width: 767px) {
+	.scheme {
+		background: none;
+		text-align: center;
+		&-block {
+			min-height: 20rem;
+		}
+	}
 	.feedback {
 		&-prev-btn {
 			left: 0rem;
