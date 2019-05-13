@@ -404,6 +404,85 @@ section {
   font-family: 'ProximaNova_bold', sans-serif;
   font-size: 1.9rem;
 }
+/* опасения */
+.problems {
+  position: relative;
+}
+.problems-girl {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 30rem;
+  margin-left: -18.5rem;
+}
+.problems-list {
+  border: 4px solid;
+  padding: 2rem;
+  padding-top: 2rem;
+  min-height: 35rem;
+}
+.problems-list h4 {
+  font-size: 2.1rem;
+  padding-bottom: 3rem;
+  font-family: 'ProximaNova_bold', sans-serif;
+}
+.problems-list ul {
+  padding-left: 0;
+  list-style: none;
+}
+.problems-list ul li {
+  margin-bottom: 3rem;
+  position: relative;
+  padding-left: 3.5rem;
+}
+.problems-list ul li:before {
+  content: '';
+  height: 3rem;
+  width: 3rem;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.problems-list-good {
+  border-color: #358015;
+}
+.problems-list-good ul li:before {
+  background: url("../img/problems/good.png") center no-repeat;
+  background-size: 70%;
+}
+.problems-list-bad {
+  border-color: #989898;
+}
+.problems-list-bad ul li:before {
+  background: url("../img/problems/bad.png") center no-repeat;
+  background-size: 70%;
+}
+.problems-list-bad h4 {
+  opacity: 0.5;
+}
+/* материалы */
+.materials {
+  background: url("../img/materials/bg.png");
+}
+.materials img {
+  display: block;
+  margin: 0 auto;
+  min-height: 18rem;
+}
+.materials h3 {
+  font-family: 'ProximaNova_bold', sans-serif;
+  margin-bottom: 3rem;
+}
+.materials a {
+  color: #509134;
+  text-decoration: underline;
+}
+.materials-describe {
+  text-align: center;
+  margin-top: 4rem;
+}
 /* оформление всплывающих окон */
 .popup {
   display: none;
@@ -454,6 +533,9 @@ section {
   .feedback .fotorama {
     margin-bottom: 3rem;
   }
+  .problems-list {
+    min-height: 40rem;
+  }
 }
 @media (max-width: 991px) {
   .arm {
@@ -484,6 +566,15 @@ section {
   }
   .section-header_light {
     margin-bottom: 0;
+  }
+  .problems-list {
+    min-height: auto;
+  }
+  .problems-girl {
+    display: none;
+  }
+  .problems-list-bad {
+    margin-bottom: 3rem;
   }
 }
 @media (max-width: 767px) {
