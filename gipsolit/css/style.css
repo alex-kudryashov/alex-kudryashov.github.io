@@ -483,6 +483,35 @@ section {
   text-align: center;
   margin-top: 4rem;
 }
+/* посмотрите ка мы работаем */
+.toor {
+  background: #ffffff url("../img/look/bg.png") center no-repeat;
+  background-size: cover;
+}
+.toor-subtitle {
+  font-size: 2.2rem;
+}
+/* дополнительные услуги */
+.upsell {
+  background-color: #286b0a;
+}
+.upsell-block {
+  text-align: center;
+  min-height: 30rem;
+  color: #ffffff;
+}
+.upsell-blocks {
+  margin-top: 3rem;
+}
+.upsell-block p {
+  margin: 2rem 0;
+  font-size: 2rem;
+}
+.upsell-block img {
+  display: inline-block;
+  max-width: 30rem;
+  width: 100%;
+}
 /* оформление всплывающих окон */
 .popup {
   display: none;
@@ -575,6 +604,10 @@ section {
   }
   .problems-list-bad {
     margin-bottom: 3rem;
+  }
+  .toor {
+    background: #ffffff url("../img/materials/bg.png") center no-repeat;
+    background-size: cover;
   }
 }
 @media (max-width: 767px) {
