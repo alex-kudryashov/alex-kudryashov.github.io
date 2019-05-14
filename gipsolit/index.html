@@ -7,10 +7,11 @@
 	<meta name="description" content="">
 	<link rel="icon" href="/favicon.ico">
 	<title>Автоматизированная штукатурка стен</title>
+	<link rel="stylesheet" href="css/animate.css">
 	<link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="slick/slick.css"/>
-	<link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+	<link rel="stylesheet" href="slick/slick.css"/>
+	<link rel="stylesheet" href="slick/slick-theme.css"/>
 </head>
 
 <body>
@@ -55,7 +56,7 @@
 			<div class="main-content">
 				<div class="row">
 					<div class="col-lg-6 col-sm-12 col-md-6">
-						<div class="main-title">
+						<div class="main-title wow fadeInLeft">
 							<h1>Автоматизированная штукатурка стен</h1>
 							<p class="main-subtitle">Идеально ровные стены<br>в кратчайшие сроки</p>
 							<span>
@@ -66,13 +67,13 @@
 						</div>
 					</div>
 					<div class="col-lg-4 col-lg-offset-2 col-sm-12 col-sm-offset-0 col-md-5 col-md-offset-1">
-						<div class="main-form">
+						<div class="main-form wow fadeInRight">
 							<h2 class="main-form-header">Для расчета точной стоимости<br>закажите <strong>выезд замерщика</strong></h2>
 							<form action="#">
 								<label for="name">Ваше имя</label>
-								<input type="text" class="main-form-input" id="name">
+								<input type="text" class="main-form-input" id="name" required>
 								<label for="phone">Номер телефона</label>								
-								<input type="tel" class="main-form-input" id="phone">
+								<input type="tel" class="main-form-input" id="phone" required>
 								<button type="submit" class="main-form-btn button">Оставьте заявку</button>
 								<small>Подарок в день обращения*</small>
 							</form>
@@ -92,7 +93,7 @@
 				Преимущества работы с нами
 			</h2>
 			<div class="features-slider">
-				<div class="features-block">
+				<div class="features-block wow fadeInUp" data-wow-delay="0.1s">
 					<div class="features-img">
 						<picture>
 							<source srcset="img/features/coin.svg" type="image/svg">
@@ -102,7 +103,7 @@
 					<h3>Платите по факту</h3>
 					<p>Вы оплачиваете выполненные работы только после их выполнения.<br>Никаких скрытых доплат и промежуточных платежей.</p>
 				</div>
-				<div class="features-block">
+				<div class="features-block wow fadeInUp" data-wow-delay="0.2s">
 					<div class="features-img">
 						<picture>
 							<source srcset="img/features/folder.svg" type="image/svg">
@@ -112,7 +113,7 @@
 					<h3>Заключаем договор</h3>
 					<p>Перед началом работ заключаем договор на юридическое лицо.<br>Вы можете быть уверены, что все обязательства будут выполнены.</p>
 				</div>
-				<div class="features-block">
+				<div class="features-block wow fadeInUp" data-wow-delay="0.3s">
 					<div class="features-img">
 						<picture>
 							<source srcset="img/features/clock.svg" type="image/svg">
@@ -122,7 +123,7 @@
 					<h3>Точно в срок</h3>
 					<p>Работаем строго по установленным срокам, которые прописаны в договоре. Если не успеваем, Вы платите меньше</p>
 				</div>
-				<div class="features-block">
+				<div class="features-block wow fadeInUp" data-wow-delay="0.4s">
 					<div class="features-img">
 						<picture>
 							<source srcset="img/features/pig.svg" type="image/svg">
@@ -158,7 +159,7 @@
 
 			<div class="row">
 				<div class="col-md-4 col-sm-8 col-sm-offset-2 col-md-offset-0 col-xs-10 col-xs-offset-1">
-					<div class="price-block">
+					<div class="price-block wow fadeInUp" data-wow-delay="0.1s">
 						<h4>Штукатурка<br>вашим материалом</h4>
 						<img src="img/price/1.png" alt="Штукатурка вашим материалом">
 						<span class="price-tag">от 300 руб/м<sup>2</sup></span>
@@ -170,7 +171,7 @@
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-8 col-sm-offset-2 col-md-offset-0 col-xs-10 col-xs-offset-1">
-					<div class="price-block">
+					<div class="price-block wow fadeInUp" data-wow-delay="0.2s">
 						<h4>Штукатурка<br>под шпаклёвку</h4>
 						<img src="img/price/2.png" alt="Штукатурка под шпаклёвку">
 						<span class="price-tag">от 530 руб/м<sup>2</sup></span>
@@ -184,7 +185,7 @@
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-8 col-sm-offset-2 col-md-offset-0 col-xs-10 col-xs-offset-1">
-					<div class="price-block">
+					<div class="price-block wow fadeInUp" data-wow-delay="0.3s">
 						<h4>Штукатурка<br>под обои</h4>
 						<img src="img/price/3.png" alt="Штукатурка под обои">
 						<span class="price-tag">от 560 руб/м<sup>2</sup></span>
@@ -755,13 +756,23 @@
 		</div>
 	</div>
 
+	
 	<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script src="slick/slick.min.js"></script>
 	<link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
-
+	<script src="js/wow.min.js"></script>	
+	<script src="js/jquery.maskedinput.min.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phone").mask("+7 (999) 999-99-99");
+		});
+	</script>
+	<script>
+		new WOW().init();
+	</script>
 	<script>
 		$(document).ready(function(){
 			$('.popup-btn').on('click', function(event) {
