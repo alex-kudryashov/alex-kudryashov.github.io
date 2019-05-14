@@ -66,6 +66,10 @@ section {
 	padding: 3rem 0 5rem;
 	background: url("../img/bg-screen1.png") top center no-repeat;
 	background-size: cover;
+	&-sm {
+		margin-left: 3rem;
+		margin-top: 3rem;
+	}
 	&-content {
 		margin-top: 10rem;
 
@@ -193,8 +197,13 @@ section {
 
 /* оформление секции с преимуществами */
 .features {
+	a {
+		color: @href-color;
+		text-decoration: underline;
+	}
 	&-block {
 		text-align: center;
+		min-height: 40rem;
 		h3 {
 			font-size: 2rem;
 			.bold();
@@ -204,6 +213,7 @@ section {
 			font-size: 1.4rem;	
 			display: inline-block;
 			width: 80%;	
+			line-height: 3rem;
 		}
 	}
 	&-img {
@@ -251,6 +261,11 @@ section {
 	}
 	margin: 2rem 0 10rem;
 	text-align: center;
+	&-active {
+		h2 {
+			color: #358015;
+		}
+	}
 }
 
 
@@ -316,6 +331,26 @@ section {
 	background: url("../img/recalls/bg.png") no-repeat center;
 	background-size: cover;
 	position: relative;
+	&-play {
+		position: absolute;
+		z-index: 100;
+		left: 45%;
+		top: 40%;
+		width: 100px;
+		height: 100px;
+		.circle-border {
+			border-color: #49bf15;	
+		}
+		.circle {
+			background-color: #49bf15;
+		}
+		&-icon {
+			height: 30%;
+			width: 30%;
+			text-align: center;
+			transform: translate(120%,120%)
+		}
+	}
 	.arm {
 		position: absolute;
 		left: 0;
@@ -429,7 +464,7 @@ section {
 
 .circle {
 	display: inline-block;
-	background-color: @icons;
+	background-color: #358015;
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
@@ -438,7 +473,7 @@ section {
 		display: inline-block;
 		height: 5rem;
 		width: 5rem;
-		border: 2px solid @icons;
+		border: 2px solid #358015;
 		border-radius: 50%;
 		text-align: center;
 		line-height: 4rem;
