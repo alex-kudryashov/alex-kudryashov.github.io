@@ -547,6 +547,9 @@ section {
 	&-subtitle {
 		font-size: 2.2rem;
 	}
+	&-btn {
+		padding: 1rem 2rem;
+	}
 }
 
 
@@ -570,9 +573,49 @@ section {
 		min-height: 30rem;
 		color: @light;
 	}
-	
 }
 
+/* контакты */
+.contacts {
+	background: @light url(../img/contacts/bg.png) center no-repeat;
+	background-size: cover;
+	h2 {
+		.bold()
+	}
+	&-link {
+		display: inline-block;
+		border-bottom: 1px dotted @text;
+		color: @text;
+		&:hover {
+			color: darken(@text, 10%);
+		}
+	}
+	p {
+		margin: 2rem 0;
+	}
+	&-form {
+		h2 {
+			font-size: 1.9rem;
+			.reg();
+			margin-bottom: 3rem;
+		}
+	}
+}
+
+
+footer {
+	.dev {
+		text-align: right;
+		p {
+			margin-bottom: 0;
+		}
+	}
+	padding: 4rem 0;
+	.cont {
+		text-align: center;
+		padding-top: 0.5rem;
+	}
+}
 /* оформление всплывающих окон */
 .popup {
 	display: none;
@@ -686,6 +729,22 @@ section {
 	.toor {
 		background: @light url("../img/materials/bg.png") center no-repeat;
 		background-size: cover;
+	}
+	.contacts {
+		background: none;
+		background-color: @bg-light;
+		&-form {
+			margin-top: 3rem;
+		}
+	}
+	footer {
+		.dev {
+			text-align: center;
+		}
+		text-align: center;
+		.cont {
+			margin: 3rem 0;
+		}
 	}
 }
 
