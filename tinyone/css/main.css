@@ -125,7 +125,7 @@ a:hover {
 .feature__icon {
 	font-size: 50px;
 	color: #000;
-	text-align: right;
+	margin-right: 20px;
 }
 
 .feature__text {
