@@ -32,6 +32,7 @@ ul,li {
 	margin: 0;
 }
 
+
 .menu {
 	margin-top: 10px;
 }
@@ -123,6 +124,7 @@ a:hover {
 .feature__icon {
 	font-size: 50px;
 	color: #000;
+	min-width: 60px;
 	margin-right: 20px;
 }
 
@@ -183,6 +185,11 @@ a:hover {
 	margin: 0 auto;
 	margin-bottom: 100px;
 }
+
+.footer {
+	padding-top: 30px;
+}
+
 @media (max-width: 992px) {
 	.logo {
 		display: block;
@@ -212,7 +219,6 @@ a:hover {
 	}
 	.btn {
 		width: 100%;
-		margin-bottom: 30px;
 	}
 	.title__text {
 		width: auto;
