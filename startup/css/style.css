@@ -1,4 +1,7 @@
 /* NORMALIZE */
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-size: 14px;
   font-family: "Montserrat", sans-serif;
@@ -9,7 +12,6 @@ section {
 }
 a {
   color: #fff;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 a:hover,
@@ -52,12 +54,8 @@ a:active {
   text-transform: uppercase;
   margin: 0 auto;
   width: 185px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
 .footer::after {
   content: "";
@@ -125,7 +123,6 @@ main .main-btn:hover {
   margin-bottom: 100px;
 }
 .services-block:hover .services-block-icon {
-  -webkit-transition: all 0.5s;
   transition: all 0.5s;
   background-color: #c0301c;
   color: #fff;
@@ -180,7 +177,6 @@ main .main-btn:hover {
   height: 100%;
   top: 0;
   background-color: rgba(5, 5, 5, 0);
-  -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
 .about-slider-block-social-screen-icons {
@@ -196,7 +192,6 @@ main .main-btn:hover {
 }
 .about-slider-block-social-screen-icons-wrap:hover {
   background-color: #c0301c;
-  -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
 .about-slider-block-social-screen-icons a i {
@@ -209,7 +204,6 @@ main .main-btn:hover {
 }
 .about-slider-block-social-screen:hover i {
   color: #fff;
-  -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
 .works-block {
@@ -223,7 +217,6 @@ main .main-btn:hover {
   left: 0;
   height: 100%;
   opacity: 0;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 .works-block-screen:hover {
@@ -234,8 +227,7 @@ main .main-btn:hover {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 .works-block-screen-wrap-header {
   color: #ffffff;
@@ -263,9 +255,7 @@ main .main-btn:hover {
   position: absolute;
   top: 50%;
   left: 80%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  -webkit-transition: 0.2s;
+  transform: translate(-50%, -50%);
   transition: 0.2s;
   font-size: 20px;
 }
@@ -426,7 +416,6 @@ main .main-btn:hover {
   text-align: center;
   color: #fff;
   line-height: 35px;
-  -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 .circle:hover {
@@ -459,7 +448,6 @@ form button {
   text-transform: uppercase;
   outline: 0;
   font-weight: 600;
-  -webkit-transition: 0.3s;
   transition: 0.3s;
   letter-spacing: 0.6px;
 }
@@ -507,15 +495,9 @@ form textarea {
     margin-bottom: 100px;
   }
   .menu-block {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    justify-content: center;
+    align-items: center;
   }
   .menu-nav-link {
     display: inline-block;
@@ -554,15 +536,11 @@ form textarea {
 }
 @media (max-width: 550px) {
   .brands-text {
-    -webkit-box-ordinal-group: 1;
-        -ms-flex-order: 0;
-            order: 0;
+    order: 0;
   }
   .brands-photo {
     width: 100%;
     text-align: center;
-    -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
-            order: 1;
+    order: 1;
   }
 }
