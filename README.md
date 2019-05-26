@@ -1,1 +1,0 @@
-# alex-kudryashov.github.io
