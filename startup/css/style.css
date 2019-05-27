@@ -19,6 +19,24 @@ a:active {
   color: #b3b3b3;
   text-decoration: none;
 }
+.top-panel {
+  position: fixed;
+  background: #fff;
+}
+.go-up {
+  font-size: 40px;
+  position: fixed;
+  right: 10px;
+  bottom: 20px;
+  opacity: 0.5;
+  transition: 0.3s;
+}
+.go-up a {
+  color: #c0301c;
+}
+.go-up:hover {
+  opacity: 1;
+}
 .header {
   margin-top: 99px;
   margin-bottom: 59px;
@@ -91,7 +109,7 @@ main .logo {
   font-weight: 700;
 }
 main .main {
-  margin-top: 260px;
+  margin-top: 300px;
 }
 main .main-header {
   font-size: 48px;

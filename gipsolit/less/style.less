@@ -281,7 +281,6 @@ section {
 	/* карточки с тарифами */
 	&-block {
 		padding: 1rem 3rem 3rem;
-		// min-height: 55rem;
 		background-color: @light;
 		box-shadow: 0 14px 21px rgba(0, 0, 0, 0.17);
 		text-align: center;
@@ -293,7 +292,7 @@ section {
 		img {
 			display: inline-block;
 			margin-bottom: 2rem;
-			max-width: 20rem;
+			width: 100%;
 		}
 		button {
 			float: bottom;
@@ -417,7 +416,7 @@ section {
 	/* форма обратной связи  */
 	&-form {
 		margin-top: 5rem;
-		padding: 4rem 10rem;
+		padding: 4rem 5rem;
 		background-color: @light;
 		text-align: center;
 		h3 {
@@ -742,9 +741,10 @@ footer {
 		}
 		&-block {
 			margin-top: 2rem;
+			height: auto;
 		}
-		img {
-			min-width: 30rem;
+		&-list {
+			min-height: auto;
 		}
 	}
 	.section-header_light {
@@ -781,14 +781,9 @@ footer {
 			margin: 3rem 0;
 		}
 	}
-}
-
-@media (max-width: 767px) {
-	.scheme {
-		background: none;
-		text-align: center;
-		&-block {
-			min-height: 20rem;
+	.footer-form {
+		form {
+			width: 100%;
 		}
 	}
 	.feedback {
@@ -797,6 +792,16 @@ footer {
 		}
 		&-next-btn {
 			right: 0rem;
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.scheme {
+		background: none;
+		text-align: center;
+		&-block {
+			min-height: 20rem;
 		}
 	}
 	.phone-link,.phone-block {
@@ -812,19 +817,7 @@ footer {
 		background-position: top left;
 	}
 	.main-title h1 {
-		font-size: 3rem;
+		font-size: 2rem;
 	}
-	.price {
-		img {
-			min-width: 42rem;
-		}
-	}
-}
-
-@media (max-width: 610px) {
-	.price {
-		img {
-			min-width: 30rem;
-		}
-	}
+	
 }
