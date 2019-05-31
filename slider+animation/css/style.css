@@ -55,7 +55,8 @@ body {
   transition: all 0.3s linear;
 }
 .photo .block img {
-  width: 300px;
+  width: 260px;
+  margin-right: 40px;
   transition: all 0.3s linear;
 }
 .photo .block .screen {
