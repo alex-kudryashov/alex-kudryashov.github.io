@@ -4,7 +4,7 @@
 --------
 + [Gipsolit](https://alex-kudryashov.github.io/gipsolit)
 -----
-+ [Animation](https://alex-kudryashov.github.io/animation)
++ [Slider+Animation](https://alex-kudryashov.github.io/slider+animation)
 -----
 + [Startup](https://alex-kudryashov.github.io/startup)
 --------
