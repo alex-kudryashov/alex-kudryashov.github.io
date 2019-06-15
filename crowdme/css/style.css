@@ -1,0 +1,300 @@
+* {
+	font-family: 'Open Sans', sans-serif;
+}
+
+a:hover,a:active {
+	text-decoration: none;
+}
+
+main {
+	background: #aebeb2 url("../img/main-bg.png") center top no-repeat;
+	background-size: cover;
+	padding-top: 170px;
+	padding-bottom: 170px;
+}
+
+.main-title {
+	color: #ffffff;
+	font-size: 49px;
+	font-weight: 600;
+	line-height: 77px;
+}
+
+.main-btn {
+	display: inline-block;
+	width: 254px;
+	height: 73px;
+	background-color: #99c50a;
+	color: #ffffff;
+	font-size: 19px;
+	line-height: 73px;
+	text-align: center;
+	border-radius: 10px;
+	transition: 0.3s;
+}
+
+.work-img {
+	margin-top: 100px;
+	margin-bottom: 50px;
+}
+
+.work-title {
+	color: #515151;
+	font-size: 31px;
+	line-height: 50px;
+	text-transform: uppercase;
+	font-weight: 600;
+}
+
+.work-text {
+	margin: 60px;
+	opacity: 0.71;
+	color: #515151;
+	font-size: 19px;
+}
+
+.main-btn:hover {
+	color: #000;
+	background-color: #add136;
+}
+
+.number {
+	width: 43px;
+	height: 43px;
+	background-color: #5f5f5f;
+	border-radius: 50%;
+	color: #fff;
+	font-size: 20px;
+	text-align: center;
+	line-height: 43px;
+	position: absolute;
+	transition: 0.3s;
+}
+
+.number-title {
+	position: relative;
+	cursor: pointer;
+	margin-bottom: 40px;
+}
+
+.work-subtitle {
+	color: #add136;
+	font-size: 25px;
+}
+
+.work-subtext {
+	opacity: 0.67;
+	color: #606060;
+	margin: 0;
+	margin-top: 34px;
+	font-size: 17px;
+}
+
+.glasses {
+	margin-top: 22px;
+}
+
+.work {
+	margin-bottom: 100px;
+}
+
+.work-hr {
+	height: 1px;
+	margin-bottom: 60px;
+}
+
+.number-title:hover .number {
+	background-color: #add136;
+}
+
+.find-text::before {
+	content: "";
+	display: block;
+	position: absolute;
+	left: -100px;
+	width: 150px;
+	height: 150px;
+}
+
+.find-wrap {
+	padding: 50px;
+	margin-left: 180px;
+}
+
+.find-title {
+	color: #515151;
+	font-size: 23px;
+	font-weight: 600;
+	margin-bottom: 35px;
+}
+
+.find-text {
+	color: #515151;
+	font-size: 17px;
+}
+
+.find-btn {
+	display: inline-block;
+	width: 187px;
+	height: 51px;
+	background-color: #26a6d1;
+	border-radius: 10px;
+	color: #ffffff;
+	font-size: 15px;
+	line-height: 51px;
+	transition: 0.5s;
+	text-align: center;
+	margin-top: 25px;
+}
+
+.find-btn:hover {
+	color: #000;
+	background-color: #f5f9eb;
+}
+
+.green:hover {
+	background-color: #e2f8ff;
+}
+
+
+.yellow::before, .blue::before {
+	content: "";
+	display: block;
+	height: 150px;
+	width: 150px;
+	position: absolute;
+	left: 15%;
+	top: 45%;
+	transform: translate(-15%,-45%);
+}
+
+.yellow::before {
+	background: url("../img/wallet.png") center center no-repeat;
+}
+
+.blue::before {
+	background: url("../img/sofa.png") center center no-repeat;
+}
+
+.green {
+	background-color: #add136;
+}
+
+.find {
+	background: #e2f8ff url("../img/find-bg.png") center center no-repeat;
+	background-size: cover;
+}
+
+.work-text:last-child {
+	margin-bottom: 150px;
+}
+
+.work-feature {
+	color: #656565;
+	font-size: 33px;
+	font-weight: 300;
+}
+
+.main-title span {
+	font-size: 35px;
+	font-weight: 400;
+}
+.nav {
+	text-transform: uppercase;
+	font-size: 13px;
+}
+
+.nav a {
+	color: #666666;
+}
+
+.nav a:hover {
+	color: #333333;
+}
+
+.header {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: #fff;
+}
+
+.login-btn {
+	width: 100px;
+	height: 37px;
+	background-color: #99c50a;
+	opacity: 0.81;
+	color: #ffffff;
+	font-size: 13px;
+	text-transform: uppercase;
+	text-align: center;
+	line-height: 37px;
+	border-radius: 20px;
+	transition: 0.3s;
+}
+
+.login-btn:hover {
+	background-color: #add136;
+	color: #000;
+}
+
+
+.feedback {
+	background: #fff url("../img/bg-feedback.png") center top no-repeat;
+	background-size: cover;
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+.feedback-title {
+	color: #9ec02d;
+	font-size: 39px;
+	font-weight: 600;
+	margin-bottom: 30px;
+}
+
+.feedback-text {
+	color: #949494;
+	font-size: 19px;
+	margin-bottom: 200px;
+}
+
+.feedback-wrap {
+	background-color: #fff;
+	padding: 40px;
+	border: 3px solid #9ec02d;
+	border-radius: 30px;
+	text-align: center;
+}
+
+.feedback-subtitle {
+	color: #9ec02d;
+	font-size: 21px;
+	font-weight: 600;
+	margin-bottom: 30px;
+}
+
+.feedback-subtext {
+	color: #848484;
+	font-size: 13px;
+}
+
+.feedback-author {
+	text-align: left;
+	margin-left: 40px;
+	margin-top: 40px;
+	position: relative;
+}
+
+.feedback-author::before {
+	content: "";
+	display: block;
+	height: 50px;
+	width: 50px;
+	background: url("../img/2.png") center center no-repeat;
+	border-radius: 50%;
+	background-size: cover;
+	position: absolute;
+	left: -60px;
+	top: 0;
+
+}

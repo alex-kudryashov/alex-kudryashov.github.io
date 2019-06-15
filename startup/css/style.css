@@ -19,10 +19,6 @@ a:active {
   color: #b3b3b3;
   text-decoration: none;
 }
-.top-panel {
-  position: fixed;
-  background: #fff;
-}
 .go-up {
   font-size: 40px;
   position: fixed;
@@ -30,6 +26,8 @@ a:active {
   bottom: 20px;
   opacity: 0.5;
   transition: 0.3s;
+  display: none;
+  transition: 0.5s;
 }
 .go-up a {
   color: #c0301c;
@@ -98,7 +96,6 @@ a:active {
 main {
   background: #712014 url("../img/main-bg.png") center top no-repeat;
   background-size: cover;
-  padding-top: 40px;
   color: #fff;
 }
 main .menu-nav a {
@@ -110,6 +107,39 @@ main .logo {
 }
 main .main {
   margin-top: 300px;
+}
+.fixnav {
+  background-color: #E8E8E8;
+  position: fixed;
+  width: 100%;
+  transition: 0.5s;
+  height: 70px;
+  padding-top: 20px;
+  z-index: 999999;
+}
+.fixnav a {
+  color: #000;
+}
+.menu-nav-link {
+  position: relative;
+
+}
+.menu-nav-link::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 2px;
+  width: 0;
+  transition: 0.3s;
+  background-color: #fff;
+}
+.menu-nav-link:hover::after {
+  width: 100%;
+}
+.navigation {
+  padding-top: 20px;
 }
 main .main-header {
   font-size: 48px;
