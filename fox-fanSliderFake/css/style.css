@@ -1,0 +1,35 @@
+body {
+	background: #531AFF url(../img/body.jpg) 0 0 repeat;
+}
+.wrap {
+	width: 1000px;
+	box-sizing: border-box;
+	margin: 100px auto;
+	height: 500px;
+	
+	display: flex;
+}
+
+.wrap-item {
+	border: 2px solid white;
+	flex-grow: 1;
+	transition: 1s;
+	cursor: pointer;
+	overflow: hidden;
+	position: relative;
+}
+.wrap-item:not(:last-child) {
+	border-right: none;
+}
+
+.wrap-item:hover {
+	flex-grow: 5.8;
+}
+
+.wrap-item img {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translate(0, -50%);
+	height: 100%;
+}
