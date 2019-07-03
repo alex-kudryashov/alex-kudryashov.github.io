@@ -1,5 +1,4 @@
 var video = document.getElementById('modal-video');
-
 function watch() {
 	 video.style.display = 'block';
 };

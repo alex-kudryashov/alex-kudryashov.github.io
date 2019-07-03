@@ -431,7 +431,24 @@ main {
 	font-size: 23px;
 	margin-right: 10px;
 }
+.feedback-block {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	left: -550px;
+	transition: 1s;
+	top: 0;
+	
+}
+.line-feedback {
+	height: 400px;
+	overflow: hidden;
+	position: relative;
+}
 
+.feedback-block-item {
+	min-width: 550px;
+}
 .feedback-stars i:last-child {
 	margin-right: 0;
 }
