@@ -246,6 +246,9 @@ a:focus {
 .main-nav-item:hover a {
   color: #0d0d0d;
 }
+.main-nav-item:first-child {
+  margin-left: 0;
+}
 .main-nav-item:not(:first-child)::before {
   content: "\\\\";
   left: -40px;
@@ -457,10 +460,11 @@ a:focus {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
-  justify-content: space-around;
+  justify-content: center;
 }
 .team-card-links a {
   -webkit-transition: 0.3s;
+  margin-right: 10px;
   transition: 0.3s;
   color: #999999;
   font-size: 15px;
@@ -468,10 +472,15 @@ a:focus {
 .team-card-links a:hover {
   color: #f39c12;
 }
+.team-card-links a:last-child {
+  margin-right: 0;
+}
 .team-card-description {
+  width: 220px;
   color: #737373;
   font-size: 16px;
   line-height: 28px;
+  display: inline-block;
 }
 .team-card-description span {
   color: #595959;
@@ -586,10 +595,19 @@ a:focus {
   font-size: 30px;
   display: inline-block;
 }
+.services .container .description-text {
+  max-width: 380px;
+  display: inline-block;
+}
 /*/services*/
 /*price*/
 .price {
   padding-bottom: 100px;
+}
+.price-block {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .price-btn {
   width: 130px;
@@ -703,6 +721,10 @@ a:focus {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+.price-description-text {
+  max-width: 500px;
+  margin-bottom: 80px;
+}
 /*/price*/
 /*testimonial*/
 .testimonial {
@@ -760,6 +782,8 @@ a:focus {
   font-weight: 300;
   font-style: italic;
   margin-bottom: 30px;
+  max-width: 900px;
+  display: inline-block;
 }
 /*/testimonial*/
 /*works*/
@@ -828,9 +852,10 @@ a:focus {
   font-size: 14px;
 }
 .works-item-img {
-  width: 285px;
+  min-width: 278px;
   transition: 0.3s;
   height: 220px;
+  display: inline-block;
   background: #c7c7c7 url('../img/camera.png') center center no-repeat;
   position: relative;
   overflow: hidden;
@@ -893,6 +918,8 @@ a:focus {
   margin-bottom: 20px;
   color: #ffffff;
   font-size: 18px;
+  display: inline-block;
+  max-width: 800px;
   font-family: "Open sans", sans-serif;
   font-weight: bold;
   font-style: normal;
@@ -1005,8 +1032,7 @@ a:focus {
   font-style: normal;
   text-transform: uppercase;
 }
-.blog-block-img h3::before {
-  content: "A";
+.blog-block-img h3 span {
   display: block;
   width: 44px;
   height: 44px;
@@ -1021,8 +1047,9 @@ a:focus {
 /*/blog*/
 /*clients*/
 .clients {
-  background: #fff url('../img/quotebg.png');
+  background: #fff url('../img/quotebg.png') center center no-repeat;
   padding-top: 220px;
+  background-size: cover;
   padding-bottom: 220px;
 }
 .clients h2 {
@@ -1034,13 +1061,6 @@ a:focus {
   font-family: "Open sans", sans-serif;
   font-weight: bold;
   font-style: normal;
-}
-.clients-img {
-  width: 257px;
-  height: 162px;
-  border: 2px solid rgba(255, 255, 255, 0.25);
-  text-align: center;
-  line-height: 162px;
 }
 /*/clients*/
 /*contacts*/
@@ -1112,6 +1132,7 @@ a:focus {
 .form-block-btn {
   width: 130px;
   height: 38px;
+  margin-bottom: 80px;
   border: 2px solid #f39c12;
   background-color: #ffffff;
   color: #0d0d0d;
@@ -1160,6 +1181,25 @@ label {
   }
 }
 @media (max-width: 990px) {
+  .form-block-btn {
+    width: 60%;
+    margin-left: 20%;
+  }
+  .works-nav {
+    display: block;
+    text-align: left;
+  }
+  .works-nav-item {
+    margin-bottom: 35px;
+    margin-left: 0;
+    margin-right: 50px;
+  }
+  .works-nav-item:last-child {
+    margin-right: 0;
+  }
+  .works-nav-item::before {
+    display: none;
+  }
   .about-photo {
     margin-top: 50px;
     margin-left: 50%;
@@ -1221,6 +1261,19 @@ label {
   .quotesec-title::after {
     right: -10%;
   }
+  .price-cheap {
+    width: 60%;
+    margin-bottom: 20px;
+  }
+  .price-expansive {
+    width: 60%;
+    margin-bottom: 20px;
+    order: -2;
+  }
+  .price-block {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 @media (max-width: 768px) {
   .quote {
@@ -1252,6 +1305,40 @@ label {
   .quotesec-title::after {
     font-size: 70px;
     letter-spacing: -20px;
+  }
+  .works-nav {
+    display: block;
+  }
+  .blog-text {
+    width: 90%;
+    display: inline-block;
+  }
+  .blog-date {
+    margin-top: -40px;
+  }
+  .blog-block {
+    width: 100%;
+    min-height: 300px;
+    display: inline-block;
+  }
+  .blog-block-content {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  }
+  .blog-block-img {
+    width: 100%;
+  }
+  .blog-block-img h3 {
+    width: 100%;
+    height: auto;
+  }
+  .blog-block-img h3 span {
+    display: none;
+  }
+  .form-block-btn {
+    width: 100%;
+    margin-left: 0;
   }
 }
 @media (max-width: 576px) {

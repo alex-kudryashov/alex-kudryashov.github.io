@@ -252,6 +252,9 @@ a:hover, a:active, a:visited, a:focus{
 					color: #0d0d0d;
 				}
 			}
+			&:first-child {
+				margin-left: 0;
+			}
 			&:not(:first-child) {
 				&::before {
 					content: "\\\\";
@@ -463,21 +466,27 @@ a:hover, a:active, a:visited, a:focus{
 			display: -ms-flexbox;
 			display: flex;
 			-ms-flex-pack: distribute;
-			justify-content: space-around;
+			justify-content: center;
 			a {
 				-webkit-transition: 0.3s;
+				margin-right: 10px;
 				transition: 0.3s;
 				color: #999999;
 				font-size: 15px;
 				&:hover {
 					color: @or;
 				}
+				&:last-child {
+					margin-right: 0;
+				}
 			}
 		}
 		&-description {
+			width: 220px;
 			color: #737373;
 			font-size: 16px;
 			line-height: 28px;
+			display: inline-block;
 			span {
 				color: #595959;
 				font-size: 15px;
@@ -587,7 +596,6 @@ a:hover, a:active, a:visited, a:focus{
 /*services*/
 .services {
 	&-title {
-		
 		margin-bottom: 25px;
 	}
 	&-round {
@@ -600,6 +608,14 @@ a:hover, a:active, a:visited, a:focus{
 		font-size: 30px;
 		display: inline-block
 	}
+	.container {
+		.description {
+			&-text {
+				max-width: 380px;
+				display: inline-block;
+			}
+		}
+	}
 }
 /*/services*/
 
@@ -608,6 +624,11 @@ a:hover, a:active, a:visited, a:focus{
 /*price*/
 .price {
 	padding-bottom: 100px;
+	&-block {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
 	&-btn {
 		width: 130px;
 		height: 38px;
@@ -718,6 +739,12 @@ a:hover, a:active, a:visited, a:focus{
 			}
 		}
 	}
+	&-description {
+		&-text {
+			max-width: 500px;
+			margin-bottom: 80px;
+		}
+	}
 }
 /*/price*/
 
@@ -775,6 +802,8 @@ a:hover, a:active, a:visited, a:focus{
 		line-height: 30px;
 		.openli;
 		margin-bottom: 30px;
+		max-width: 900px;
+		display: inline-block;
 	}
 }
 /*/testimonial*/
@@ -846,9 +875,10 @@ a:hover, a:active, a:visited, a:focus{
 			font-size: 14px;
 		}
 		&-img {
-			width: 285px;
+			min-width: 278px;
 			transition: 0.3s;
 			height: 220px;
+			display: inline-block;
 			background: #c7c7c7 url('../img/camera.png') center center no-repeat;
 			position: relative;
 			overflow: hidden;
@@ -913,6 +943,8 @@ a:hover, a:active, a:visited, a:focus{
 		margin-bottom: 20px;
 		color: #ffffff;
 		font-size: 18px;
+		display: inline-block;
+		max-width: 800px;
 		.openb;
 		&-link {
 			color: @or;
@@ -1019,8 +1051,7 @@ a:hover, a:active, a:visited, a:focus{
 				position: relative;
 				.openb;
 				text-transform: uppercase;
-				&::before {
-					content: "A";
+				span {
 					display: block;
 					width: 44px;
 					height: 44px;
@@ -1043,8 +1074,9 @@ a:hover, a:active, a:visited, a:focus{
 
 /*clients*/
 .clients {
-	background: #fff url('../img/quotebg.png');
+	background: #fff url('../img/quotebg.png') center center no-repeat;
 	padding-top: 220px;
+	background-size: cover;
 	padding-bottom: 220px;
 	h2 {
 		color: #ffffff;
@@ -1053,13 +1085,6 @@ a:hover, a:active, a:visited, a:focus{
 		text-transform: uppercase;
 		margin-bottom: 35px;
 		.openb;
-	}
-	&-img {
-		width: 257px;
-		height: 162px;
-		border: 2px solid rgba(255, 255, 255, 0.25);
-		text-align: center;
-		line-height: 162px;
 	}
 }
 /*/clients*/
@@ -1133,6 +1158,7 @@ a:hover, a:active, a:visited, a:focus{
 			width: 130px;
 			.opensb;
 			height: 38px;
+			margin-bottom: 80px;
 			border: 2px solid #f39c12;
 			background-color: #ffffff;
 			color: #0d0d0d;
@@ -1192,14 +1218,32 @@ label {
 
 
 @media (max-width: 990px) {
-	// .quotesec {
-	// 	&-title {
-	// 		&::before, &::after {
-	// 			font-size: 50px;
-	// 			letter-spacing: -15px;
-	// 		}
-	// 	}
-	// }
+	.form {
+		&-block {
+			&-btn {
+				width: 60%;
+				margin-left: 20%;
+			}
+		}
+	}
+	.works {
+		&-nav {
+			display: block;
+			text-align: left;
+			&-item {
+				margin-bottom: 35px;
+				margin-left: 0;
+				margin-right: 50px;
+				&:last-child {
+					margin-right: 0;
+				}
+				&::before {
+					display: none;
+				}
+				
+			}
+		}
+	}
 	.about {
 		&-photo {
 			margin-top: 50px;
@@ -1275,6 +1319,19 @@ label {
 			right: -10%;
 		}
 	}
+	.price-cheap {
+		width: 60%;
+		margin-bottom: 20px;
+	}
+	.price-expansive {
+		width: 60%;
+		margin-bottom: 20px;
+		order: -2;
+	}
+	.price-block {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
 }
 
 @media (max-width: 768px) {
@@ -1310,6 +1367,50 @@ label {
 		&::before, &::after {
 			font-size: 70px;
 			letter-spacing: -20px;
+		}
+	}
+	.works {
+		&-nav {
+			display: block;
+		}
+	}
+	.blog {	
+		&-text {
+			width: 90%;
+			display: inline-block;
+		}
+		&-date {
+			margin-top: -40px;
+		}
+		&-block {
+			width: 100%;
+			min-height: 300px;
+			display: inline-block;
+			&-content {
+				
+				display: flex;
+				flex-direction: column-reverse;
+				align-items: flex-end;
+				
+			}
+			&-img {
+				width: 100%;
+				h3 {
+					width: 100%;
+					height: auto;
+					span {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+	.form {
+		&-block {
+			&-btn {
+				width: 100%;
+				margin-left: 0;
+			}
 		}
 	}
 }
