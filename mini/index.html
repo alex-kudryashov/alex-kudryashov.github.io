@@ -74,6 +74,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="clip-path-block-2"></div>
 	</section>
 	
 	<section class="about">
@@ -186,7 +187,8 @@
 	</section>
 	
 	
-	<section class="quotesec">
+	<section class="quotesec parallax-window">
+		<div class="clip-path-block-1"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-10 offset-xl-1 col-lg-10 offset-lg-1 col-md-12 offset-md-0">
@@ -198,6 +200,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="clip-path-block-2"></div>
 	</section>
 	
 	
@@ -353,7 +356,8 @@
 	
 	
 	
-	<section class="facts">
+	<section class="facts parallax-window">
+		<div class="clip-path-block-1"></div>
 		<div class="container">
 			<div class="row team-slider">
 				
@@ -384,6 +388,7 @@
 				
 			</div>
 		</div>
+		<div class="clip-path-block-2"></div>
 	</section>
 	
 	<section class="services">
@@ -572,7 +577,8 @@
 		</div>
 	</section>
 	
-	<section class="testimonial">
+	<section class="testimonial parallax-window">
+		<div class="clip-path-block-1"></div>
 		<div class="container text-center testimonial-slider">
 			
 			<div class="testimonial-item">
@@ -635,8 +641,51 @@
 			</div>
 			
 		</div>
+		<div class="clip-path-block-2"></div>
 	</section>
 	
+	
+	<section class="portfolio">
+		<div class="container">
+			
+			<!-- quote -->
+			<div class="row">
+				<div class="col-12">
+					<div class="quote">
+						<h2 class="quote-title">Portfolio</h2>
+						<p class="quote-text">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
+							bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh
+							vulputate cursus a sit amet
+						</p>
+					</div>
+				</div>
+			</div>
+			<!-- /quote -->
+			<div class="row text-center">
+				<div class="col-12">
+					<h3 class="portfolio-title">
+						Digital ArtWork
+					</h3>
+					<p class="portfolio-subtitle">
+						Graphic Design
+					</p>
+				</div>
+			</div>
+			<div class="row portfolio-slider">
+				
+				<div class="portfolio-photo">
+					<img src="" alt="">
+				</div>
+				<div class="portfolio-photo">
+					<img src="" alt="">
+				</div>
+				<div class="portfolio-photo">
+					<img src="" alt="">
+				</div>
+				
+			</div>
+		</div>
+	</section>
 	
 	
 	<section class="works">
@@ -771,7 +820,8 @@
 		</div>
 	</section>
 	
-	<section class="tweet">
+	<section class="tweet parallax-window">
+		<div class="clip-path-block-1"></div>
 		<div class="container text-center">
 			<div class="row">
 				<div class="col-12">
@@ -797,6 +847,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="clip-path-block-2"></div>
 	</section>
 	
 	
@@ -946,7 +997,8 @@
 		</div>
 	</section>
 	
-	<section class="clients">
+	<section class="clients parallax-window">
+		<div class="clip-path-block-1"></div>
 		<div class="container">
 			<div class="row text-center">
 				<div class="col-12">
@@ -954,21 +1006,14 @@
 				</div>
 			</div>
 			
-			<div class="row works-slider clients-block">
-				<div class="clients-img">
-					<img src="img/1.png" alt="">	
-				</div>
-				<div class="clients-img">				
-					<img src="img/2.png" alt="">				
-				</div>
-				<div class="clients-img">					
-					<img src="img/3.png" alt="">					
-				</div>
-				<div class="clients-img">					
-					<img src="img/4.png" alt="">				
-				</div>
+			<div class="row text-center works-slider clients-block">
+				<img src="img/1.png">
+				<img src="img/2.png">
+				<img src="img/3.png">
+				<img src="img/4.png">
 			</div>
 		</div>
+		<div class="clip-path-block-2"></div>
 	</section>
 	
 	
@@ -1056,10 +1101,16 @@
 		</div>
 	</section>
 	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/parallax.js"></script>
+	<script>
+		$('.parallax-window').parallax({ imageSrc: 'img/quotebg.png', speed: 0.1 });
+	</script>
 	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="slick/slick.min.js"></script>
+	
 	
 	<script>
 		$('.team-slider').slick({
@@ -1076,7 +1127,7 @@
 					slidesToShow: 3,
 					slidesToScroll: 1,
 					infinite: true,
-					dots: false
+					dots: true
 				}
 			},
 			{
@@ -1084,7 +1135,7 @@
 				settings: {
 					slidesToShow: 2,
 					slidesToScroll: 1,
-					dots: false
+					dots: true
 				}
 			},
 			{
@@ -1092,7 +1143,7 @@
 				settings: {
 					slidesToShow: 1,
 					slidesToScroll: 1,
-					dots: false
+					dots: true
 				}
 			}
 			]
@@ -1113,7 +1164,7 @@
 					slidesToShow: 2,
 					slidesToScroll: 1,
 					infinite: true,
-					dots: false
+					dots: true
 				}
 			},
 			{
@@ -1121,7 +1172,7 @@
 				settings: {
 					slidesToShow: 1,
 					slidesToScroll: 1,
-					dots: false
+					dots: true
 				}
 			}
 			]
@@ -1130,7 +1181,7 @@
 	<script>
 		$('.testimonial-slider').slick({
 			arrows: false,
-			dots: false
+			dots: true
 		});
 	</script>
 	<script>
@@ -1148,7 +1199,7 @@
 					slidesToShow: 3,
 					slidesToScroll: 1,
 					infinite: true,
-					dots: false
+					dots: true
 				}
 			},
 			{
@@ -1156,7 +1207,7 @@
 				settings: {
 					slidesToShow: 2,
 					slidesToScroll: 1,
-					dots: false
+					dots: true
 				}
 			},
 			{
@@ -1164,7 +1215,24 @@
 				settings: {
 					slidesToShow: 1,
 					slidesToScroll: 1,
-					dots: false
+					dots: true
+				}
+			}
+			]
+		});
+	</script>
+	<script>
+		$('.portfolio-slider').slick({
+			vertical: true,
+			verticalSwiping: true,
+			arrows: false,
+			dots: true,
+			dotsClass: 'portfolio-dots',
+			responsive: [
+			{
+				breakpoint: 994,
+				settings: {
+					dotsClass: 'slick-dots'
 				}
 			}
 			]
