@@ -1001,14 +1001,19 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="js/parallax.js"></script>
 	<script>
-		$('.parallax-window').parallax({ imageSrc: 'img/quotebg.png', speed: -0 });
-	</script>
-	
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-	<script type="text/javascript" src="slick/slick.min.js"></script>
-	
-	<script type="text/javascript" src="slick/allSliders.js"></script>
-	
-</body>	
-</html>
+		$('.parallax-window').parallax({
+			imageSrc: 'img/quotebg.png', 
+			speed: 0.5,
+			bleed: -1,
+			androidFix: false
+		});
+		</script>
+		
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<script type="text/javascript" src="slick/slick.min.js"></script>
+		
+		<script type="text/javascript" src="slick/allSliders.js"></script>
+		
+	</body>	
+	</html>
