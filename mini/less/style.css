@@ -804,9 +804,6 @@ h1 {
 /*/testimonial*/
 /*/portfolio*/
 .portfolio-photo {
-  min-height: 580px;
-  max-height: 580px;
-  width: 100%;
   background: #f39c12 url('../img/camera.png') center center no-repeat;
 }
 .portfolio-photo img {

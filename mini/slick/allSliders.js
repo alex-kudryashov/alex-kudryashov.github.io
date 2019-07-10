@@ -107,12 +107,14 @@
       verticalSwiping: true,
       arrows: false,
       dots: true,
+      autoHeight: true,
       dotsClass: 'portfolio-dots',
       responsive: [
          {
             breakpoint: 994,
             settings: {
-               verticalSwiping: false
+               verticalSwiping: false,
+               
             }
          }
       ]
