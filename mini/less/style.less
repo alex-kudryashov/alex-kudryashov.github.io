@@ -105,7 +105,7 @@
 }
 /*/шрифты*/
 
-//общие
+/*/common*/
 * {
 	outline: none;
 }
@@ -116,24 +116,7 @@ body {
 p {
 	margin-bottom: 0;
 }
-h1,h2,h3,h4,h5,h6  {
-	margin: 0;
-	padding: 0;
-}
-h1 {
-	.openl;
-	font-size: 45px;
-	color: #fff;
-	line-height: 70px;
-	margin-top: 230px;
-	margin-bottom: 100px;
-	text-transform: uppercase;
-}
-ul {
-	margin: 0;
-	padding: 0;
-}
-li {
+h1,h2,h3,h4,h5,h6,ul,li {
 	margin: 0;
 	padding: 0;
 }
@@ -234,11 +217,32 @@ a:hover, a:active, a:visited, a:focus{
 .percent {
 	.openl;
 }
+.clip-path-block-1,
+.clip-path-block-2 {
+	height: 10%;
+	width: 100%;
+	background-color: #fff;
+	position: absolute;
+	left: 0;
+}
+.clip-path-block-1 {
+	clip-path: polygon(0 0, 105% 0, 0 100%);
+	top: -3px;
+}
+.clip-path-block-2 {
+	clip-path: polygon(100% 0, -5% 100%,100% 100%);
+	bottom: -3px;
+}
+.parallax-window {
+	position: relative;
+}
+/*/common*/
+
 /*main*/
 .main {
 	background: transparent url(../img/main-bg.png) center center no-repeat;
 	background-size: cover;
-	padding-bottom: 180px;
+	padding-bottom: 320px;
 	padding-top: 80px;
 	position: relative;
 	&-nav {
@@ -319,63 +323,30 @@ a:hover, a:active, a:visited, a:focus{
 	.openb;
 	font-size: 60px;
 }
-
 .small-title {
 	font-size: 40px;
 }
-
-.clip-path-block-1,
-.clip-path-block-2 {
-	height: 70px;
-	width: 100%;
-	background-color: #fff;
-	position: absolute;
-	left: 0;
-}
-.clip-path-block-1 {
-	clip-path: polygon(0 0, 105% 0, 0 100%);
-	top: -2px;
-}
-.clip-path-block-2 {
-	clip-path: polygon(100% 0, -5% 100%,100% 100%);
-	bottom: -2px;
-}
-.parallax-window {
-	position: relative;
+h1 {
+	.openl;
+	font-size: 45px;
+	color: #fff;
+	line-height: 70px;
+	margin-top: 230px;
+	margin-bottom: 100px;
+	text-transform: uppercase;
 }
 /*/main*/
 
-.portfolio {
-	padding-top: 100px;
-	&-photo {
-		min-height: 580px;
-		max-height: 580px;
-		background: @or url('../img/camera.png') center center no-repeat;
-	}
-	&-title {
-		color: #0d0d0d;
-		.openb;
-		line-height: 25px;
-		text-transform: uppercase;
-	}
-	&-subtitle {
-		color: #808080;
-		.open;
-		font-size: 14px;
-		margin-bottom: 50px;
-	}
-	
-}
 /*about*/
 .about {
 	background-color: #fff;
-	padding-bottom: 100px;
+	padding-bottom: 150px;
 	&-row {
 		margin-top: 150px;
 	}
 	&-photo {
-		max-width: 450px;
-		height: 254px;
+		width: 400px;
+		height: auto;
 		background: #e74c3c url('../img/camera.png') center center no-repeat;
 		overflow: hidden;
 		display: flex;
@@ -424,17 +395,13 @@ a:hover, a:active, a:visited, a:focus{
 .skills-photo {
 	margin-right: 50px;
 	img {
-		width: 100%;
-		
+		width: 100%;	
 	}
 }
 /*/about*/
 
 /*quotesec*/
 .quotesec {
-	// background: #fff url('../img/IMG_20170421_222059_558.jpg') center center no-repeat;
-	// clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%);
-	// background-size: cover;
 	padding-bottom: 250px;
 	padding-top: 250px;
 	.openb;
@@ -492,7 +459,6 @@ a:hover, a:active, a:visited, a:focus{
 	padding-bottom: 100px;
 	&-card {
 		text-align: center;
-		
 		padding: 30px 20px;
 		border-top: 4px solid transparent;
 		-webkit-transition: 0.3s;
@@ -584,8 +550,11 @@ a:hover, a:active, a:visited, a:focus{
 				top: 50%;
 				-webkit-transform: translate(-50%,-50%);
 				transform: translate(-50%,-50%);
+				display: flex;
+				justify-content: center;
+				align-items: center;
 				img {
-					width: 100%;
+					width: 110%;
 				}
 			}
 		}
@@ -593,17 +562,12 @@ a:hover, a:active, a:visited, a:focus{
 }
 /*/team*/
 
-
 /*facts*/
 .facts {
-	// background: #fff url('../img/quotebg.png') center center no-repeat;
-	// background-size: cover;
 	padding-top: 200px;
 	padding-bottom: 230px;
-	
 	&-block {
 		text-align: center;
-		
 		&:hover {
 			.facts-block-round {
 				border-color: #fff;
@@ -637,7 +601,6 @@ a:hover, a:active, a:visited, a:focus{
 }	
 /*/facts*/
 
-
 /*services*/
 .services {
 	&-title {
@@ -663,8 +626,6 @@ a:hover, a:active, a:visited, a:focus{
 	}
 }
 /*/services*/
-
-
 
 /*price*/
 .price {
@@ -703,9 +664,7 @@ a:hover, a:active, a:visited, a:focus{
 				border: 1px solid #e6e6e6;
 			}
 			.gold-title {
-				
-				background-color: @or;
-				
+				background-color: @or;	
 				padding: 45px 60px 20px 60px;
 				h3 {
 					font-size: 22px;
@@ -793,12 +752,8 @@ a:hover, a:active, a:visited, a:focus{
 }
 /*/price*/
 
-
-
 /*testimonial*/
 .testimonial {
-	// background: #fff url('../img/quotebg.png') center center no-repeat;
-	// background-size: cover;
 	padding-top: 200px;
 	padding-bottom: 200px;
 	&-ava {
@@ -853,6 +808,32 @@ a:hover, a:active, a:visited, a:focus{
 }
 /*/testimonial*/
 
+/*/portfolio*/
+.portfolio {
+	&-photo {
+		min-height: 580px;
+		max-height: 580px;
+		width: 100%;
+		background: @or url('../img/camera.png') center center no-repeat;
+		img {
+			width: 100%;
+		}
+	}
+	&-title {
+		color: #0d0d0d;
+		.openb;
+		line-height: 25px;
+		text-transform: uppercase;
+	}
+	&-subtitle {
+		color: #808080;
+		.open;
+		font-size: 14px;
+		margin-bottom: 50px;
+	}
+	
+}
+/*/portfolio*/
 
 /*works*/
 .works {
@@ -923,6 +904,7 @@ a:hover, a:active, a:visited, a:focus{
 			min-width: 278px;
 			transition: 0.3s;
 			height: 220px;
+			overflow: hidden;
 			display: inline-block;
 			background: #c7c7c7 url('../img/camera.png') center center no-repeat;
 			position: relative;
@@ -933,7 +915,7 @@ a:hover, a:active, a:visited, a:focus{
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%,-50%);
-				width: 100%;
+				height: 100%;
 			}
 		}
 	}
@@ -953,19 +935,15 @@ a:hover, a:active, a:visited, a:focus{
 }
 /*/works*/
 
-
-
 /*tweet*/
 .tweet {
-	// background: #fff url('../img/quotebg.png') center center no-repeat; 
-	// background-size: cover;
 	padding-top: 240px;
 	padding-bottom: 240px;
 	&-time {
 		color: #808080;
 		font-size: 15px;
 		font-style: italic;
-		.openl;
+		.openli;
 	}
 	&-round {
 		width: 100px;
@@ -1016,8 +994,6 @@ a:hover, a:active, a:visited, a:focus{
 	}
 }	
 /*/tweet*/
-
-
 
 /*blog*/
 .blog {
@@ -1114,14 +1090,9 @@ a:hover, a:active, a:visited, a:focus{
 }
 /*/blog*/
 
-
-
-
 /*clients*/
 .clients {
-	// background: #fff url('../img/quotebg.png') center center no-repeat;
 	padding-top: 220px;
-	// background-size: cover;
 	padding-bottom: 220px;
 	h2 {
 		color: #ffffff;
@@ -1241,11 +1212,7 @@ label {
 }
 /*/contacts*/
 
-
-
-
 /*media*/
-
 @media (max-width: 1200px) {
 	.main {
 		&-nav {
@@ -1260,8 +1227,6 @@ label {
 		}
 	}
 }
-
-
 @media (max-width: 990px) {
 	.form {
 		&-block {
@@ -1271,7 +1236,16 @@ label {
 			}
 		}
 	}
+	hr {
+		margin-bottom: 60px;
+		margin-top: 60px;
+	}
+	.testimonial {
+		padding-top: 130px;
+		padding-bottom: 130px;
+	}
 	.works {
+		padding-bottom: 50px;
 		&-nav {
 			display: block;
 			text-align: left;
@@ -1289,6 +1263,14 @@ label {
 			}
 		}
 	}
+	.quote {
+		margin-top: 40px;
+		margin-bottom: 70px;
+	}
+	.tweet {
+		padding-top: 130px;
+		padding-bottom: 130px;
+	}
 	.about {
 		&-photo {
 			margin-top: 50px;
@@ -1296,8 +1278,15 @@ label {
 			transform: translateX(-50%);
 		}
 	}
+	.team {
+		padding-bottom: 50px;
+	}
 	.skills-photo {
 		display: none;
+	}
+	.facts {
+		padding-top: 130px;
+		padding-bottom: 130px;
 	}
 	.skill-bars-name {
 		margin-top: 20px;
@@ -1316,6 +1305,7 @@ label {
 	}
 	.main {
 		padding-top: 20px;
+		padding-bottom: 130px;
 		.logo {
 			&-block {
 				margin-right: 0;
@@ -1356,29 +1346,44 @@ label {
 			font-size: 30px;
 		}
 	}
-	.quotesec-title {
-		&::before {
-			left: -10%;
+	.quotesec {
+		padding-top: 130px;
+		padding-bottom: 130px;
+		&-title {
+			&::before {
+				left: -10%;
+			}
+			&::after {
+				right: -10%;
+			}
 		}
-		&::after {
-			right: -10%;
+	}
+	.price {
+		&-cheap {
+			width: 60%;
+			margin-bottom: 20px;
+		}
+		&-expansive {
+			width: 60%;
+			margin-bottom: 20px;
+			order: -2;
+		}
+		&-block {
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+		&-description {
+			margin: 20px auto;
+			&-text {
+				display: inline-block;
+			}
 		}
 	}
-	.price-cheap {
-		width: 60%;
-		margin-bottom: 20px;
-	}
-	.price-expansive {
-		width: 60%;
-		margin-bottom: 20px;
-		order: -2;
-	}
-	.price-block {
-		flex-wrap: wrap;
-		justify-content: center;
+	.clients {
+		padding-top: 130px;
+		padding-bottom: 130px;
 	}
 }
-
 @media (max-width: 768px) {
 	.quote {
 		text-align: center;
@@ -1389,7 +1394,6 @@ label {
 			margin-right: 0;
 		}
 		&-text {
-			
 			&::after {
 				width: 50%;
 				height: 4px;
@@ -1403,6 +1407,7 @@ label {
 		margin-top: 0;
 	}
 	.main {
+		padding-bottom: 70px;
 		&-nav {
 			display: none;
 		}
@@ -1414,12 +1419,23 @@ label {
 			letter-spacing: -20px;
 		}
 	}
+	.about {
+		padding-bottom: 40px;
+		&-row {
+			margin-top: 0;
+		}
+	}
+	.quotesec {
+		padding-top: 60px;
+		padding-bottom: 60px;
+	}
 	.works {
 		&-nav {
 			display: block;
 		}
 	}
 	.blog {	
+		padding-bottom: 40px;
 		&-text {
 			width: 90%;
 			display: inline-block;
@@ -1432,11 +1448,9 @@ label {
 			min-height: 300px;
 			display: inline-block;
 			&-content {
-				
 				display: flex;
 				flex-direction: column-reverse;
 				align-items: flex-end;
-				
 			}
 			&-img {
 				width: 100%;
@@ -1458,8 +1472,24 @@ label {
 			}
 		}
 	}
+	.price {
+		&-description {
+			margin: 0;
+		}
+	}
+	.testimonial {
+		padding-top: 60px;
+		padding-bottom: 60px;
+	}
+	.tweet {
+		padding-top: 60px;
+		padding-bottom: 60px;
+	}
+	.clients {
+		padding-top: 60px;
+		padding-bottom: 60px;
+	}
 }
-
 @media (max-width: 576px) {
 	.description {
 		&-round {
@@ -1475,6 +1505,7 @@ label {
 		&-photo {
 			margin-left: 0;
 			transform: translateX(0);
+			width: auto;
 		}
 	}
 	.quotesec-title {
