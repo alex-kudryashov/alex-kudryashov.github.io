@@ -13,6 +13,30 @@
 </head>
 
 <body>
+	<style type="text/css">
+		#hellopreloader>p {
+			display: none;
+		}
+	
+		#hellopreloader_preload {
+			display: block;
+			position: fixed;
+			z-index: 99999;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			min-width: 1000px;
+			background: #F7CA18 url(http://hello-site.ru//main/images/preloads/bars.svg) center center no-repeat;
+			background-size: 103px;
+		}
+	</style>
+	<div id="hellopreloader">
+		<div id="hellopreloader_preload"></div>
+	</div>
+	<script type="text/javascript">
+		var hellopreloader = document.getElementById("hellopreloader_preload"); function fadeOutnojquery(el) { el.style.opacity = 1; var interhellopreloader = setInterval(function () { el.style.opacity = el.style.opacity - 0.05; if (el.style.opacity <= 0.05) { clearInterval(interhellopreloader); hellopreloader.style.display = "none"; } }, 16); } window.onload = function () { setTimeout(function () { fadeOutnojquery(hellopreloader); }, 2500); };
+	</script>
 	
 	<section class="main">
 		<div class="container">
@@ -1006,13 +1030,12 @@
 			speed: 0.2,
 			bleed: -1
 		});
-		</script>
-		
-		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-		<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-		<script type="text/javascript" src="slick/slick.min.js"></script>
-		
-		<script type="text/javascript" src="slick/allSliders.js"></script>
-		
-	</body>	
-	</html>
+	</script>
+	
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="slick/slick.min.js"></script>
+	
+	<script type="text/javascript" src="slick/allSliders.js"></script>
+</body>	
+</html>
