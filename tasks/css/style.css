@@ -178,7 +178,7 @@ input[type="checkbox"]:checked+label {
 }
 
 .modal-settings {
-   width: 600px;
+   min-width: 320px;
    height: 500px;
    position: absolute;
    left: 50%;
@@ -252,6 +252,9 @@ input[type="checkbox"]:checked+label {
    position: absolute;
    right: 10px;
    top: -10px;
+}
+.date-time-modal {
+   text-align: center;
 }
 .error-date {
    color: red;
