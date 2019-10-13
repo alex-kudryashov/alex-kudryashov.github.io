@@ -13,16 +13,40 @@
 
 <body>
 
+    <div class="menu">
+        <div class="addList">
+            <span>Ваши списки: </span>
+            <button title="Добавить список" id="addListBtn"></button>
+        </div>
+        <input type="text" id="listNameField" placeholder="Введите название списка..."></input>
+        <ul id="listsList"></ul>
+    </div>
+
     <div class="taskField">
         <div class="addWrap">
             <input type="text" id="addField" placeholder="Введите задачу...">
-            <button id="addBtn">+</button>
+            <button id="addBtn" title="Добавить задачу">+</button>
         </div>
         <ul id="taskList"></ul>
     </div>
 
 
-
+    <template id="modalSettingsTemplate">
+        <div class="modal-wrap">
+            <div class="modal-settings">
+                <button class="close-modal"></button>
+                <button class="modal-delete-btn"></button>
+                <input class="modal-input" placeholder="Введите задачу...">
+                <textarea class="note-modal" placeholder="Вы можете добавить заметку для задачи..."></textarea>
+                <div class="date-time-modal">
+                    <input class="time-modal" type="time">
+                    <input class="date-modal" type="date">
+                </div>
+                <input type="checkbox" id="modalCheck">
+                <label class="modal-check" for="modalCheck">Не указывать дату и время</label>
+            </div>
+        </div>
+    </template>
 
 
     <script type="text/javascript" src="js/main.js"></script>

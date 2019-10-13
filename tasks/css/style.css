@@ -1,3 +1,9 @@
+:root {
+   --light-color: antiquewhite;
+}
+::-webkit-scrollbar {
+   width: 0px;  
+}
 body {
    background: #000;
 }
@@ -15,13 +21,23 @@ li {
    margin-top: 25px;
    width: 100%;
 }
-#taskList {
-   width: 600px;
+label:hover, label:hover + .date-time-out{
+   background-color: rgba(255, 255, 255, 0.4);
+}
+
+#taskList,#listsList {
    display: flex;
+   position: absolute;
    justify-content: flex-start;
    flex-direction: column;
+   overflow: auto;
+   bottom: 20px;
+   top: 120px;
+   left: 20px;
+   right: 20px;
 }
-label {
+
+label,#listsList li {
    margin: 10px auto;
    height: 50px;
    color: antiquewhite;
@@ -43,6 +59,17 @@ label {
    text-overflow: ellipsis;
 }
 
+#listsList li {
+   padding-left: 20px;
+   min-height: 50px;
+   overflow: hidden; 
+   text-align: left;
+}
+#listsList {
+   top: 120px;
+   transition: 0.3s;
+}
+
 label::before {
    content: "";
    height: 25px;
@@ -59,17 +86,16 @@ label::before {
 
 .taskField {
    border-radius: 10px;
+   width: 600px;
    background-color: #3f3d54;
-   display: inline-block;
+   position: fixed;
    padding: 20px;
-   margin: 20px;
+   top: 20px;
+   bottom: 20px;
+   left: 450px;
 }
 
-label:hover {
-   background-color: rgba(255, 255, 255, 0.4);
-}
-
-#addField {
+#addField,#listNameField {
    display: inline-block;
    color: antiquewhite;
    position: relative;
@@ -85,11 +111,19 @@ label:hover {
    transition: 0.2s;
    line-height: 50px;
    width: 100%;
-   cursor: cell;
+}
+#listNameField {
+   width: auto;
+   height: 0;
+   border-width: 0;
+   padding: 0;
+   transition: 0.3s;
 }
 
 #addField:hover,
-#addField:focus {
+#addField:focus,
+#listNameField:hover,
+#listNameField:focus {
    border-color: rgba(255, 255, 255, 0.8);
 }
 
@@ -106,9 +140,8 @@ label:hover {
    outline: none;
    font-weight: bold;
    background-color: #ffcc00;
-   cursor: cell;
+   cursor: pointer;
    transition: 0.1s;
-   
 }
 
 #addBtn:hover {
@@ -121,7 +154,7 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked+label::before {
    background: url('../img/check.png') center center no-repeat;
-   background-size: 20px;
+   background-size: 80%;
 }
 
 input[type="checkbox"]:checked+label {
@@ -129,7 +162,13 @@ input[type="checkbox"]:checked+label {
    text-decoration-color: #ff3600;
    text-decoration-style: wavy;
 }
-
+#listsList li span input {
+   background-color: transparent;
+   border: none;
+   width: 90%;
+   outline: none;
+   color: antiquewhite;
+}
 .addWrap {
    display: flex;
    align-items: center;
@@ -149,6 +188,13 @@ input[type="checkbox"]:checked+label {
    top: 50%;
    transform: translateY(-50%);
 }
+.rename-btn {
+   background: url('../img/rename.png') center center no-repeat;
+   right: 70px;
+   top: 50%;
+   transform: translateY(-50%);
+}
+
 
 .close-modal {
    background: url('../img/close.png') center center no-repeat;
@@ -158,7 +204,8 @@ input[type="checkbox"]:checked+label {
 
 .delete-btn,
 .settings-btn,
-.close-modal {
+.close-modal,
+.rename-btn {
    cursor: pointer;
    background-color: transparent;
    border: none;
@@ -166,20 +213,25 @@ input[type="checkbox"]:checked+label {
    position: absolute;
    display: block;
    width: 35px;
-   background-size: 35px;
+   background-size: cover;
    outline: none;
    transition: 0.2s;
 }
-
+.rename-btn-save {
+   background: url('../img/check.png') center center no-repeat;  
+   background-size: 30px;
+}
 .delete-btn:hover,
 .settings-btn:hover,
-.close-modal:hover {
+.close-modal:hover,
+.addList button:hover,
+#listsList li button:hover,
+.modal-delete-btn:hover {
    filter: brightness(130%)
 }
 
 .modal-settings {
-   min-width: 320px;
-   height: 500px;
+   width: 550px;  
    position: absolute;
    left: 50%;
    border-radius: 10px;
@@ -187,11 +239,10 @@ input[type="checkbox"]:checked+label {
    background-color: #3f3d54;
    transform: translateX(-50%);
    display: flex;
-   justify-content: flex-start;
+   justify-content: center;
    flex-wrap: wrap;
-   flex-direction: column;
    align-items: center;
-   padding-top: 80px;
+   padding: 80px 0;
 }
 
 .modal-wrap {
@@ -227,7 +278,19 @@ input[type="checkbox"]:checked+label {
 .modal-input:focus {
    border-bottom-color: #fff;
 }
-
+.modal-delete-btn {
+   position: absolute;
+   right: 60px;
+   top: 12px;
+   background: url('../img/recycle.png') center center no-repeat;
+   border: none;
+   background-size: cover;
+   height: 31px;
+   width: 31px;
+   cursor: pointer;
+   transition: 0.3s;
+   outline: none;
+}
 .note-modal {
    width: 80%;
    background-color: transparent;
@@ -238,6 +301,9 @@ input[type="checkbox"]:checked+label {
    font-size: 20px;
    height: 100px;
    margin-bottom: 30px;
+   resize: none;
+   padding: 10px;
+   letter-spacing: 2px;
 }
 .note-modal:focus {
    border-color: #fff;
@@ -248,21 +314,84 @@ input[type="checkbox"]:checked+label {
 }
 
 .date-time-out {
-   color: antiquewhite;
+   color: red;
    position: absolute;
    right: 10px;
    top: -10px;
-}
-.date-time-modal {
+   height: 20px;
+   background-color: rgba(255, 255, 255, 0.2);
+   clip-path: polygon(8% 0,92% 0,100% 100%,0 100%);
+   display: block;
+   padding: 5px 25px;
+   border-top-left-radius: 35px;
+   transition: 0.1s;
+   border-top-right-radius: 35px;
+   width: 180px;
    text-align: center;
 }
-.error-date {
-   color: red;
+
+.menu {
+   width: 400px;
+   background-color: #3f3d54;
+   position: fixed;
+   left: 20px;
+   text-align: center;
+   top: 20px;
+   overflow: hidden;
+   bottom: 20px;
+   color: antiquewhite;
+   font-family: sans-serif;
+   font-size: 30px;
+   border-radius: 10px;
 }
 
+.addList {
+   margin: 40px 20px 20px 20px;
+   display: flex;
+   justify-content: space-between;
+}
+.addList button {
+   background: url('../img/addlist.png') center center no-repeat;
+   background-size: cover;
+   border: none;
+   outline: none;
+   cursor: pointer;
+   width: 50px;
+   height: 50px;
+   transition: 0.3s;
+}
+.time-modal, .date-modal {
+   background-color: transparent;
+   border: none;
+   color: antiquewhite;
+   font-size: 30px;
+   outline: none;
+   border-bottom: 3px solid #ffcc00;
+}
+.modal-check {
+   max-width: 320px;
+   height: 30px;
+   font-size: 20px;
+   line-height: 30px;
+   padding: 0 10px 0 40px;
+   overflow: unset;
+}
+.modal-check::before {
+   height: 15px;
+   width: 15px;
+   left: 10px;
+   border-radius: 3px;
+   border-width: 2px;
+}
+#modalCheck:checked + .modal-check {
+   text-decoration: none;
+}
 @media(max-width:700px) {
    #taskList {
       width: 400px;
+   }
+   .modal-settings {
+      width: 310px;
    }
 }
 @media(max-width:500px) {
