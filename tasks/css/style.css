@@ -265,9 +265,6 @@ input[type="checkbox"]:checked+label {
    width: 80%;
    padding: 10px;
    color: antiquewhite;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
@@ -385,6 +382,67 @@ input[type="checkbox"]:checked+label {
 }
 #modalCheck:checked + .modal-check {
    text-decoration: none;
+}
+.subListBlock {
+   width:80%;
+   border: 2px dashed rgba(255, 255, 255, 0.4);
+   margin-top: 20px;
+   padding: 15px;
+}
+#subList {
+   overflow: auto;
+   max-height: 150px;
+   margin-top: 15px;
+}
+#subListInp {
+   width: 85%;
+   height: 50px;
+   background: transparent;
+   border: none;
+   border-bottom: 2px solid #ffcc00;
+   border-radius: 2px; 
+   outline: none;
+   overflow: hidden;
+   font-size: 20px;
+   padding-left: 10px;
+   padding-bottom: -10px;
+   color: antiquewhite;
+   transition: 0.4s;
+}
+#subListAdd {
+   color: #333;
+   font-size: 30px;
+   height: 40px;
+   border: none;
+   min-width: 40px;
+   text-align: center;
+   display: inline-block;
+   line-height: 40px;
+   border-radius: 50%;
+   outline: none;
+   font-weight: bold;
+   background-color: #ffcc00;
+   cursor: pointer;
+   transition: 0.1s;
+}
+#subList label {
+   font-size: 20px;
+   height: 25px;
+   line-height: 25px;
+   margin: 4px;
+   padding: 0 60px 0 40px;
+}
+#subList li {
+   margin: 0;
+}
+#subList li button {
+   width: 20px;
+   height: 20px;
+}
+#subList label::before {
+   width: 15px;
+   height: 15px;
+   border-width: 1px;
 }
 @media(max-width:700px) {
    #taskList {

@@ -42,8 +42,13 @@
                     <input class="time-modal" type="time">
                     <input class="date-modal" type="date">
                 </div>
-                <input type="checkbox" id="modalCheck">
+                <input type="checkbox" id="modalCheck" checked>
                 <label class="modal-check" for="modalCheck">Не указывать дату и время</label>
+                <div class="subListBlock">
+                    <input type="text" id="subListInp" placeholder="Добавить подзадачу...">
+                    <button id="subListAdd">+</button>
+                    <ul id="subList"></ul>
+                </div>
             </div>
         </div>
     </template>

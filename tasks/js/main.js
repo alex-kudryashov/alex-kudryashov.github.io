@@ -1,7 +1,8 @@
 const addField = document.getElementById('addField');     //поле ввода задачи
 const addBtn = document.getElementById('addBtn');         //кнопка добавления задачи
 const taskList = document.getElementById('taskList');     //блок для хранения задач
-let id = 0; //счетчик id чеков для label
+let taskId = 0; //счетчик id чеков для label
+let subTaskId = 0; //счетчик id чеков для label
 const addListBtn = document.getElementById('addListBtn');//кнопка добавления листа
 const listsList = document.getElementById('listsList');  //блок хранения листов
 const listNameField = document.getElementById('listNameField');//поле ввода листа
@@ -93,10 +94,11 @@ function renameList(name, list, btn) {
             list.name = input.value;
             name.innerHTML = list.name;
             refresh();
+            btn.classList.remove('rename-btn-save');
          } else {
             input.style.borderBottom = '2px dotted red'
          }
-         btn.classList.remove('rename-btn-save');
+
       })
       name.appendChild(input);
       input.focus();
@@ -167,6 +169,7 @@ function addTask() {
 
       //по дэфолту без галочки
       task.check = false;
+      task.subList = [];
 
       // присвоение id для привязки к label
 
@@ -206,7 +209,7 @@ function refresh() {
    taskList.innerHTML = '';
 
    //сброс id
-   id = 0;
+   taskId = 0;
 
    //создание задачи из массива и добавление в лист
    activeList.tasks.forEach(task => taskList.appendChild(createTask(task)));
@@ -270,7 +273,7 @@ function createTask(task) {
    }
 
    //установление атрибута for
-   label.htmlFor = 'task' + id;
+   label.htmlFor = 'task' + taskId;
    //если таск в массиве чекед то к чекбоксу на странице добавиться атрибут
    check ? check = 'checked' : check = '';
 
@@ -289,14 +292,14 @@ function createTask(task) {
    label.appendChild(deleteBtn);
 
    //добавление чекбокса с поставленным флажком если check = true и id для label
-   li.innerHTML += `<input type="checkbox" id="${'task' + id}"${check}>`;
+   li.innerHTML = `<input type="checkbox" id="task${taskId}"${check}>`;
 
    //событие изменения флажка чека
    li.querySelector('input').addEventListener('change', changeCheck(task));
 
    li.appendChild(label);
    li.appendChild(dateTime);
-   id++;
+   taskId++;
    return li;
 }
 
@@ -313,6 +316,20 @@ function openSettings(task) {
       const closeModal = modalWrap.querySelector('.close-modal');
       const noteModal = modalWrap.querySelector('.note-modal');
       const timeCheck = modalWrap.querySelector('input[type="checkbox"]');
+      const subList = modalWrap.querySelector('#subList');
+      const subListInp = modalWrap.querySelector('#subListInp');
+      const subListAdd = modalWrap.querySelector('#subListAdd');
+      subListAdd.addEventListener('click', function () {
+         addSubList(task, subList, subListInp);
+         subListInp.value = '';
+         subListInp.focus();
+      });
+      subListInp.addEventListener('keydown', function (e) {
+         if (e.keyCode === 13) {
+            addSubList(task, subList, subListInp);
+            subListInp.value = '';
+         }
+      })
       modalInput.addEventListener('input', () => { modalInput.style.borderColor = '#ffcc00'; })
       //если дата и время не были заданы изначально - при открытии настроек заполнить поля текущими иначе заполнить указанными ранее
       if (task.time != undefined && task.time != '') {
@@ -331,6 +348,7 @@ function openSettings(task) {
          modalWrap.parentNode.removeChild(modalWrap);
          refresh();
       })
+
       //закрытие окна настроек
       closeModal.addEventListener('click', function () {
          if (modalInput.value !== '') {
@@ -348,14 +366,51 @@ function openSettings(task) {
             modalInput.style.borderColor = 'red';
             modalInput.focus();
          }
+         addField.focus();
       })
       //при открытии настроек задачи присвоить имя задачи в поле редактирования и заметку в текстареа
       modalInput.value = task.name;
       task.note != undefined ? noteModal.value = task.note : noteModal.value = '';
+
+      task.subList.forEach(subTask => subList.appendChild(createSubTask(subTask, task, subList)));
+      modalInput.focus();
    }
 }
 
+function addSubList(task, subList, subListInp) {
+   const newSubTask = { name: subListInp.value, check: false };
+   task.subList.unshift(newSubTask);
+   subList.innerHTML = '';
+   task.subList.forEach(subTask => subList.appendChild(createSubTask(subTask, task, subList)))
+   refresh();
+}
 
+function createSubTask(subTask, task, subList) {
+   const li = document.createElement('li');
+   const label = document.createElement('label');
+   const deleteBtn = document.createElement('button');
+   let check = subTask.check;
+   subTaskId++;
+   check ? check = 'checked' : check = '';
+   li.innerHTML = `<input type="checkbox" id="subTask${subTaskId}"${check}>`;
+   label.setAttribute('for', `subTask${subTaskId}`);
+   label.innerHTML = subTask.name;
+   deleteBtn.classList.add('delete-btn');
+   deleteBtn.addEventListener('click', function () {
+      delete task.subList[task.subList.indexOf(subTask)];
+      task.subList = task.subList.filter(subTaskF => subTaskF);
+      subList.innerHTML = '';
+      task.subList.forEach(subTask => subList.appendChild(createSubTask(subTask, task, subList)));
+      refresh();
+   })
+   label.appendChild(deleteBtn);
+   li.appendChild(label);
+   li.querySelector('input').addEventListener('change', function () {
+      subTask.check ? subTask.check = false : subTask.check = true;
+      refresh();
+   })
+   return li;
+}
 //смена флажка
 function changeCheck(task) {
    return function () {
@@ -379,3 +434,4 @@ function deleteTask(task) {
 
 //запрет вызова контекстного меню
 window.addEventListener('contextmenu', (e) => e.preventDefault());
+window.addEventListener('load', () => addField.focus());
