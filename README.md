@@ -13,3 +13,7 @@
 + [Gipsolit](https://alex-kudryashov.github.io/gipsolit)
 --------
 + [slider+animation](https://alex-kudryashov.github.io/slider+animation)
+--------
++ [tasks](https://alex-kudryashov.github.io/tasks)
+--------
++ [mini](https://alex-kudryashov.github.io/mini)

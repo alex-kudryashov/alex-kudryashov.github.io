@@ -59,6 +59,29 @@ label,#listsList li {
    text-overflow: ellipsis;
 }
 
+.undo-delete {
+   color: antiquewhite;
+   background-color: #333;   
+   font-size: 25px;
+   line-height: 50px;
+   height: 50px;
+   text-align: center;
+   padding: 0 10px;
+   display: inline-block;
+   position: absolute;
+   right: 20px;
+   bottom: 20px;
+   z-index: 100;
+   border-radius: 10px;
+   opacity: 0;
+   transition: 0.4s;
+   width: 0;
+}
+.undo-delete a {
+   color: #ffcc00;
+   text-decoration: none;
+}
+
 #listsList li {
    padding-left: 20px;
    min-height: 50px;
@@ -272,7 +295,10 @@ input[type="checkbox"]:checked+label {
    margin-bottom: 30px;
 }
 
-.modal-input:focus {
+.modal-input:focus,
+#subListInp:focus,
+.date-modal:focus,
+.time-modal:focus {
    border-bottom-color: #fff;
 }
 .modal-delete-btn {

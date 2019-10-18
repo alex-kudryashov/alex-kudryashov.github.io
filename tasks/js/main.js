@@ -7,65 +7,183 @@ const addListBtn = document.getElementById('addListBtn');//кнопка доба
 const listsList = document.getElementById('listsList');  //блок хранения листов
 const listNameField = document.getElementById('listNameField');//поле ввода листа
 let lists = JSON.parse(localStorage.getItem('lists')); //список листов в локальном хранилище
+let undoDelete;
+const undoBlock = document.querySelector('.undo-delete');
+const undoText = undoBlock.querySelector('span');
+let timerId;
+
+//если список отсутствует создать безымянный
 if (lists === null) {
    lists = [{ name: 'noname', tasks: [], active: true }]
 }
+
 let activeList = lists.filter(list => list.active == true)[0]; //активный список
 
-refresh(); //глобальное обновление
+refreshAllLists();
+refreshActiveList();
+
 
 //добавление задачи по нажатию на кнопку добавления
 addBtn.addEventListener('click', addTask);
 
-addField.addEventListener('keydown', function (e) {
-   const str = addField.value.replace(/^\s+|\s+$/g, '');
-   if (e.keyCode === 13 && str !== '') {                             // добавление задачи по нажатию Enter в инпуте
+// добавление задачи по нажатию Enter в инпуте
+addField.addEventListener('keydown', (e) => {
+   addField.style.borderColor = 'rgba(255, 255, 255, 0.7)';
+   if (e.keyCode === 13) {
       addTask();
    }
 })
 
-//добавление листа
+//смена цвета границы при смене фокуса
+addField.addEventListener('blur', () => addField.style.borderColor = 'rgba(255, 255, 255, 0.4)')
+
+//создание задачи и добавление в массив
+function addTask() {
+   const str = addField.value.replace(/^\s+|\s+$/g, '');
+   if (str != '') {
+      //объект задачи
+      const task = {};
+
+      //добавление задачи в объект(с заглавной буквы)
+      task.name = (addField.value[0].toUpperCase() + addField.value.slice(1)).trim();
+
+      //по дэфолту без галочки
+      task.check = false;
+
+      task.subList = [];
+
+      //добавление таска в массив активного списка
+      activeList.tasks.unshift(task);
+
+      //отображение новой задачи в списке(обновление списка)
+      refreshActiveList();
+   } else {
+      addField.style.borderColor = 'red';
+   }
+   addField.value = '';
+   addField.focus();
+}
+
+//создание пункта списка из объекта массива
+function createTask(task) {
+   const li = document.createElement('li');
+   const label = document.createElement('label');
+   const deleteBtn = document.createElement('button');//кнопка удаления таска
+   const settingsBtn = document.createElement('button');//кнопка настройки таска
+   const dateTime = document.createElement('span');//поле для вывода даты и времени
+   let check = task.check;    //переменная со значением флажка чекбокса   
+
+   //стили кнопок и вывода времени
+   dateTime.classList.add('date-time-out');
+   settingsBtn.classList.add('settings-btn');
+   deleteBtn.classList.add('delete-btn');
+   //всплывающие подсказыки при наведении на кнопки
+   settingsBtn.setAttribute('title', 'Параметры');
+   deleteBtn.setAttribute('title', 'Удалить');
+   //события кликов
+   settingsBtn.addEventListener('click', openSettings(task));
+   deleteBtn.addEventListener('click', () => deleteElement('task', task));
+
+   //если время в поле выбрано - записать его в поле - иначе записать прочерк
+   if (task.time != undefined && task.time != '') {
+      dateTime.textContent += task.time + ' / '
+   } else {
+      dateTime.textContent += '- / ';
+   }
+
+   //если дата в поле выбрана - записать ее в поле - иначе записать прочерк
+   if (task.date != undefined && task.date != '') {
+      dateTime.textContent += task.date
+   } else {
+      dateTime.textContent += '-';
+   }
+
+   //если дата и время больше текущих то выделить светлым цветом
+   if (getToday('date') < task.date || (getToday('date') === task.date && getToday('time') < task.time)) {
+      dateTime.style.color = 'antiquewhite';
+   }
+
+   label.htmlFor = 'task' + taskId;    //установление атрибута for для привязки чекбокса
+
+   //если задача выполнена то присвоить в переменную 'checked' и добавить ее в чекбокс
+   check ? check = 'checked' : check = '';
+   li.innerHTML = `<input type="checkbox" id="task${taskId}"${check}>`;
+
+   //текст задачи
+   label.innerHTML += task.name;
+
+   //добавление кнопок
+   label.appendChild(settingsBtn);
+   label.appendChild(deleteBtn);
+
+   //событие изменения флажка задачи
+   li.querySelector('input').addEventListener('change', changeCheck(task));
+
+   li.appendChild(label);
+   li.appendChild(dateTime);
+
+   taskId++;   //переход к следующему значению id
+   hoverTitle(label);
+   return li; //возврат элемента для вставки
+}
+
+//нажатие на кнопку добавления списка
 addListBtn.addEventListener('click', inputListName);
+
+//открытие окна ввода названия списка
+function inputListName() {
+   listNameField.style.cssText = 'border-width: 3px; padding:10px;height:50px;';
+   listsList.style.top = '200px';
+   listNameField.focus();
+}
+
+//нажатие enter в поле ввода списка
 listNameField.addEventListener('keydown', function (e) {
    const str = listNameField.value.replace(/^\s+|\s+$/g, '');
    if (e.keyCode === 13 && str !== '') {
       listNameField.style.cssText = 'border-width: 0px; padding:0px;height:0px;';
       listsList.style.top = '120px';
       addList();
+      listNameField.value = '';
+      addField.focus();//установка фокуса в поле добавления задачи
    }
 })
-listNameField.addEventListener('blur', function () {
 
+//смена фокуса с поля ввода списка
+listNameField.addEventListener('blur', function () {
    listNameField.style.cssText = 'border-width: 0px; padding:0px;height:0px;';
    listsList.style.top = '120px';
-
+   listNameField.value = '';
 })
+
+//добавление списка
 function addList() {
    lists.forEach(list => list.active = false);//всем спискам снять активацию
    const list = { name: listNameField.value[0].toUpperCase().trim() + listNameField.value.slice(1).trim(), tasks: [], active: true };
    lists.unshift(list); //добавление листа в массив
-   refresh(); //обновление
-   listNameField.value = '';
-   addField.focus();//установка фокуса в поле добавления задачи
+   refreshLocalStorage(); //обновление
+   refreshAllLists();
+   refreshActiveList();
 }
 
 //создание листа на странице
 function createList(list) {
-   const li = document.createElement('li');
+   const li = document.createElement('li'); //блок списка
    const renameBtn = document.createElement('button');//кнопка настроек
    const deleteBtn = document.createElement('button');//кнопка удаления
    const name = document.createElement('span');
+   name.innerHTML = list.name;//назавние списка
+
    renameBtn.classList.add('rename-btn');
-   renameBtn.setAttribute('title', 'Переименовать список');
    deleteBtn.classList.add('delete-btn');
+
+   renameBtn.setAttribute('title', 'Переименовать список');
    deleteBtn.setAttribute('title', 'Удалить список');
 
-   deleteBtn.addEventListener('click', deleteList(list));
-
-   name.innerHTML = list.name;//назавние списка
+   deleteBtn.addEventListener('click', () => deleteElement('list', list));
    renameBtn.addEventListener('click', renameList(name, list, renameBtn));
+
    li.appendChild(name);
-   //добавление кнопок
    li.appendChild(renameBtn);
    li.appendChild(deleteBtn);
 
@@ -77,6 +195,8 @@ function createList(list) {
    } else {
       li.style.cssText = "background-color: rgba(255, 255, 255, 0.2); color: antiquewhite;";
    }
+
+   hoverTitle(li);
 
    return li;//возврат элемента для вставки на страницу
 }
@@ -93,7 +213,8 @@ function renameList(name, list, btn) {
          if (str != '') {
             list.name = input.value;
             name.innerHTML = list.name;
-            refresh();
+            refreshLocalStorage();
+            refreshAllLists();
             btn.classList.remove('rename-btn-save');
          } else {
             input.style.borderBottom = '2px dotted red'
@@ -111,7 +232,8 @@ function renameList(name, list, btn) {
             if (str != '') {
                list.name = input.value;
                name.innerHTML = list.name;
-               refresh();
+               refreshLocalStorage();
+               refreshAllLists();
             } else {
                input.style.borderBottom = '2px dotted red'
             }
@@ -126,12 +248,7 @@ function renameList(name, list, btn) {
       })
    }
 }
-//открытие окна ввода названия списка
-function inputListName() {
-   listNameField.style.cssText = 'border-width: 3px; padding:10px;height:50px;';
-   listNameField.focus();
-   listsList.style.top = '200px'
-}
+
 
 //открытие списка
 function openList(list) {
@@ -139,64 +256,19 @@ function openList(list) {
       lists.forEach(l => l.active = false);//деактивировать все
       list.active = true;//активировать выбранный
       addField.focus();//фокус в поле ввода задачи
-      refresh(); //обновление
-   }
-}
-function deleteList(list) {
-   return function () {
-      //удаление из массива
-      if (lists.length != 1) {
-         delete lists[lists.indexOf(list)];
-      } else {
-         list.name = 'noname';
-         list.tasks = [];
-         list.active = true;
-      }
-      //обновление списка
-      refresh();
-   }
-}
-
-//создание задачи и добавление в массив
-function addTask() {
-
-   if (addField.value != '') {
-      //объект задачи
-      const task = {};
-
-      //добавление задачи в объект(с заглавной буквы)
-      task.name = addField.value[0].toUpperCase().trim() + addField.value.slice(1).trim();
-
-      //по дэфолту без галочки
-      task.check = false;
-      task.subList = [];
-
-      // присвоение id для привязки к label
-
-      //добавление таска в массив
-      activeList.tasks.unshift(task);
-
-      //отображение новой задачи в списке(обновление списка)
-      refresh();
-
-      //очистка поля ввода задачи
-      addField.value = '';
+      refreshLocalStorage();
+      refreshAllLists();
+      refreshActiveList(); //обновление
    }
 }
 
 
-//обновление массива задач и листа
-function refresh() {
-   lists = lists.filter(list => list);   //сброс массива для очистки пустых ячеек
-   activeList = lists.filter(list => list.active === true)[0]; //поиск активного элемента
+function refreshActiveList() {
+   //сохранить в локальное хранилище
+   refreshLocalStorage();
+   //массив для незавершенный задач\
 
-   //если активныого нет то сделать активным первый
-   if (activeList === undefined) {
-      lists[0].active = true;
-      activeList = lists[0];
-   }
 
-   //массив для незавершенный задач
    const falseArr = activeList.tasks.filter(task => task.check === false);
 
    //массив для завершенных задач
@@ -204,24 +276,35 @@ function refresh() {
 
    //склейка завершенных и незаверш для переноса всех завершенных в конец списка
    activeList.tasks = falseArr.concat(trueArr);
-
-   //очистка листа перед добавлением обновленного списка
    taskList.innerHTML = '';
-
-   //сброс id
    taskId = 0;
-
-   //создание задачи из массива и добавление в лист
    activeList.tasks.forEach(task => taskList.appendChild(createTask(task)));
+}
 
+function refreshLocalStorage() {
+   localStorage.setItem('lists', JSON.stringify(lists));
+}
+
+function refreshAllLists() {
+   let dop = lists.filter(list => list.active === true)
+   activeList = dop[0]; //поиск активного элемента
+   if (dop.length > 1) {
+      lists.forEach(list => list.active = false);
+      lists[0].active = true;
+      activeList = lists[0];
+      refreshLocalStorage();
+      refreshActiveList();
+   }
+   //если активныого нет то сделать активным первый
+   if (activeList === undefined) {
+      lists[0].active = true;
+      activeList = lists[0];
+   }
    //очистка списка перед обновлением. для избежания дублирования списков
    listsList.innerHTML = '';
 
    //создать листы и добавить их в список листов
    lists.forEach(list => listsList.appendChild(createList(list)));
-
-   //сохранить в локальное хранилище
-   localStorage.setItem('lists', JSON.stringify(lists));
 }
 
 //функция для получения даты или времени в формате инпутов в окне настроек задачи (в параметр передается тип - дата или время)
@@ -242,67 +325,6 @@ function getToday(type) {
    }
 }
 
-
-//создание пункта списка из объекта массива
-function createTask(task) {
-   const li = document.createElement('li');
-   let check = task.check;    //переменная со значением флажка чекбокса                    
-   const label = document.createElement('label');
-   const deleteBtn = document.createElement('button');//кнопка удаления таска
-   const settingsBtn = document.createElement('button');//кнопка настройки таска
-   const dateTime = document.createElement('span');//поле для вывода даты и времени
-   dateTime.classList.add('date-time-out');
-
-   //если время в инпуте выбрано - записать его в поле - иначе записать прочерк
-   if (task.time != undefined && task.time != '') {
-      dateTime.textContent += task.time + ' / '
-   } else {
-      dateTime.textContent += '- / ';
-   }
-
-   //если дата в инпуте выбрана - записать ее в поле - иначе записать прочерк
-   if (task.date != undefined && task.date != '') {
-      dateTime.textContent += task.date
-   } else {
-      dateTime.textContent += '-';
-   }
-
-   //если дата и время меньше текущих то выделить красным
-   if (getToday('date') < task.date || (getToday('date') === task.date && getToday('time') < task.time)) {
-      dateTime.style.color = 'antiquewhite';
-   }
-
-   //установление атрибута for
-   label.htmlFor = 'task' + taskId;
-   //если таск в массиве чекед то к чекбоксу на странице добавиться атрибут
-   check ? check = 'checked' : check = '';
-
-   //текст таска
-   label.innerHTML += task.name;
-
-   settingsBtn.classList.add('settings-btn');
-   settingsBtn.setAttribute('title', 'Параметры');
-   deleteBtn.classList.add('delete-btn');
-   deleteBtn.setAttribute('title', 'Удалить');
-
-   settingsBtn.addEventListener('click', openSettings(task));
-   deleteBtn.addEventListener('click', deleteTask(task));
-
-   label.appendChild(settingsBtn);
-   label.appendChild(deleteBtn);
-
-   //добавление чекбокса с поставленным флажком если check = true и id для label
-   li.innerHTML = `<input type="checkbox" id="task${taskId}"${check}>`;
-
-   //событие изменения флажка чека
-   li.querySelector('input').addEventListener('change', changeCheck(task));
-
-   li.appendChild(label);
-   li.appendChild(dateTime);
-   taskId++;
-   return li;
-}
-
 function openSettings(task) {
    return function () {
       const template = document.querySelector('#modalSettingsTemplate').content;
@@ -319,18 +341,21 @@ function openSettings(task) {
       const subList = modalWrap.querySelector('#subList');
       const subListInp = modalWrap.querySelector('#subListInp');
       const subListAdd = modalWrap.querySelector('#subListAdd');
+
       subListAdd.addEventListener('click', function () {
-         addSubList(task, subList, subListInp);
+         addSubTask(task, subList, subListInp);
          subListInp.value = '';
          subListInp.focus();
       });
       subListInp.addEventListener('keydown', function (e) {
          if (e.keyCode === 13) {
-            addSubList(task, subList, subListInp);
+            addSubTask(task, subList, subListInp);
             subListInp.value = '';
          }
       })
       modalInput.addEventListener('input', () => { modalInput.style.borderColor = '#ffcc00'; })
+      subListInp.addEventListener('input', () => { subListInp.style.borderColor = '#ffcc00'; })
+
       //если дата и время не были заданы изначально - при открытии настроек заполнить поля текущими иначе заполнить указанными ранее
       if (task.time != undefined && task.time != '') {
          timeModal.value = task.time;
@@ -344,14 +369,14 @@ function openSettings(task) {
       }
       dateModal.setAttribute('min', getToday('date'));
       deleteBtn.addEventListener('click', function () {
-         delete activeList.tasks[activeList.tasks.indexOf(task)];
+         deleteElement('task', task);
          modalWrap.parentNode.removeChild(modalWrap);
-         refresh();
       })
 
       //закрытие окна настроек
       closeModal.addEventListener('click', function () {
-         if (modalInput.value !== '') {
+         const str = modalInput.value.replace(/^\s+|\s+$/g, '');
+         if (str !== '') {
             modalWrap.parentNode.removeChild(modalWrap);
             task.name = modalInput.value;
             task.note = noteModal.value;
@@ -361,12 +386,13 @@ function openSettings(task) {
             }
             task.time = timeModal.value;
             task.date = dateModal.value;
-            refresh();
+            refreshActiveList();
+            addField.focus();
          } else {
             modalInput.style.borderColor = 'red';
+            modalInput.value = '';
             modalInput.focus();
          }
-         addField.focus();
       })
       //при открытии настроек задачи присвоить имя задачи в поле редактирования и заметку в текстареа
       modalInput.value = task.name;
@@ -377,12 +403,17 @@ function openSettings(task) {
    }
 }
 
-function addSubList(task, subList, subListInp) {
-   const newSubTask = { name: subListInp.value, check: false };
-   task.subList.unshift(newSubTask);
-   subList.innerHTML = '';
-   task.subList.forEach(subTask => subList.appendChild(createSubTask(subTask, task, subList)))
-   refresh();
+function addSubTask(task, subList, subListInp) {
+   const str = subListInp.value.replace(/^\s+|\s+$/g, '');
+   if (str != '') {
+      const newSubTask = { name: subListInp.value, check: false };
+      task.subList.unshift(newSubTask);
+      subList.innerHTML = '';
+      refreshLocalStorage();
+      task.subList.forEach(subTask => subList.appendChild(createSubTask(subTask, task, subList)))
+   } else {
+      subListInp.style.borderColor = 'red';
+   }
 }
 
 function createSubTask(subTask, task, subList) {
@@ -397,19 +428,89 @@ function createSubTask(subTask, task, subList) {
    label.innerHTML = subTask.name;
    deleteBtn.classList.add('delete-btn');
    deleteBtn.addEventListener('click', function () {
-      delete task.subList[task.subList.indexOf(subTask)];
+      undoDelete = subTask;
+      undoBlock.style.cssText = 'opacity: 1; transition: 1s; width: auto;'
+      clearInterval(timerId);
+      const undoBtn = document.createElement('a');
+      undoBtn.textContent = 'Восстановить';
+      undoBtn.setAttribute('href', '#');
+      undoBlock.innerHTML = '';
+      timerId = setInterval(() => {
+         undoBlock.style.opacity = 0;
+         undoBlock.style.cssText = 'opacity: 0; transition: 0s; width: 0;';
+         clearInterval(timerId);
+      }, 4000);
+      task.subList.splice(task.subList.indexOf(subTask), 1);
+      undoBlock.innerHTML = 'Подзадача удалена. ';
+      undoBlock.appendChild(undoBtn);
       task.subList = task.subList.filter(subTaskF => subTaskF);
       subList.innerHTML = '';
       task.subList.forEach(subTask => subList.appendChild(createSubTask(subTask, task, subList)));
-      refresh();
+      refreshLocalStorage();
+      undoBtn.addEventListener('click', (e) => {
+         e.preventDefault();
+         undoDeleting(subTask, task.subList);
+         subList.innerHTML = '';
+         task.subList.forEach(st => subList.appendChild(createSubTask(st)));
+      });
    })
    label.appendChild(deleteBtn);
    li.appendChild(label);
    li.querySelector('input').addEventListener('change', function () {
       subTask.check ? subTask.check = false : subTask.check = true;
-      refresh();
+      refreshLocalStorage();
    })
+   hoverTitle(label);
    return li;
+}
+
+function deleteElement(type, what) {
+   undoDelete = what;
+   undoBlock.style.cssText = 'opacity: 1; transition: 1s; width: auto;'
+   clearInterval(timerId);
+   const undoBtn = document.createElement('a');
+   undoBtn.textContent = 'Восстановить';
+   undoBtn.setAttribute('href', '#');
+   undoBlock.innerHTML = '';
+   timerId = setInterval(() => {
+      undoBlock.style.cssText = 'opacity: 0; transition: 0s; width: 0;';
+      clearInterval(timerId);
+   }, 4000);
+   if (type === 'list') {
+      lists.splice(lists.indexOf(what), 1);
+      refreshLocalStorage();
+      if (lists.length === 0) {
+         lists.push({ name: 'noname', tasks: [], active: true })
+      }
+      //обновление списка
+      lists = lists.filter(list => list);   //сброс массива для очистки пустых ячеек
+      undoBlock.innerHTML = 'Список удален. ';
+      undoBlock.appendChild(undoBtn);
+      undoBtn.addEventListener('click', (e) => {
+         e.preventDefault();
+         undoDeleting(what, lists);
+      });
+   }
+   if (type === 'task') {
+      // delete activeList.tasks[activeList.tasks.indexOf(what)];
+      activeList.tasks.splice(activeList.tasks.indexOf(what), 1);
+      undoBlock.innerHTML = 'Задача удалена. ';
+      undoBlock.appendChild(undoBtn);
+      undoBtn.addEventListener('click', (e) => {
+         e.preventDefault();
+         undoDeleting(what, activeList.tasks);
+      });
+   }
+   refreshAllLists();
+   refreshActiveList();
+}
+
+function undoDeleting(what, where) {
+   undoBlock.style.cssText = 'opacity: 0; transition: 0s;';
+   where.unshift(what);
+   refreshLocalStorage();
+   refreshAllLists();
+   refreshActiveList();
 }
 //смена флажка
 function changeCheck(task) {
@@ -418,18 +519,13 @@ function changeCheck(task) {
       this.checked ? task.check = true : task.check = false;
 
       //обновление листа для сброса выполненных задач в конец массива
-      refresh();
+      refreshActiveList();
    }
 }
 
-//удаление задачи
-function deleteTask(task) {
-   return function () {
-      //удаление из массива
-      delete activeList.tasks[activeList.tasks.indexOf(task)];
-      //обновление списка
-      refresh();
-   }
+
+function hoverTitle(elem) {
+   elem.setAttribute('title', elem.textContent);
 }
 
 //запрет вызова контекстного меню
