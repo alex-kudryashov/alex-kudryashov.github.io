@@ -129,7 +129,7 @@ addListBtn.addEventListener('click', inputListName);
 
 //открытие окна ввода названия списка
 function inputListName() {
-   listNameField.style.cssText = 'border-width: 3px; height:50px;';
+   listNameField.style.cssText = 'border-width: 3px; padding:10px;height:50px; opacity: 1;';
    listsList.style.top = '190px';
    listNameField.focus();
 }
@@ -139,7 +139,7 @@ listNameField.addEventListener('keydown', function (e) {
    listNameField.style.borderColor = 'rgba(255, 255, 255, 0.8)';
    if (e.keyCode === 13) {
       if (!(/^\s*$/.test(listNameField.value))) {
-         listNameField.style.cssText = 'border-width: 0px; height:0px;';
+         listNameField.style.cssText = 'border-width: 0px; padding:0px;height:0px; opacity: 0;';
          listsList.style.top = '80px';
          addList();
          listNameField.value = '';
