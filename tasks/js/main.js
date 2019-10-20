@@ -1,21 +1,16 @@
 const addField = document.getElementById('addField');     //поле ввода задачи
 const addBtn = document.getElementById('addBtn');         //кнопка добавления задачи
 const taskList = document.getElementById('taskList');     //блок для хранения задач
-let taskId = 0; //счетчик id чеков для label
-let subTaskId = 0; //счетчик id чеков для label
 const addListBtn = document.getElementById('addListBtn');//кнопка добавления листа
 const listsList = document.getElementById('listsList');  //блок хранения листов
 const listNameField = document.getElementById('listNameField');//поле ввода листа
-let lists = JSON.parse(localStorage.getItem('lists')); //список листов в локальном хранилище
-let undoDelete;
+let lists = JSON.parse(localStorage.getItem('lists')) || [{ name: 'noname', tasks: [], active: true }]; //список листов в локальном хранилище
 const undoBlock = document.querySelector('.undo-delete');
 const undoText = undoBlock.querySelector('span');
 let timerId;
-
-//если список отсутствует создать безымянный
-if (lists === null) {
-   lists = [{ name: 'noname', tasks: [], active: true }]
-}
+let undoDelete;
+let taskId = 0; //счетчик id чеков для label
+let subTaskId = 0; //счетчик id чеков для label
 
 let activeList = lists.filter(list => list.active == true)[0]; //активный список
 
@@ -39,8 +34,7 @@ addField.addEventListener('blur', () => addField.style.borderColor = 'rgba(255, 
 
 //создание задачи и добавление в массив
 function addTask() {
-   const str = addField.value.replace(/^\s+|\s+$/g, '');
-   if (str != '') {
+   if (!(/^\s*$/.test(addField.value))) {
       //объект задачи
       const task = {};
 
@@ -139,13 +133,18 @@ function inputListName() {
 
 //нажатие enter в поле ввода списка
 listNameField.addEventListener('keydown', function (e) {
-   const str = listNameField.value.replace(/^\s+|\s+$/g, '');
-   if (e.keyCode === 13 && str !== '') {
-      listNameField.style.cssText = 'border-width: 0px; padding:0px;height:0px;';
-      listsList.style.top = '120px';
-      addList();
-      listNameField.value = '';
-      addField.focus();//установка фокуса в поле добавления задачи
+   listNameField.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+   if (e.keyCode === 13) {
+      if (!(/^\s*$/.test(listNameField.value))) {
+         listNameField.style.cssText = 'border-width: 0px; padding:0px;height:0px;';
+         listsList.style.top = '120px';
+         addList();
+         listNameField.value = '';
+         addField.focus();//установка фокуса в поле добавления задачи
+      } else {
+         listNameField.value = '';
+         listNameField.style.borderColor = 'red';
+      }
    }
 })
 
@@ -209,8 +208,7 @@ function renameList(name, list, btn) {
       btn.classList.add('rename-btn-save');
       btn.removeEventListener('click', renameList(name, list, btn));
       btn.addEventListener('click', function () {
-         const str = input.value.replace(/^\s+|\s+$/g, '');
-         if (str != '') {
+         if (!(/^\s*$/.test(input.value))) {
             list.name = input.value;
             name.innerHTML = list.name;
             refreshLocalStorage();
@@ -228,8 +226,7 @@ function renameList(name, list, btn) {
       }
       input.addEventListener('keydown', function (e) {
          if (e.keyCode === 13) {
-            const str = input.value.replace(/^\s+|\s+$/g, '');
-            if (str != '') {
+            if (!(/^\s*$/.test(input.value))) {
                list.name = input.value;
                name.innerHTML = list.name;
                refreshLocalStorage();
@@ -375,8 +372,7 @@ function openSettings(task) {
 
       //закрытие окна настроек
       closeModal.addEventListener('click', function () {
-         const str = modalInput.value.replace(/^\s+|\s+$/g, '');
-         if (str !== '') {
+         if (!(/^\s*$/.test(modalInput.value))) {
             modalWrap.parentNode.removeChild(modalWrap);
             task.name = modalInput.value;
             task.note = noteModal.value;
@@ -400,16 +396,16 @@ function openSettings(task) {
 
       task.subList.forEach(subTask => subList.appendChild(createSubTask(subTask, task, subList)));
       modalInput.focus();
+      subTaskId = 0;
    }
 }
 
 function addSubTask(task, subList, subListInp) {
-   const str = subListInp.value.replace(/^\s+|\s+$/g, '');
-   if (str != '') {
+   if (!(/^\s*$/.test(subListInp.value))) {
       const newSubTask = { name: subListInp.value, check: false };
       task.subList.unshift(newSubTask);
-      subList.innerHTML = '';
       refreshLocalStorage();
+      subList.innerHTML = '';
       task.subList.forEach(subTask => subList.appendChild(createSubTask(subTask, task, subList)))
    } else {
       subListInp.style.borderColor = 'red';
@@ -429,7 +425,7 @@ function createSubTask(subTask, task, subList) {
    deleteBtn.classList.add('delete-btn');
    deleteBtn.addEventListener('click', function () {
       undoDelete = subTask;
-      undoBlock.style.cssText = 'opacity: 1; transition: 1s; width: auto;'
+      undoBlock.style.cssText = 'transform: scale(1,1); transition: 1s;'
       clearInterval(timerId);
       const undoBtn = document.createElement('a');
       undoBtn.textContent = 'Восстановить';
@@ -437,13 +433,12 @@ function createSubTask(subTask, task, subList) {
       undoBlock.innerHTML = '';
       timerId = setInterval(() => {
          undoBlock.style.opacity = 0;
-         undoBlock.style.cssText = 'opacity: 0; transition: 0s; width: 0;';
+         undoBlock.style.cssText = 'transform: scale(0,0); transition: 0s;';
          clearInterval(timerId);
       }, 4000);
       task.subList.splice(task.subList.indexOf(subTask), 1);
       undoBlock.innerHTML = 'Подзадача удалена. ';
       undoBlock.appendChild(undoBtn);
-      task.subList = task.subList.filter(subTaskF => subTaskF);
       subList.innerHTML = '';
       task.subList.forEach(subTask => subList.appendChild(createSubTask(subTask, task, subList)));
       refreshLocalStorage();
@@ -466,14 +461,14 @@ function createSubTask(subTask, task, subList) {
 
 function deleteElement(type, what) {
    undoDelete = what;
-   undoBlock.style.cssText = 'opacity: 1; transition: 1s; width: auto;'
+   undoBlock.style.cssText = 'transform: scale(1,1); transition: 1s;'
    clearInterval(timerId);
    const undoBtn = document.createElement('a');
    undoBtn.textContent = 'Восстановить';
    undoBtn.setAttribute('href', '#');
    undoBlock.innerHTML = '';
    timerId = setInterval(() => {
-      undoBlock.style.cssText = 'opacity: 0; transition: 0s; width: 0;';
+      undoBlock.style.cssText = 'transform: scale(0,0); transition: 0s;';
       clearInterval(timerId);
    }, 4000);
    if (type === 'list') {
@@ -506,7 +501,7 @@ function deleteElement(type, what) {
 }
 
 function undoDeleting(what, where) {
-   undoBlock.style.cssText = 'opacity: 0; transition: 0s;';
+   undoBlock.style.cssText = 'transform: scale(0,0); transition: 0s;';
    where.unshift(what);
    refreshLocalStorage();
    refreshAllLists();
@@ -517,7 +512,6 @@ function changeCheck(task) {
    return function () {
       // при отметке выполнения задачи или снятия флажка - проводится запись в миссив
       this.checked ? task.check = true : task.check = false;
-
       //обновление листа для сброса выполненных задач в конец массива
       refreshActiveList();
    }
