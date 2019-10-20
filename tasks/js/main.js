@@ -143,7 +143,6 @@ listNameField.addEventListener('keydown', function (e) {
          listsList.style.top = '80px';
          addList();
          listNameField.value = '';
-         addField.focus();//установка фокуса в поле добавления задачи
       } else {
          listNameField.value = '';
          listNameField.style.borderColor = 'red';
@@ -256,7 +255,6 @@ function openList(list) {
    return function () {
       lists.forEach(l => l.active = false);//деактивировать все
       list.active = true;//активировать выбранный
-      addField.focus();//фокус в поле ввода задачи
       refreshLocalStorage();
       refreshAllLists();
       refreshActiveList(); //обновление
@@ -387,7 +385,6 @@ function openSettings(task) {
             task.time = timeModal.value;
             task.date = dateModal.value;
             refreshActiveList();
-            addField.focus();
          } else {
             modalInput.style.borderColor = 'red';
             modalInput.value = '';
@@ -399,7 +396,6 @@ function openSettings(task) {
       task.note != undefined ? noteModal.value = task.note : noteModal.value = '';
 
       task.subList.forEach(subTask => subList.appendChild(createSubTask(subTask, task, subList)));
-      modalInput.focus();
       subTaskId = 0;
    }
 }
