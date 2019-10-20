@@ -4,8 +4,11 @@
 ::-webkit-scrollbar {
    width: 0px;  
 }
+
 body {
    background: #000;
+   display: flex;
+   justify-content: flex-start;
 }
 * {
    box-sizing: border-box;
@@ -36,6 +39,7 @@ label:hover, label:hover + .date-time-out{
    left: 20px;
    right: 20px;
 }
+
 
 label,#listsList li {
    margin: 10px auto;
@@ -86,9 +90,12 @@ label,#listsList li {
    min-height: 50px;
    overflow: hidden; 
    text-align: left;
+   line-height: 44px;
+   border: 3px solid rgba(255, 255, 255, 0.01);;
 }
+
 #listsList {
-   top: 120px;
+   top: 80px;
    transition: 0.3s;
 }
 
@@ -108,13 +115,13 @@ label::before {
 
 .taskField {
    border-radius: 10px;
-   width: 600px;
+   /* max-width: 700px; */
    background-color: #3f3d54;
-   position: fixed;
+   position: relative;
    padding: 20px;
-   top: 20px;
-   bottom: 20px;
-   left: 450px;
+   margin: 20px 30px; 
+   height: 95vh;
+   margin: 2.5vh 10px;
 }
 
 #addField,#listNameField {
@@ -135,10 +142,10 @@ label::before {
    width: 100%;
 }
 #listNameField {
-   width: auto;
+   width: 100%;
    height: 0;
    border-width: 0;
-   padding: 0;
+   padding: 10px;
    transition: 0.3s;
 }
 
@@ -241,7 +248,7 @@ input[type="checkbox"]:checked+label {
 }
 .rename-btn-save {
    background: url('../img/check.png') center center no-repeat;  
-   background-size: 30px;
+   background-size: cover;
 }
 .delete-btn:hover,
 .settings-btn:hover,
@@ -353,22 +360,24 @@ input[type="checkbox"]:checked+label {
 }
 
 .menu {
-   width: 400px;
+   max-width: 400px;
    background-color: #3f3d54;
-   position: fixed;
-   left: 20px;
    text-align: center;
-   top: 20px;
    overflow: hidden;
-   bottom: 20px;
    color: antiquewhite;
    font-family: sans-serif;
    font-size: 30px;
    border-radius: 10px;
+   height: 95vh;
+   position: relative;
+   padding: 20px;
+   margin: 2.5vh 30px 2.5vh 10px;
+   transform: scaleX(1);
+   transition: 0.5s;
 }
 
 .addList {
-   margin: 40px 20px 20px 20px;
+   margin-bottom: 20px;
    display: flex;
    justify-content: space-between;
 }
@@ -469,16 +478,120 @@ input[type="checkbox"]:checked+label {
    height: 15px;
    border-width: 1px;
 }
+.mobile-header {
+   width: 100%;
+   height: 8vh;
+   font-size: 25px;
+   background-color: #3f3d54;
+   color: antiquewhite;
+   justify-content: flex-start;
+   align-items: center;
+   padding: 0 20px;
+   display: none;
+}
+.mobile-header span {
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+.mobile-header button {
+   border: none;
+   background: transparent url("../img/menu.png") center center no-repeat;
+   background-size: cover;
+   width: 30px;
+   height: 40px;
+   margin-right: 20px;
+   outline: none;
+}
+
 @media(max-width:700px) {
-   #taskList {
-      width: 400px;
+   .mobile-header {
+      display: flex;
    }
    .modal-settings {
       width: 310px;
    }
+   .menu {
+      margin-right: 10px;
+      transform: scaleX(0);
+      position: absolute;
+      max-width: 97vw;
+      left: 10px;
+      top: 8vh;
+      bottom: 2.5vh;
+      right: 10px;
+      z-index: 1100;
+      height: 87vh;
+      font-size: 20px;
+   }
+   body {
+      flex-direction: column;
+      font-display: flex-start;
+   }
+   .taskField {
+      height: 87vh;
+      transform: scaleX(1);
+      transition: 0.5s;
+   }
+   li {
+      font-size: 12px;
+   }
+   label {
+      font-size: 20px;
+   }
+   label::before {
+      height: 18px;
+      width: 18px;
+   }
+   .settings-btn,.delete-btn {
+      width: 30px;
+      height: 30px;
+   }
+   #listsList li, .time-modal, .date-modal, .modal-input, #addField, #listNameField, #subListInp {
+      font-size: 20px;
+   }
+   #addListBtn {
+      width: 40px;
+      height: 40px;
+   }
+   #listsList button {
+      width: 25px;
+      height: 25px;   
+   }
+   #listsList .rename-btn {
+      right: 50px;
+   }
+   .date-time-modal {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+   }
+   .time-modal {
+      margin-left: 20px;
+   }
+   #subListInp {
+      width: 75%;
+   }
+   .undo-delete {
+      height: auto;
+      left: 20px;
+      z-index: 999999;
+   }
+   .modal-check {
+      font-size: 15px;
+   }
+   #subListInp, #subList label {
+      font-size: 15px;
+   }
 }
-@media(max-width:500px) {
-   #taskList {
-      width: 300px;
+.showMenu {
+   transform: scaleX(1);
+}
+.hideTasks {
+   transform: scaleX(0);
+}
+@media(min-width:1000px) {
+   .taskField {
+      width: 600px;
    }
 }

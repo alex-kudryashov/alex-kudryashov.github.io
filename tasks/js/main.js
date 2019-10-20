@@ -17,7 +17,10 @@ let activeList = lists.filter(list => list.active == true)[0]; //активны�
 refreshAllLists();
 refreshActiveList();
 
-
+document.querySelector('.mobile-header button').addEventListener('click', () => {
+   document.querySelector('.menu').classList.toggle('showMenu');
+   document.querySelector('.taskField').classList.toggle('hideTasks');
+})
 //добавление задачи по нажатию на кнопку добавления
 addBtn.addEventListener('click', addTask);
 
@@ -126,8 +129,8 @@ addListBtn.addEventListener('click', inputListName);
 
 //открытие окна ввода названия списка
 function inputListName() {
-   listNameField.style.cssText = 'border-width: 3px; padding:10px;height:50px;';
-   listsList.style.top = '200px';
+   listNameField.style.cssText = 'border-width: 3px; height:50px;';
+   listsList.style.top = '190px';
    listNameField.focus();
 }
 
@@ -136,8 +139,8 @@ listNameField.addEventListener('keydown', function (e) {
    listNameField.style.borderColor = 'rgba(255, 255, 255, 0.8)';
    if (e.keyCode === 13) {
       if (!(/^\s*$/.test(listNameField.value))) {
-         listNameField.style.cssText = 'border-width: 0px; padding:0px;height:0px;';
-         listsList.style.top = '120px';
+         listNameField.style.cssText = 'border-width: 0px; height:0px;';
+         listsList.style.top = '80px';
          addList();
          listNameField.value = '';
          addField.focus();//установка фокуса в поле добавления задачи
@@ -151,7 +154,7 @@ listNameField.addEventListener('keydown', function (e) {
 //смена фокуса с поля ввода списка
 listNameField.addEventListener('blur', function () {
    listNameField.style.cssText = 'border-width: 0px; padding:0px;height:0px;';
-   listsList.style.top = '120px';
+   listsList.style.top = '80px';
    listNameField.value = '';
 })
 
@@ -191,6 +194,7 @@ function createList(list) {
    //стили для активного листа
    if (list.active == true) {
       li.style.cssText = "background-color: rgba(255, 255, 255, 1); color: black;";
+      document.querySelector('.mobile-header span').textContent = activeList.name;
    } else {
       li.style.cssText = "background-color: rgba(255, 255, 255, 0.2); color: antiquewhite;";
    }
