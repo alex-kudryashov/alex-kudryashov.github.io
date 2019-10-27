@@ -20,8 +20,8 @@
             <span>Ваши списки: </span>
             <button title="Добавить список" id="addListBtn"></button>
         </div>
-        <input type="text" id="listNameField" placeholder="Введите название списка..."></input>
-        <ul id="listsList"></ul>
+        <input type="text" class="listNameField" placeholder="Введите название списка..."></input>
+        <ul class="listsList"></ul>
     </div>
 
     <div class="taskField">
@@ -57,6 +57,25 @@
             </div>
         </div>
     </template>
+
+
+    <template id="listItemTemplate">
+        <li>
+            <span></span>
+            <button id="optionsBtn" title='Параметры'></button>
+            <ul class="optionsList">
+                <li class="rename-btn"><a href="#">Переименовать</a></li>
+                <li class="delete-btn"><a href="#">Удалить</a></li>
+            </ul>
+        </li>
+    </template>
+
+    <ul id="themes">
+        <li id="darkTheme" title="Темная тема"></li>
+        <li id="lightTheme" title="Светлая тема"></li>
+        <li id="blueTheme" title="Голубая тема"></li>
+    </ul>
+
 
 
     <script type="text/javascript" src="js/main.js"></script>
