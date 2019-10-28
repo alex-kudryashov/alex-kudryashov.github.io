@@ -334,7 +334,7 @@ function getToday(type) {
       return `${date.getFullYear()}-${month < 10 ? (`0${month}`) : month}-${day < 10 ? (`0${day}`) : day}`;
    }
    if (type === 'time') {
-      return `${hour < 10 ? (`0${hour}`) : hour}:${minute}`;
+      return `${hour}:${minute}`;
    }
 }
 
@@ -369,6 +369,7 @@ function openSettings(task) {
 
       //если дата и время не были заданы изначально - при открытии настроек заполнить поля текущими иначе заполнить указанными ранее
       task.time ? timeModal.value = task.time : timeModal.value = getToday('time');
+      console.log(getToday('time'))
       task.date ? dateModal.value = task.date : dateModal.value = getToday('date');
       dateModal.setAttribute('min', getToday('date'));
       deleteBtn.addEventListener('click', function () {
