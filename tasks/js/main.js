@@ -1,10 +1,10 @@
-const addField = document.getElementById('addField');     //поле ввода задачи
+const taskNameField = document.getElementById('taskNameField');     //поле ввода задачи
 const addBtn = document.getElementById('addBtn');         //кнопка добавления задачи
 const taskList = document.getElementById('taskList');     //блок для хранения задач
 const addListBtn = document.getElementById('addListBtn');//кнопка добавления листа
 const listsList = document.querySelector('.listsList');  //блок хранения листов
-const listNameField = document.querySelector('.listNameField');//поле ввода листа
-let lists = JSON.parse(localStorage.getItem('lists')) || [{ name: 'noname', tasks: [], active: true }]; //список листов в локальном хранилище
+const listNameField = document.getElementById('listNameField');//поле ввода листа
+let lists = JSON.parse(localStorage.getItem('lists')) || [{ name: 'без имени', tasks: [], active: true }]; //список листов в локальном хранилище
 const undoBlock = document.querySelector('.undo-delete');
 const undoText = undoBlock.querySelector('span');
 let timerId;
@@ -17,46 +17,60 @@ let activeList = lists.filter(list => list.active == true)[0]; //активны�
 
 
 //смена темы
-let themes = {
+const themesSettings = {
    dark: [
       { '--text': 'antiquewhite' },
       { '--buttons': '#ffcc00' },
       { '--body-bg': '#000' },
       { '--active-list-text': '#000' },
-      { '--panels-color': '#3f3d54' },
+      { '--panels-color': 'rgba(63,61,84,0.97)' },
       { '--error-color': 'red' },
       { '--options-bg': '#333' },
       { '--borders': '#8b8b8b' },
       { '--items': 'rgb(91, 86, 95)' },
       { '--active-list': 'rgba(255, 255, 255, 0.9)' },
-      { '--delete-message': '#333' }
+      { '--delete-message': '#333' },
+      { '--options-bg-hover': '#ccc' },
+      { '--listItem-bg-hover': '#b3d9f0' },
+      { '--text-shadow-color': 'black' }
    ],
    light: [
       { '--text': '#333' },
       { '--buttons': 'blue' },
       { '--body-bg': '#FFF' },
       { '--active-list-text': 'antiquewhite' },
-      { '--panels-color': '#bdd7fd' },
+      { '--panels-color': 'rgba(189,215,253,0.8)' },
       { '--error-color': 'red' },
       { '--options-bg': '#ccc' },
       { '--borders': '#8b8b8b' },
-      { '--items': 'rgba(255, 255, 255, 0.2)' },
+      { '--items': 'rgb(171, 171, 171)' },
       { '--active-list': 'blue' },
-      { '--delete-message': 'blue' }
+      { '--delete-message': 'blue' },
+      { '--options-bg-hover': 'red' },
+      { '--listItem-bg-hover': '#b3d9f0' },
+      { '--text-shadow-color': 'blue' }
    ]
 }
-refreshTheme();
+
+refreshTheme(themesSettings);
 
 document.getElementById('themes').addEventListener('click', e => {
    if (e.target.nodeName === 'LI') {
-      localStorage.setItem('activeTheme', JSON.stringify(themes[e.target.id.match(/(.+?)Theme/)[1]]));
-      refreshTheme();
+      localStorage.setItem('activeTheme', JSON.stringify(e.target.id.match(/(.+?)Theme/)[1]));
+      refreshTheme(themesSettings);
    }
 })
 
-function refreshTheme() {
-   for (let v of (JSON.parse(localStorage.getItem('activeTheme')) || themes.dark)) {
-      document.documentElement.style.setProperty(Object.keys(v)[0], v[Object.keys(v)[0]]);
+
+function refreshTheme(themes) {
+   let currentTheme = JSON.parse(localStorage.getItem('activeTheme')) || Object.keys(themes)[0];
+   try {
+      for (let v of themes[currentTheme]) {
+         document.documentElement.style.setProperty(Object.keys(v)[0], v[Object.keys(v)[0]]);
+      }
+   } catch (error) {
+      localStorage.setItem('activeTheme', JSON.stringify(Object.keys(themes)[0]));
+      refreshTheme(themes);
    }
 }
 
@@ -71,7 +85,7 @@ document.querySelector('.mobile-header button').addEventListener('click', () => 
 addBtn.addEventListener('click', addTask);
 
 // добавление задачи по нажатию Enter в инпуте
-addField.addEventListener('keydown', (e) => {
+taskNameField.addEventListener('keydown', (e) => {
    if (e.keyCode === 13) {
       addTask();
    }
@@ -79,12 +93,12 @@ addField.addEventListener('keydown', (e) => {
 
 //создание задачи и добавление в массив
 function addTask() {
-   if (!(/^\s*$/.test(addField.value))) {
+   if (!(/^\s*$/.test(taskNameField.value))) {
       //объект задачи
       const task = {};
 
       //добавление задачи в объект(с заглавной буквы)
-      task.name = (addField.value[0].toUpperCase() + addField.value.slice(1)).trim();
+      task.name = (taskNameField.value[0].toUpperCase() + taskNameField.value.slice(1)).trim();
 
       //по дэфолту без галочки
       task.check = false;
@@ -97,31 +111,32 @@ function addTask() {
       //отображение новой задачи в списке(обновление списка)
       refreshActiveList();
    } else {
-      addField.style.borderColor = 'red';
+      taskNameField.style.borderColor = 'var(--error-color)';
+      taskNameField.addEventListener('keydown', function clearError() {
+         taskNameField.style.borderColor = 'var(--text)';
+         taskNameField.removeEventListener('keydown', clearError);
+      })
    }
-   addField.value = '';
-   addField.focus();
+   taskNameField.value = '';
+   taskNameField.focus();
 }
 
 //создание пункта списка из объекта массива
 function createTask(task) {
-   const li = document.createElement('li');
-   const label = document.createElement('label');
-   const deleteBtn = document.createElement('button');//кнопка удаления таска
-   const settingsBtn = document.createElement('button');//кнопка настройки таска
-   const dateTime = document.createElement('span');//поле для вывода даты и времени
-   //стили кнопок и вывода времени
-   dateTime.classList.add('date-time-out');
-   settingsBtn.classList.add('settings-btn');
-   deleteBtn.classList.add('delete-btn');
-   //всплывающие подсказыки при наведении на кнопки
-   settingsBtn.setAttribute('title', 'Параметры');
-   deleteBtn.setAttribute('title', 'Удалить');
+   const template = document.querySelector('#taskItemTemplate').content;
+   const templateClone = template.cloneNode(true);
+   const li = templateClone.querySelector('li');
+   const label = li.querySelector('label');
+   const deleteBtn = label.querySelector('.delete-btn');//кнопка удаления таска
+   const settingsBtn = label.querySelector('.settings-btn');//кнопка настройки таска
+   const dateTime = li.querySelector('.date-time-out');//поле для вывода даты и времени
+   const checkbox = li.querySelector('input');
+   const taskTitle = label.querySelector('.taskTitle');
    //события кликов
    settingsBtn.addEventListener('click', openSettings(task));
    deleteBtn.addEventListener('click', () => deleteElement('task', task));
 
-   let days = ['вт', 'ср', 'чт', 'пт', 'сб', 'вс', 'пн'];
+   let days = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
 
    days = days[task.day] ? `(${days[task.day]})` : '';
 
@@ -133,29 +148,23 @@ function createTask(task) {
    } else {
       day = '-';
    }
-   dateTime.textContent = `${task.time || '-'} / ${task.date === getToday('date') ? 'Сегодня' : day}${days}`;
+   dateTime.textContent = `${task.time || '-'} / ${task.date === getToday('date') ? 'Сегодня' : day} ${days}`;
 
    //если дата и время больше текущих то выделить светлым цветом
    if (!(getToday('date') < task.date || (getToday('date') === task.date && getToday('time') < task.time))) {
       dateTime.classList.add('error-date');
    }
 
-   label.htmlFor = 'task' + ++taskId;    //установление атрибута for для привязки чекбокса
+   label.htmlFor = `task${++taskId}`;    //установление атрибута for для привязки чекбокса
 
-   li.innerHTML = `<input type="checkbox" id="task${taskId}"${task.check ? 'checked' : ''}>`;
+   checkbox.id = `task${taskId}`;
+   if (task.check) checkbox.checked = true;
 
    //текст задачи
-   label.innerHTML += task.name;
-
-   //добавление кнопок
-   label.appendChild(settingsBtn);
-   label.appendChild(deleteBtn);
+   taskTitle.textContent = task.name;
 
    //событие изменения флажка задачи
-   li.querySelector('input').addEventListener('change', changeCheck(task));
-
-   li.appendChild(label);
-   li.appendChild(dateTime);
+   checkbox.addEventListener('change', changeCheck(task));
 
    hoverTitle(label);
    return li; //возврат элемента для вставки
@@ -176,7 +185,11 @@ listNameField.addEventListener('keydown', e => {
          listsList.classList.remove('listsListInput');
          addList();
       } else {
-         listNameField.classList.add('listNameFieldError');
+         listNameField.style.borderColor = 'var(--error-color)';
+         listNameField.addEventListener('keydown', function clearError() {
+            listNameField.style.borderColor = 'var(--text)';
+            listNameField.removeEventListener('keydown', clearError);
+         })
       }
       listNameField.value = '';
    }
@@ -195,6 +208,7 @@ function addList() {
    lists.forEach(list => list.active = false);//всем спискам снять активацию
    const list = { name: listNameField.value[0].toUpperCase().trim() + listNameField.value.slice(1).trim(), tasks: [], active: true };
    lists.unshift(list); //добавление листа в массив
+   listNameField.blur();
    refreshLocalStorage(); //обновление
    refreshAllLists();
    refreshActiveList();
@@ -207,11 +221,10 @@ function createList(list) {
    const li = templateClone.querySelector('li');
    const optionsBtn = li.querySelector('#optionsBtn');
    const options = li.querySelector('.optionsList');
-   const renameBtn = options.querySelector('.rename-btn');
-   const deleteBtn = options.querySelector('.delete-btn');
+   const renameBtn = options.querySelector('.renameList');
+   const deleteBtn = options.querySelector('.deleteList');
    const name = li.querySelector('span');
    name.innerHTML = list.name;//назавние списка
-
    optionsBtn.addEventListener('click', e => {
       e.stopPropagation();
       options.style.transform = 'scale(1)';
@@ -292,7 +305,15 @@ function refreshActiveList() {
    activeList.tasks = falseArr.concat(trueArr);
    taskList.innerHTML = '';
    taskId = 0;
-   activeList.tasks.forEach(task => taskList.appendChild(createTask(task)));
+   if (activeList.tasks.length === 0) {
+      const emptyListLabel = document.createElement('span');
+      emptyListLabel.id = 'emptyList';
+      emptyListLabel.innerHTML = 'Список пуст'
+      taskList.appendChild(emptyListLabel);
+   } else {
+      activeList.tasks.forEach(task => taskList.appendChild(createTask(task)));
+   }
+
 }
 
 function refreshLocalStorage() {
@@ -369,7 +390,6 @@ function openSettings(task) {
 
       //если дата и время не были заданы изначально - при открытии настроек заполнить поля текущими иначе заполнить указанными ранее
       task.time ? timeModal.value = task.time : timeModal.value = getToday('time');
-      console.log(getToday('time'))
       task.date ? dateModal.value = task.date : dateModal.value = getToday('date');
       dateModal.setAttribute('min', getToday('date'));
       deleteBtn.addEventListener('click', function () {
@@ -453,7 +473,7 @@ function deleteElement(type, what, where) {
       const index = lists.indexOf(what)
       lists.splice(index, 1);
       if (lists.length === 0) {
-         lists.push({ name: 'noname', tasks: [], active: true })
+         lists.push({ name: 'без имени', tasks: [], active: true })
       }
       //обновление списка
       undoBlock.innerHTML = 'Список удален. ';
@@ -510,7 +530,7 @@ function hoverTitle(elem) {
 
 //запрет вызова контекстного меню
 window.addEventListener('contextmenu', (e) => e.preventDefault());
-window.addEventListener('load', () => addField.focus());
+window.addEventListener('load', () => taskNameField.focus());
 
 Array.prototype.insert = function (index, item) {
    this.splice(index, 0, item);

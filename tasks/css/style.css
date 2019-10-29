@@ -1,26 +1,12 @@
-/* :root {
-   --text: antiquewhite;
-   --buttons: #ffcc00;
-   --body-bg: #000;
-   --active-list-text: #000;
-   --panels-color: #3f3d54;
-   --error-color: red;
-   --options-bg: #333;
-   --borders: #8b8b8b;
-   --items: rgba(255, 255, 255, 0.2);
-   --active-list: rgba(255, 255, 255, 0.9);
-   --delete-message: #333;
-} */
-
 ::-webkit-scrollbar {
-   width: 0px;  
+   width: 0;
 }
-
 body {
-   background: var(--body-bg);
+   background: var(--body-bg) url('../img/mainbg.png') repeat;
    display: flex;
    justify-content: flex-start;
-   transition: 0.5s;
+   transition: 0.3s;
+   font-family: sans-serif;
 }
 * {
    box-sizing: border-box;
@@ -33,6 +19,38 @@ li {
 }
 input, body {
    color: var(--text)
+}
+
+.menu {
+   max-width: 400px;
+   background-color: var(--panels-color);
+   text-align: center;
+   overflow: hidden;
+   font-size: 30px;
+   border-radius: 10px;
+   height: 95vh;
+   position: relative;
+   padding: 20px;
+   margin: 2.5vh 30px 2.5vh 10px;
+   transform: scaleX(1);
+   transition: 0.3s;
+}
+
+
+.addList {
+   margin-bottom: 20px;
+   display: flex;
+   justify-content: space-between;
+}
+.addList button {
+   background: url('../img/addlist.png') center center no-repeat;
+   background-size: cover;
+   border: none;
+   outline: none;
+   cursor: pointer;
+   width: 50px;
+   height: 50px;
+   transition: 0.3s;
 }
 
 .listsList {
@@ -58,6 +76,10 @@ input, body {
    padding: 0 40px 0 20px;
    cursor: pointer;
    background-color: var(--items);
+   transition: 0.3s;
+}
+.listsList>li:hover {
+   background-color: var(--listItem-bg-hover);
 }
 
 .listsList>.activeList {
@@ -108,7 +130,7 @@ input, body {
    top: 0;
    right: 0;
    transform: scale(0);
-   transition: 0.1s;
+   transition: 0.3s;
    z-index: 1;
 }
 
@@ -116,6 +138,9 @@ input, body {
    line-height: 30px;
    transition: 0.3s;
    padding: 0 10px;
+}
+.optionsList>li:hover {
+   background-color: var(--options-bg-hover);
 }
 
 .optionsList>li:not(:last-child) {
@@ -127,19 +152,21 @@ input, body {
    text-decoration: none;
 }
 
-#taskList>li {
-   position: relative;
-   margin-top: 25px;
-   width: 100%;
-}
 
-#addField,.listNameField {
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+
+
+#taskNameField, #listNameField {
    display: inline-block;
-   position: relative;
+   /* position: relative; */
    font-size: 25px;
    padding: 10px;
    margin: 20px 10px 20px 0;
-   font-family: sans-serif;
    outline: none;
    border: 3px solid var(--borders);
    background-color: transparent;
@@ -150,17 +177,13 @@ input, body {
    width: 100%;
 }
 
-.listNameField {
+#listNameField {
    border-color: var(--borders);
    transform: scale(0);
 }
 
 .listNameFieldActive {
-   transform: scale(1);
-}
-
-.listNameFieldError {
-   border-color: var(--error-color);
+   transform: scale(1)!important;
 }
 
 #taskList {
@@ -176,22 +199,29 @@ input, body {
 }
 
 
+#taskList>li {
+   position: relative;
+   margin-top: 25px;
+   width: 100%;
+}
 label {
    margin: 10px auto;
    height: 50px;
    background-color: var(--items);
    display: block;
    font-size: 30px;
-   font-family: sans-serif;
    line-height: 50px;
    border-radius: 5px;
-   transition: 0.1s;
+   transition: 0.3s;
    cursor: pointer;
    padding: 0 100px 0 60px;
    position: relative;
    -webkit-user-select: none;
    -moz-user-select: none;
    -ms-user-select: none;
+   white-space: nowrap; /* Запрещаем перенос строк */
+   overflow: hidden; /* Обрезаем все, что не помещается в область */
+   text-overflow: ellipsis; /* Добавляем многоточие */
 }
 
 .undo-delete {
@@ -237,7 +267,7 @@ label::before {
    margin: 20px 30px; 
    height: 95vh;
    margin: 2.5vh 10px;
-   transition: 0.5s;
+   transition: 0.3s;
 }
 
 #addBtn {
@@ -254,7 +284,16 @@ label::before {
    font-weight: bold;
    background-color: var(--buttons);
    cursor: pointer;
-   transition: 0.1s;
+   transition: 0.3s;
+}
+
+#emptyList {
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   font-size: 30px;
+   text-shadow: 9px 9px 10px black, 0 0 4em var(--text-shadow-color);
 }
 
 input[type="checkbox"] {
@@ -290,7 +329,7 @@ input[type="checkbox"]:checked+label {
    right: 10px;
    top: 10px;
 }
-/* 
+
 .delete-btn {
    background: transparent url('../img/recycle.png') center center no-repeat;
    right: 20px;
@@ -303,7 +342,7 @@ input[type="checkbox"]:checked+label {
    position: absolute;
    cursor: pointer;
    outline: none;
-} */
+}
 .settings-btn,
 .close-modal {
    cursor: pointer;
@@ -315,7 +354,7 @@ input[type="checkbox"]:checked+label {
    width: 35px;
    background-size: cover;
    outline: none;
-   transition: 0.2s;
+   transition: 0.3s;
 }
 
 
@@ -356,7 +395,7 @@ input[type="checkbox"]:checked+label {
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
-   transition: 0.4s;
+   transition: 0.3s;
    margin-bottom: 30px;
 }
 
@@ -378,13 +417,14 @@ input[type="checkbox"]:checked+label {
    background-color: transparent;
    border: 2px dashed var(--borders);
    outline: none;
-   transition: 0.4s;
+   transition: 0.3s;
    font-size: 20px;
    height: 100px;
    margin-bottom: 30px;
    resize: none;
    padding: 10px;
    letter-spacing: 2px;
+   color: var(--text);
 }
 
 .date-modal {
@@ -393,52 +433,22 @@ input[type="checkbox"]:checked+label {
 
 .date-time-out {
    position: absolute;
-   right: 10px;
-   top: -15px;
+   right: 20px;
+   top: -13px;
    height: 25px;
    background-color: var(--items);
    clip-path: polygon(0% 0,100% 0,100% 100%,0 100%);
    display: block;
    padding: 5px 25px;
    border-top-left-radius: 50px;
-   transition: 0.1s;
+   transition: 0.3s;
    border-top-right-radius: 50px;
    text-align: center;
 }
 .error-date {
    color: var(--error-color);
 }
-.menu {
-   max-width: 400px;
-   background-color: var(--panels-color);
-   text-align: center;
-   overflow: hidden;
-   font-family: sans-serif;
-   font-size: 30px;
-   border-radius: 10px;
-   height: 95vh;
-   position: relative;
-   padding: 20px;
-   margin: 2.5vh 30px 2.5vh 10px;
-   transform: scaleX(1);
-   transition: 0.5s;
-}
 
-.addList {
-   margin-bottom: 20px;
-   display: flex;
-   justify-content: space-between;
-}
-.addList button {
-   background: url('../img/addlist.png') center center no-repeat;
-   background-size: cover;
-   border: none;
-   outline: none;
-   cursor: pointer;
-   width: 50px;
-   height: 50px;
-   transition: 0.3s;
-}
 .time-modal, .date-modal {
    background-color: transparent;
    border: none;
@@ -488,7 +498,7 @@ input[type="checkbox"]:checked+label {
    padding-left: 10px;
    padding-bottom: -10px;
    color: var(--text);
-   transition: 0.4s;
+   transition: 0.3s;
 }
 #subListAdd {
    font-size: 30px;
@@ -503,7 +513,7 @@ input[type="checkbox"]:checked+label {
    font-weight: bold;
    background-color: var(--buttons);
    cursor: pointer;
-   transition: 0.1s;
+   transition: 0.3s;
 }
 #subList label {
    font-size: 20px;
@@ -628,7 +638,7 @@ input[type="checkbox"]:checked+label {
       width: 30px;
       height: 30px;
    }
-   #listsList li, .time-modal, .date-modal, .modal-input, #addField, #listNameField, #subListInp {
+   #listsList li, .time-modal, .date-modal, .modal-input, #taskNameField, #listNameField, #subListInp {
       font-size: 20px;
    }
    #addListBtn {
@@ -639,7 +649,7 @@ input[type="checkbox"]:checked+label {
       width: 25px;
       height: 25px;   
    }
-   #listsList .rename-btn {
+   #listsList {
       right: 50px;
    }
    .date-time-modal {

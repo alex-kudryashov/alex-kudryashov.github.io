@@ -20,13 +20,13 @@
             <span>Ваши списки: </span>
             <button title="Добавить список" id="addListBtn"></button>
         </div>
-        <input type="text" class="listNameField" placeholder="Введите название списка..."></input>
+        <input type="text" id="listNameField" placeholder="Название списка..."></input>
         <ul class="listsList"></ul>
     </div>
 
     <div class="taskField">
         <div class="addWrap">
-            <input type="text" id="addField" placeholder="Введите задачу...">
+            <input type="text" id="taskNameField" placeholder="Введите задачу...">
             <button id="addBtn" title="Добавить задачу">+</button>
         </div>
         <ul id="taskList"></ul>
@@ -64,9 +64,21 @@
             <span></span>
             <button id="optionsBtn" title='Параметры'></button>
             <ul class="optionsList">
-                <li class="rename-btn"><a href="#">Переименовать</a></li>
-                <li class="delete-btn"><a href="#">Удалить</a></li>
+                <li class="renameList"><a href="#">Переименовать</a></li>
+                <li class="deleteList"><a href="#">Удалить</a></li>
             </ul>
+        </li>
+    </template>
+
+    <template id="taskItemTemplate">
+        <li>
+            <input type="checkbox">
+            <label>
+                <span class="taskTitle"></span>
+                <button class="settings-btn" title="Параметры"></button>
+                <button class="delete-btn" title="Удалить"></button>
+            </label>
+            <span class="date-time-out"></span>
         </li>
     </template>
 
@@ -75,7 +87,6 @@
         <li id="lightTheme" title="Светлая тема"></li>
         <!-- <li id="blueTheme" title="Голубая тема"></li> -->
     </ul>
-
 
 
     <script type="text/javascript" src="js/main.js"></script>
