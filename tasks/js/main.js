@@ -31,8 +31,10 @@ const themesSettings = {
       { '--active-list': 'rgba(255, 255, 255, 0.9)' },
       { '--delete-message': '#333' },
       { '--options-bg-hover': '#ccc' },
-      { '--listItem-bg-hover': '#b3d9f0' },
-      { '--text-shadow-color': 'black' }
+      { '--text-shadow-color': 'black' },
+      { '--options-color-hover': 'black' },
+      { '--list-line-bg-hover': '#ccc' },
+      { '--list-line-text-hover': 'black' }
    ],
    light: [
       { '--text': '#333' },
@@ -46,9 +48,10 @@ const themesSettings = {
       { '--items': 'rgb(171, 171, 171)' },
       { '--active-list': 'blue' },
       { '--delete-message': 'blue' },
-      { '--options-bg-hover': 'red' },
-      { '--listItem-bg-hover': '#b3d9f0' },
-      { '--text-shadow-color': 'blue' }
+      { '--options-bg-hover': 'black' },
+      { '--text-shadow-color': 'blue' },
+      { '--options-color-hover': 'white' },
+      { '--list-line-text-hover': 'black' }
    ]
 }
 
@@ -158,7 +161,11 @@ function createTask(task) {
    label.htmlFor = `task${++taskId}`;    //установление атрибута for для привязки чекбокса
 
    checkbox.id = `task${taskId}`;
-   if (task.check) checkbox.checked = true;
+   if (task.check) {
+      checkbox.checked = true;
+      label.classList.remove('icon-checkbox-unchecked')
+      label.classList.add('icon-checkbox-checked');
+   }
 
    //текст задачи
    taskTitle.textContent = task.name;

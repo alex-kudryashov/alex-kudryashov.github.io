@@ -5,7 +5,6 @@ body {
    background: var(--body-bg) url('../img/mainbg.png') repeat;
    display: flex;
    justify-content: flex-start;
-   transition: 0.3s;
    font-family: sans-serif;
 }
 * {
@@ -21,11 +20,22 @@ input, body {
    color: var(--text)
 }
 
+button {
+   color: var(--buttons);
+   transition: 0.2s;
+}
+button:hover {
+   color: var(--text);
+}
+/* \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+/* \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+/* \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+/* \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+
+
+/* блок содержащий списки и темы */
 .menu {
-   max-width: 400px;
    background-color: var(--panels-color);
-   text-align: center;
-   overflow: hidden;
    font-size: 30px;
    border-radius: 10px;
    height: 95vh;
@@ -33,60 +43,83 @@ input, body {
    padding: 20px;
    margin: 2.5vh 30px 2.5vh 10px;
    transform: scaleX(1);
-   transition: 0.3s;
 }
 
-
+/* блок с надписью и кнопкой */
 .addList {
    margin-bottom: 20px;
    display: flex;
    justify-content: space-between;
+   align-items: center;
 }
+
+/* кнопка добавления списка */
 .addList button {
-   background: url('../img/addlist.png') center center no-repeat;
-   background-size: cover;
+   background: transparent;
    border: none;
    outline: none;
    cursor: pointer;
+   font-size: 50px;
    width: 50px;
-   height: 50px;
-   transition: 0.3s;
 }
 
+#listNameField {
+   display: inline-block;
+   font-size: 25px;
+   padding: 10px;
+   margin: 20px 10px 20px 0;
+   outline: none;
+   border: 3px solid var(--borders);
+   background-color: transparent;
+   border-radius: 5px;
+   height: 50px;
+   line-height: 50px;
+   width: 100%;
+   transition: 0.4s;
+   border-color: var(--borders);
+   transform: scale(0);
+}
+
+.listNameFieldActive {
+   transform: scale(1)!important;
+}
+
+/* поле списков */
 .listsList {
    overflow: auto;
    position: absolute;
-   bottom: 20px;
+   bottom: 80px;
    right: 20px;
    left: 20px;
    top: 100px;
-   transition: 0.3s;
+   scrollbar-width: none;
+   transition: 0.4s;
 }
 
+/* смена положения поля списков при открытии поля ввода */
 .listsListInput {
    top: 190px;
 }
 
+/* элемент списка */
 .listsList>li {
    margin-bottom: 20px;
-   text-align: left;
    position: relative;
    line-height: 50px;
    border-radius: 10px;
    padding: 0 40px 0 20px;
    cursor: pointer;
    background-color: var(--items);
-   transition: 0.3s;
-}
-.listsList>li:hover {
-   background-color: var(--listItem-bg-hover);
+   transition: 0.4s;
 }
 
+/* стили для открытого списка */
 .listsList>.activeList {
    background-color: var(--active-list); 
    color: var(--active-list-text);
 }
 
+/* обрезка названия списка до максимальной ширины */
 .listsList li span {
    white-space: nowrap;
    overflow: hidden;
@@ -94,23 +127,26 @@ input, body {
    display: block;
 }
 
+/* поле ввода для переименовании задачи */
 .listsList li span input {
    background-color: transparent;
    border: none;
-   width: 90%;
+   width: 100%;
    outline: none;
 }
 
+/* цвет текста в поле переименования активного списка */
 .listsList .activeList span input {
    color: var(--active-list-text);
 }
 
+/* кнопка открытия опций списка */
 #optionsBtn {
    position: absolute;
    right: 10px;
    top: 50%;
    transform: translateY(-50%);
-   background: transparent url('../img/options.png') center center no-repeat;
+   background: transparent;
    background-size: cover;
    border: none;
    width: 15px;
@@ -119,47 +155,113 @@ input, body {
    outline: none;
 }
 
+.listsList>.activeList>#optionsBtn {
+   color: var(--active-list-text);
+}
+
+/* окно опций списка */
 .optionsList {
    background-color: var(--options-bg);
    border-radius: 8px;
    font-size: 15px;
    text-align: center;
-   overflow-y: hidden;
-   width: fit-content;
+   overflow: hidden;
+   /* width: fit-content; */
    position: absolute;
    top: 0;
    right: 0;
    transform: scale(0);
-   transition: 0.3s;
    z-index: 1;
+   transition: 0.4s;
 }
 
+/* элемент списка опций */
 .optionsList>li {
    line-height: 30px;
-   transition: 0.3s;
    padding: 0 10px;
-}
-.optionsList>li:hover {
-   background-color: var(--options-bg-hover);
+   transition: 0.4s;
 }
 
+/* нижняя граница для всех элементов кроме последнего */
 .optionsList>li:not(:last-child) {
    border-bottom: 1px solid var(--borders);
 }
 
+/* кнопка элемента опций */
 .optionsList a {
    color: var(--text);
    text-decoration: none;
+   transition: 0.4s
+}
+
+/* список тем */
+#themes {
+   display: flex;
+   bottom: 20px;
+   left: 20px;
+   position: absolute;
+}
+
+/* элемент списка тем */
+#themes>li {
+   width: 40px;
+   height: 40px;
+   border: 3px solid var(--buttons);
+   border-radius: 10px;
+   cursor: pointer;
+   margin-right: 15px;
+   transition: 0.4s;
 }
 
 
-/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
-/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+/* эффекты при наведении */
+
+.optionsList>li:hover {
+   background-color: var(--options-bg-hover);
+}
+
+.optionsList>li:hover a {
+   color: var(--options-color-hover);
+}
+
+#themes>li:hover {
+   border-color: var(--text);
+}
+
+.listsList>.activeList>#optionsBtn:hover {
+   color: var(--buttons);
+}
+
+.listsList>li:hover {
+   background-color: var(--list-line-bg-hover);
+   color: var(--list-line-text-hover);
+}
+
+.listsList>.activeList:hover {
+   color: var(--list-line-text-hover);
+   background-size: var(--items);
+}
 
 
+/* темы ----------------------------*/
+#darkTheme {
+   background-color: black;
+}
 
+#lightTheme {
+   background-color: antiquewhite;
+}
+
+#blueTheme {
+   background-color: #64a5f4;
+}
+/* ------------------------------------ */
+
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 #taskNameField, #listNameField {
    display: inline-block;
@@ -172,9 +274,9 @@ input, body {
    background-color: transparent;
    border-radius: 5px;
    height: 50px;
-   transition: 0.3s;
    line-height: 50px;
    width: 100%;
+   transition: 0.4s;
 }
 
 #listNameField {
@@ -196,6 +298,7 @@ input, body {
    top: 120px;
    left: 20px;
    right: 20px;
+   scrollbar-width: none;
 }
 
 
@@ -212,7 +315,6 @@ label {
    font-size: 30px;
    line-height: 50px;
    border-radius: 5px;
-   transition: 0.3s;
    cursor: pointer;
    padding: 0 100px 0 60px;
    position: relative;
@@ -237,28 +339,15 @@ label {
    bottom: 20px;
    z-index: 100;
    border-radius: 10px;
-   transition: 0s;
    transform: scale(0,0);
 }
 .undo-delete a {
    color: var(--buttons);
    text-decoration: none;
 }
-
-label::before {
-   content: "";
-   height: 25px;
-   position: absolute;
-   display: block;
-   width: 25px;
-   top: 50%;
-   left: 15px;
-   border-radius: 5px;
-   border: 3px solid var(--buttons);
-   cursor: cell;
-   transform: translateY(-50%);
+.taskTitle {
+   line-height: 50px;
 }
-
 .taskField {
    border-radius: 10px;
    background-color: var(--panels-color);
@@ -267,7 +356,14 @@ label::before {
    margin: 20px 30px; 
    height: 95vh;
    margin: 2.5vh 10px;
-   transition: 0.3s;
+}
+
+label::before {
+   position: absolute;
+   left: 15px;
+   top: 50%;
+   transform: translateY(-50%);
+   color: var(--buttons);
 }
 
 #addBtn {
@@ -284,7 +380,6 @@ label::before {
    font-weight: bold;
    background-color: var(--buttons);
    cursor: pointer;
-   transition: 0.3s;
 }
 
 #emptyList {
@@ -300,11 +395,6 @@ input[type="checkbox"] {
    display: none;
 }
 
-input[type="checkbox"]:checked+label::before {
-   background: url('../img/check.png') center center no-repeat;
-   background-size: 80%;
-}
-
 input[type="checkbox"]:checked+label {
    text-decoration: line-through;
    text-decoration-color: #ff3600;
@@ -318,20 +408,19 @@ input[type="checkbox"]:checked+label {
 }
 
 .settings-btn {
-   background: url('../img/settings.png') center center no-repeat;
    right: 70px;
    top: 50%;
    transform: translateY(-50%);
 }
 
 .close-modal {
-   background: url('../img/close.png') center center no-repeat;
    right: 10px;
    top: 10px;
+   font-size: 30px;
 }
 
 .delete-btn {
-   background: transparent url('../img/recycle.png') center center no-repeat;
+   background: transparent center center no-repeat;
    right: 20px;
    top: 50%;
    transform: translateY(-50%);
@@ -343,8 +432,7 @@ input[type="checkbox"]:checked+label {
    cursor: pointer;
    outline: none;
 }
-.settings-btn,
-.close-modal {
+.settings-btn,.close-modal {
    cursor: pointer;
    background-color: transparent;
    border: none;
@@ -354,7 +442,6 @@ input[type="checkbox"]:checked+label {
    width: 35px;
    background-size: cover;
    outline: none;
-   transition: 0.3s;
 }
 
 
@@ -395,7 +482,6 @@ input[type="checkbox"]:checked+label {
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
-   transition: 0.3s;
    margin-bottom: 30px;
 }
 
@@ -403,21 +489,20 @@ input[type="checkbox"]:checked+label {
    position: absolute;
    right: 60px;
    top: 12px;
-   background: url('../img/recycle.png') center center no-repeat;
+   background: transparent center center no-repeat;
    border: none;
    background-size: cover;
    height: 31px;
    width: 31px;
    cursor: pointer;
-   transition: 0.3s;
    outline: none;
+   font-size: 25px;
 }
 .note-modal {
    width: 80%;
    background-color: transparent;
    border: 2px dashed var(--borders);
    outline: none;
-   transition: 0.3s;
    font-size: 20px;
    height: 100px;
    margin-bottom: 30px;
@@ -441,7 +526,6 @@ input[type="checkbox"]:checked+label {
    display: block;
    padding: 5px 25px;
    border-top-left-radius: 50px;
-   transition: 0.3s;
    border-top-right-radius: 50px;
    text-align: center;
 }
@@ -484,6 +568,7 @@ input[type="checkbox"]:checked+label {
    overflow: auto;
    max-height: 150px;
    margin-top: 15px;
+   scrollbar-width: none;
 }
 #subListInp {
    width: 85%;
@@ -498,7 +583,6 @@ input[type="checkbox"]:checked+label {
    padding-left: 10px;
    padding-bottom: -10px;
    color: var(--text);
-   transition: 0.3s;
 }
 #subListAdd {
    font-size: 30px;
@@ -513,7 +597,6 @@ input[type="checkbox"]:checked+label {
    font-weight: bold;
    background-color: var(--buttons);
    cursor: pointer;
-   transition: 0.3s;
 }
 #subList label {
    font-size: 20px;
@@ -561,40 +644,9 @@ input[type="checkbox"]:checked+label {
 
 .undo-open {
    transform: scale(1,1);
-   transition: 1s;
 }
 
-#themes {
-   width: 60px;
-   height: 100%;
-   padding-top: 15px;
-   background-color: var(--options-bg);
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   border-radius: 10px;
-}
 
-#themes>li {
-   width: 40px;
-   height: 40px;
-   border: 3px solid var(--buttons);
-   border-radius: 10px;
-   margin-bottom: 15px;
-   cursor: pointer;
-}
-
-#darkTheme {
-   background-color: black;
-}
-
-#lightTheme {
-   background-color: antiquewhite;
-}
-
-#blueTheme {
-   background-color: #64a5f4;
-}
 
 @media(max-width:700px) {
    .mobile-header {
