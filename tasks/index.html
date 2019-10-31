@@ -8,18 +8,18 @@
     <title>Tasks</title>
     <link rel="icon" type="image/ico" href="favicon.ico">
     <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/fontello.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <div class="mobile-header"> <button></button><span></span></div>
+    <div class="mobile-header"> <button class="icon-list-bullet"></button><span></span></div>
 
     <div class="menu">
         <div class="addList">
             <span>Ваши списки: </span>
-            <button title="Добавить список" id="addListBtn" class="icon-clipboard-list"></button>
+            <button title="Добавить список" id="addListBtn" class="icon-clipboard-1"></button>
         </div>
         <input type="text" id="listNameField" placeholder="Название списка..."></input>
         <ul class="listsList"></ul>
@@ -33,7 +33,7 @@
     <div class="taskField">
         <div class="addWrap">
             <input type="text" id="taskNameField" placeholder="Введите задачу...">
-            <button id="addBtn" title="Добавить задачу">+</button>
+            <button id="addBtn" title="Добавить задачу" class="icon-list-add"></button>
         </div>
         <ul id="taskList"></ul>
     </div>
@@ -45,8 +45,8 @@
     <template id="modalSettingsTemplate">
         <div class="modal-wrap">
             <div class="modal-settings">
-                <button class="close-modal icon-squared-cross"></button>
-                <button class="modal-delete-btn icon-trash"></button>
+                <button class="close-modal icon-cancel-circled2" title="Закрыть/Сохранить окно"></button>
+                <button class="delete-btn modal-delete-btn icon-trash" title="Удалить задачу"></button>
                 <input class="modal-input" placeholder="Введите задачу...">
                 <textarea class="note-modal" placeholder="Вы можете добавить заметку для задачи..."></textarea>
                 <div class="date-time-modal">
@@ -56,8 +56,10 @@
                 <input type="checkbox" id="modalCheck">
                 <label class="modal-check" for="modalCheck">Не указывать дату и время</label>
                 <div class="subListBlock">
-                    <input type="text" id="subListInp" placeholder="Добавить подзадачу...">
-                    <button id="subListAdd">+</button>
+                    <div class="addWrap">
+                        <input type="text" id="subListInp" placeholder="Добавить подзадачу...">
+                        <button id="subListAdd" class="icon-list-add"></button>
+                    </div>
                     <ul id="subList"></ul>
                 </div>
             </div>
@@ -68,7 +70,7 @@
     <template id="listItemTemplate">
         <li>
             <span></span>
-            <button id="optionsBtn" title='Параметры' class="icon-list2"></button>
+            <button id="optionsBtn" title='Параметры' class="icon-ellipsis-vert"></button>
             <ul class="optionsList">
                 <li class="renameList"><a href="#">Переименовать</a></li>
                 <li class="deleteList"><a href="#">Удалить</a></li>
@@ -79,10 +81,10 @@
     <template id="taskItemTemplate">
         <li>
             <input type="checkbox">
-            <label class="icon-checkbox-unchecked">
+            <label class="icon-check-empty">
                 <span class="taskTitle"></span>
-                <button class="settings-btn icon-settings" title="Параметры"></button>
-                <button class="delete-btn icon-trash" title="Удалить"></button>
+                <button class="settings-btn icon-cog" title="Параметры задачи"></button>
+                <button class="delete-btn icon-trash" title="Удалить задачу"></button>
             </label>
             <span class="date-time-out"></span>
         </li>

@@ -163,8 +163,8 @@ function createTask(task) {
    checkbox.id = `task${taskId}`;
    if (task.check) {
       checkbox.checked = true;
-      label.classList.remove('icon-checkbox-unchecked')
-      label.classList.add('icon-checkbox-checked');
+      label.classList.remove('icon-check-empty')
+      label.classList.add('icon-check');
    }
 
    //текст задачи
@@ -173,7 +173,7 @@ function createTask(task) {
    //событие изменения флажка задачи
    checkbox.addEventListener('change', changeCheck(task));
 
-   hoverTitle(label);
+   li.setAttribute('title', task.name);
    return li; //возврат элемента для вставки
 }
 
@@ -234,9 +234,15 @@ function createList(list) {
    name.innerHTML = list.name;//назавние списка
    optionsBtn.addEventListener('click', e => {
       e.stopPropagation();
-      options.style.transform = 'scale(1)';
+      if (options.classList.contains('optionsListOpen')) {
+         options.classList.remove('optionsListOpen')
+      } else {
+         document.querySelectorAll('.optionsList').forEach(e => { if (e.classList.contains('optionsListOpen')) e.classList.remove('optionsListOpen') });
+         options.classList.add('optionsListOpen');
+         document.addEventListener('click', e => { e.stopPropagation(); document.querySelectorAll('.optionsList').forEach(e => { if (e.classList.contains('optionsListOpen')) e.classList.remove('optionsListOpen') }) })
+      }
    })
-   options.addEventListener('mouseleave', () => options.style.transform = 'scale(0)')
+   // options.addEventListener('mouseleave', () => options.classList.remove('optionsListOpen'))
    deleteBtn.addEventListener('click', e => {
       e.stopPropagation();
       deleteElement('list', list)
