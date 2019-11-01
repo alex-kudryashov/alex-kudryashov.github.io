@@ -54,7 +54,7 @@
                     <input class="date-modal" type="date">
                 </div>
                 <input type="checkbox" id="modalCheck">
-                <label class="modal-check" for="modalCheck">Не указывать дату и время</label>
+                <label class="modal-check icon-check-empty" for="modalCheck">Не указывать дату и время</label>
                 <div class="subListBlock">
                     <div class="addWrap">
                         <input type="text" id="subListInp" placeholder="Добавить подзадачу...">
@@ -87,6 +87,16 @@
                 <button class="delete-btn icon-trash" title="Удалить задачу"></button>
             </label>
             <span class="date-time-out"></span>
+        </li>
+    </template>
+
+    <template id='subTaskItemTemplate'>
+        <li>
+            <input type="checkbox">
+            <label class="subTaskItem">
+                <span class="subTaskTitle"></span>
+                <button class="delete-btn icon-trash" title="Удалить подзадачу"></button>
+            </label>
         </li>
     </template>
 

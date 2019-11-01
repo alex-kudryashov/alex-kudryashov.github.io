@@ -483,6 +483,7 @@ button {
 .close-modal {
    right: 10px;
    top: 30px;
+   font-size: 35px;
 }
 
 /* удаление в параметрах */
@@ -502,6 +503,12 @@ button {
 /* цвет кнопки опций в активном списке */
 .listsList>.activeList>#optionsBtn {
    color: var(--active-list-text);
+}
+
+/* удалить подзадачу */
+.subTaskItem>.delete-btn {
+   right: 0px;
+   font-size: 18px;
 }
 
 /* кнопка меню для мобил */
@@ -532,23 +539,30 @@ button:hover {
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 
+
+/* ПАРАМЕТРЫ ЗАДАЧ */
+
+/* окно параметров */
 .modal-settings {
-   width: 550px;  
    position: absolute;
-   left: 50%;
-   border-radius: 10px;
    top: 50px;
-   background-color: var(--panels-color);
+   left: 50%;
    transform: translateX(-50%);
+   background-color: var(--panels-color);
+   border-radius: 10px;
+   padding: 80px 0;
    display: flex;
    justify-content: center;
    flex-wrap: wrap;
+   margin-bottom: 50px;
    align-items: center;
-   padding: 80px 0;
+   max-width: 600px;
 }
 
+/* обертка для скрытия основного контента */
 .modal-wrap {
-   position: absolute;
+   position: fixed;
+   overflow: auto;
    left: 0;
    top: 0;
    right: 0;
@@ -556,23 +570,23 @@ button:hover {
    background-color: rgba(0, 0, 0, 0.8);
 }
 
+/* поле текста задачи */
 .modal-input {
    background-color: transparent;
    border: none;
    border-bottom: 3px solid var(--buttons);
    border-radius: 2px;
    outline: none;
-   overflow: hidden;
    font-size: 30px;
    width: 80%;
-   padding: 10px;
+   padding: 10px; 
+   margin-bottom: 30px;
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
-   margin-bottom: 30px;
 }
 
-
+/* поле для заметки к задаче */
 .note-modal {
    width: 80%;
    background-color: transparent;
@@ -587,12 +601,6 @@ button:hover {
    color: var(--text);
 }
 
-.date-modal {
-   margin: 20px;
-}
-
-
-
 .time-modal, .date-modal {
    background-color: transparent;
    border: none;
@@ -600,36 +608,57 @@ button:hover {
    outline: none;
    border-bottom: 3px solid var(--buttons);
 }
+
+/* отступ в дате */
+.date-modal {
+   margin: 20px;
+}
+
+/* сброс стандартных кнопок даты и времени */
+/* http://qaru.site/questions/170510/how-to-get-rid-of-x-and-updown-arrow-elements-of-a-input-date */
+
+input[type=date]::-webkit-inner-spin-button, 
+input[type=time]::-webkit-inner-spin-button,
+input[type=date]::-webkit-clear-button,
+input[type=time]::-webkit-clear-button {
+   -webkit-appearance: none;
+   display: none;
+}
+input[type=date]::-webkit-calendar-picker-indicator {
+   color: var(--buttons);
+   background: none;
+}
+
+/* галочка для очистки даты */
 .modal-check {
-   max-width: 320px;
-   height: 30px;
    font-size: 20px;
-   line-height: 30px;
-   padding: 0 10px 0 40px;
-   overflow: unset;
+   background: var(--items);
+   padding: 5px 10px;
+   border-radius: 5px;
+   transition: 0.3s;
+   cursor: pointer;
 }
 .modal-check::before {
-   height: 15px;
-   width: 15px;
-   left: 10px;
-   border-radius: 3px;
-   border-width: 2px;
+   color: var(--buttons);
 }
-#modalCheck:checked + .modal-check {
-   text-decoration: none;
-}
+
+/* панель подзадач */
 .subListBlock {
    width:80%;
    border: 2px dashed var(--borders);
    margin-top: 20px;
    padding: 15px;
 }
+
+/* блок с подзадачами */
 #subList {
    overflow: auto;
    max-height: 150px;
    margin-top: 15px;
    scrollbar-width: none;
 }
+
+/* поле ввода подзадачи */
 #subListInp {
    width: 100%;
    height: 50px;
@@ -638,34 +667,48 @@ button:hover {
    border-bottom: 2px solid var(--buttons);
    border-radius: 2px; 
    outline: none;
-   overflow: hidden;
    font-size: 20px;
    padding: 0 65px 0 10px;
    color: var(--text);
    position: relative;
+   transition: 0.4s;
 }
 
-#subList label {
-   font-size: 20px;
-   height: 25px;
+/* подзадача */
+.subTaskItem {
+   background-color: var(--items);
+   display: block;
+   border-radius: 5px;
+   cursor: pointer;
    line-height: 25px;
-   margin: 4px;
-   padding: 0 60px 0 40px;
-}
-#subList li {
-   margin: 0;
-}
-#subList li button {
-   width: 20px;
-   height: 20px;
-}
-#subList label::before {
-   width: 15px;
-   height: 15px;
-   border-width: 1px;
+   padding: 0 50px 0 30px;
+   position: relative;
+   margin-top: 10px;
+   white-space: nowrap; /* Запрещаем перенос строк */
+   overflow: hidden; /* Обрезаем все, что не помещается в область */
+   text-overflow: ellipsis; /* Добавляем многоточие */
+   width: 100%;
+   transition: 0.4s;
+
 }
 
+/* чекбокс */
+.subTaskItem::before {
+   position: absolute;
+   left: 5px;
+   top: 50%;
+   transform: translateY(-50%);
+   color: var(--buttons);
+}
 
+/* наведение и фокус в модалке */
+
+
+.modal-check:hover,
+#subList>li>label:hover {
+   background: var(--list-line-bg-hover);
+   color: var(--list-line-text-hover);
+}
 @media(max-width:700px) {
    .mobile-header {
       display: flex;

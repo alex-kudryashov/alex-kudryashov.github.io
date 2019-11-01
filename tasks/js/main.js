@@ -116,9 +116,10 @@ function addTask() {
    } else {
       taskNameField.style.borderColor = 'var(--error-color)';
       taskNameField.addEventListener('keydown', function clearError() {
-         taskNameField.style.borderColor = 'var(--text)';
+         taskNameField.style.borderColor = 'var(--borders)';
          taskNameField.removeEventListener('keydown', clearError);
       })
+      taskNameField.addEventListener('blur', () => taskNameField.style.borderColor = 'var(--borders)');
    }
    taskNameField.value = '';
    taskNameField.focus();
@@ -171,7 +172,7 @@ function createTask(task) {
    taskTitle.textContent = task.name;
 
    //событие изменения флажка задачи
-   checkbox.addEventListener('change', changeCheck(task));
+   checkbox.addEventListener('change', changeCheck(task, label));
 
    li.setAttribute('title', task.name);
    return li; //возврат элемента для вставки
@@ -197,6 +198,7 @@ listNameField.addEventListener('keydown', e => {
             listNameField.style.borderColor = 'var(--text)';
             listNameField.removeEventListener('keydown', clearError);
          })
+         listNameField.addEventListener('blur', () => listNameField.style.borderColor = 'var(--borders)');
       }
       listNameField.value = '';
    }
@@ -237,12 +239,24 @@ function createList(list) {
       if (options.classList.contains('optionsListOpen')) {
          options.classList.remove('optionsListOpen')
       } else {
-         document.querySelectorAll('.optionsList').forEach(e => { if (e.classList.contains('optionsListOpen')) e.classList.remove('optionsListOpen') });
+         document.querySelectorAll('.optionsList').forEach(e => {
+            if (e.classList.contains('optionsListOpen'))
+               e.classList.remove('optionsListOpen')
+         });
+
          options.classList.add('optionsListOpen');
-         document.addEventListener('click', e => { e.stopPropagation(); document.querySelectorAll('.optionsList').forEach(e => { if (e.classList.contains('optionsListOpen')) e.classList.remove('optionsListOpen') }) })
+
+         document.addEventListener('click', e => {
+            e.stopPropagation();
+            document.querySelectorAll('.optionsList').forEach(e => {
+               if (e.classList.contains('optionsListOpen'))
+                  e.classList.remove('optionsListOpen')
+            })
+         });
       }
+
    })
-   // options.addEventListener('mouseleave', () => options.classList.remove('optionsListOpen'))
+
    deleteBtn.addEventListener('click', e => {
       e.stopPropagation();
       deleteElement('list', list)
@@ -263,6 +277,7 @@ function createList(list) {
    hoverTitle(name);
    return li;//возврат элемента для вставки на страницу
 }
+
 function renameList(name, list) {
    const input = document.createElement('input');
    input.value = list.name;
@@ -386,6 +401,17 @@ function openSettings(task) {
       const noteModal = modalWrap.querySelector('.note-modal');
       const timeCheck = modalWrap.querySelector('input[type="checkbox"]');
       const subListInp = modalWrap.querySelector('#subListInp');
+      const checkLabel = modalWrap.querySelector('.modal-check');
+
+      timeCheck.addEventListener('change', () => {
+         if (timeCheck.checked) {
+            checkLabel.classList.add('icon-check');
+            checkLabel.classList.remove('icon-check-empty');
+         } else {
+            checkLabel.classList.remove('icon-check');
+            checkLabel.classList.add('icon-check-empty');
+         }
+      });
 
       modalWrap.querySelector('#subListAdd').addEventListener('click', function () {
          addSubTask(task, subListInp);
@@ -446,6 +472,7 @@ function addSubTask(task, subListInp) {
       resfreshSubList(task);
    } else {
       subListInp.style.borderColor = 'red';
+      subListInp.addEventListener('blur', () => subListInp.style.borderColor = 'var(--buttons)')
    }
 }
 
@@ -456,19 +483,46 @@ function resfreshSubList(task) {
 }
 
 function createSubTask(subTask, task) {
-   const li = document.createElement('li');
-   const label = document.createElement('label');
-   const deleteBtn = document.createElement('button');
-   li.innerHTML = `<input type="checkbox" id="subTask${++subTaskId}"${subTask.check ? 'checked' : ''}>`;
+   const template = document.querySelector('#subTaskItemTemplate').content;
+   const templateClone = template.cloneNode(true);
+   const li = templateClone.querySelector('li');
+   const label = li.querySelector('label');
+   const deleteBtn = li.querySelector('.delete-btn');
+   const subTaskCheck = li.querySelector('input[type="checkbox"]');
+   const subTaskTitle = li.querySelector('.subTaskTitle');
+
+   subTaskCheck.id = `subTask${++subTaskId}`;
+
+   if (subTask.check) {
+      label.classList.add('icon-check')
+   } else {
+      label.classList.add('icon-check-empty')
+   }
+
    label.setAttribute('for', `subTask${subTaskId}`);
-   label.innerHTML = subTask.name;
-   deleteBtn.classList.add('delete-btn');
+   subTaskTitle.textContent = subTask.name;
+
    deleteBtn.addEventListener('click', () => deleteElement('subTask', subTask, task));
-   label.appendChild(deleteBtn);
-   li.appendChild(label);
-   li.querySelector('input').addEventListener('change', changeCheck(subTask));
+   subTaskCheck.addEventListener('change', changeCheck(subTask, label));
+
    hoverTitle(label);
    return li;
+}
+
+//смена флажка
+function changeCheck(what, where) {
+   return function () {
+      what.check = !what.check;
+      if (what.check) {
+         where.classList.add('icon-check');
+         where.classList.remove('icon-check-empty');
+      } else {
+         where.classList.remove('icon-check');
+         where.classList.add('icon-check-empty');
+      }
+      refreshLocalStorage();
+      refreshActiveList();
+   }
 }
 
 function deleteElement(type, what, where) {
@@ -527,15 +581,7 @@ function undoDeleting(what, where, index) {
    refreshAllLists();
    refreshActiveList();
 }
-//смена флажка
-function changeCheck(task) {
-   return function () {
-      // при отметке выполнения задачи или снятия флажка - проводится запись в миссив
-      this.checked ? task.check = true : task.check = false;
-      //обновление листа для сброса выполненных задач в конец массива
-      refreshActiveList();
-   }
-}
+
 
 function hoverTitle(elem) {
    elem.setAttribute('title', elem.textContent);
