@@ -510,7 +510,8 @@ function createSubTask(subTask, task) {
    subTaskCheck.id = `subTask${++subTaskId}`;
 
    if (subTask.check) {
-      label.classList.add('icon-check')
+      label.classList.add('icon-check');
+      subTaskCheck.checked = true;
    } else {
       label.classList.add('icon-check-empty')
    }
