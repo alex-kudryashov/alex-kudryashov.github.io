@@ -152,12 +152,17 @@ function createTask(task) {
    } else {
       day = '-';
    }
-   dateTime.textContent = `${task.time || '-'} / ${task.date === getToday('date') ? 'Сегодня' : day} ${days}`;
 
-   //если дата и время больше текущих то выделить светлым цветом
-   if (!(getToday('date') < task.date || (getToday('date') === task.date && getToday('time') < task.time))) {
-      dateTime.classList.add('error-date');
+   if (task.check) {
+      dateTime.textContent = `Выполнено ${task.checkDate} в ${task.checkTime}`;
+   } else {
+      dateTime.textContent = `${task.time || '-'} / ${task.date === getToday('date') ? 'Сегодня' : day} ${days}`;
+      //если дата и время больше текущих то выделить светлым цветом
+      if (!(getToday('date') < task.date || (getToday('date') === task.date && getToday('time') < task.time))) {
+         dateTime.classList.add('error-date');
+      }
    }
+
 
    label.htmlFor = `task${++taskId}`;    //установление атрибута for для привязки чекбокса
 
@@ -172,7 +177,16 @@ function createTask(task) {
    taskTitle.textContent = task.name;
 
    //событие изменения флажка задачи
-   checkbox.addEventListener('change', changeCheck(task, label));
+   checkbox.addEventListener('change', () => {
+      changeCheck(task, label);
+      if (task.check) {
+         let date = new Date();
+         task.checkTime = `${date.getHours()}:${date.getMinutes()}`;
+         task.checkDate = `${date.getDate()}.${date.getMonth() + 1}`;
+         refreshLocalStorage();
+         refreshActiveList();
+      }
+   });
 
    li.setAttribute('title', task.name);
    return li; //возврат элемента для вставки
@@ -278,19 +292,20 @@ function createList(list) {
    return li;//возврат элемента для вставки на страницу
 }
 
-function renameList(name, list) {
+function renameList(where, what, task) {
    const input = document.createElement('input');
-   input.value = list.name;
-   name.innerHTML = '';
-   name.appendChild(input);
+   input.value = what.name;
+   where.innerHTML = '';
+   where.appendChild(input);
    input.focus();
    input.addEventListener('keydown', function (e) {
       if (e.keyCode === 13) {
          if (!(/^\s*$/.test(input.value))) {
-            list.name = input.value;
-            name.innerHTML = list.name;
+            what.name = input.value;
+            where.innerHTML = what.name;
             refreshLocalStorage();
             refreshAllLists();
+            if (task) resfreshSubList(task);
          } else {
             input.style.borderBottom = '2px dotted red'
          }
@@ -397,7 +412,7 @@ function openSettings(task) {
       const timeModal = modalWrap.querySelector('.time-modal');
       const dateModal = modalWrap.querySelector('.date-modal');
       const deleteBtn = modalWrap.querySelector('.modal-delete-btn');
-      const closeModal = modalWrap.querySelector('.close-modal');
+      const saveModal = modalWrap.querySelector('.save-modal');
       const noteModal = modalWrap.querySelector('.note-modal');
       const timeCheck = modalWrap.querySelector('input[type="checkbox"]');
       const subListInp = modalWrap.querySelector('#subListInp');
@@ -437,7 +452,7 @@ function openSettings(task) {
       })
 
       //закрытие окна настроек
-      closeModal.addEventListener('click', function () {
+      saveModal.addEventListener('click', function () {
          if (!(/^\s*$/.test(modalInput.value))) {
             modalWrap.parentNode.removeChild(modalWrap);
             task.name = modalInput.value;
@@ -490,6 +505,7 @@ function createSubTask(subTask, task) {
    const deleteBtn = li.querySelector('.delete-btn');
    const subTaskCheck = li.querySelector('input[type="checkbox"]');
    const subTaskTitle = li.querySelector('.subTaskTitle');
+   const renameBtn = li.querySelector('.rename-btn');
 
    subTaskCheck.id = `subTask${++subTaskId}`;
 
@@ -503,7 +519,24 @@ function createSubTask(subTask, task) {
    subTaskTitle.textContent = subTask.name;
 
    deleteBtn.addEventListener('click', () => deleteElement('subTask', subTask, task));
-   subTaskCheck.addEventListener('change', changeCheck(subTask, label));
+   renameBtn.addEventListener('click', () => {
+      renameList(subTaskTitle, subTask, task);
+      const input = subTaskTitle.querySelector('input');
+      renameBtn.classList.remove('icon-pencil');
+      renameBtn.classList.add('icon-ok-outline');
+      renameBtn.removeEventListener('click', () => renameList(subTaskTitle, subTask));
+      renameBtn.addEventListener('click', () => {
+         if (!(/^\s*$/.test(input.value))) {
+            subTask.name = input.value;
+            subTaskTitle.innerHTML = subTask.name;
+            refreshLocalStorage();
+            resfreshSubList(task);
+         } else {
+            input.style.borderBottom = '2px dotted red';
+         }
+      })
+   })
+   subTaskCheck.addEventListener('change', () => changeCheck(subTask, label));
 
    hoverTitle(label);
    return li;
@@ -511,18 +544,16 @@ function createSubTask(subTask, task) {
 
 //смена флажка
 function changeCheck(what, where) {
-   return function () {
-      what.check = !what.check;
-      if (what.check) {
-         where.classList.add('icon-check');
-         where.classList.remove('icon-check-empty');
-      } else {
-         where.classList.remove('icon-check');
-         where.classList.add('icon-check-empty');
-      }
-      refreshLocalStorage();
-      refreshActiveList();
+   what.check = !what.check;
+   if (what.check) {
+      where.classList.add('icon-check');
+      where.classList.remove('icon-check-empty');
+   } else {
+      where.classList.remove('icon-check');
+      where.classList.add('icon-check-empty');
    }
+   refreshLocalStorage();
+   refreshActiveList();
 }
 
 function deleteElement(type, what, where) {

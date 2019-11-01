@@ -134,6 +134,7 @@ input[type="checkbox"] {
    top: 100px;
    scrollbar-width: none;
    transition: 0.4s;
+   padding-bottom: 40px;
 }
 
 /* смена положения поля списков при открытии поля ввода */
@@ -168,7 +169,8 @@ input[type="checkbox"] {
 }
 
 /* поле ввода для переименовании задачи */
-.listsList li span input {
+.listsList li span input,
+#subList li label span input {
    background-color: transparent;
    border: none;
    width: 100%;
@@ -214,13 +216,13 @@ input[type="checkbox"] {
    font-size: 15px;
    text-align: center;
    overflow: hidden;
-   /* width: fit-content; */
    position: absolute;
-   bottom: 0;
+   top: 0;
    right: 25px;
    transform: scale(0);
    z-index: 1;
    transition: 0.4s;
+   transform-origin: 100% 40%;
 }
 
 .optionsListOpen {
@@ -376,7 +378,7 @@ input[type="checkbox"] {
 }
 
 /* зачеркнутая задачи при выполнении */
-input[type="checkbox"]:checked+#taskList>li>label>span {
+input[type="checkbox"]:checked + label>span {
    text-decoration: line-through;
    text-decoration-color: #ff3600;
    text-decoration-style: wavy;
@@ -451,36 +453,40 @@ button {
 
 /* абсолютно-позиционированные */
 .delete-btn,
+.rename-btn,
 .settings-btn,
-.close-modal,
+.save-modal,
 #addBtn,
 #optionsBtn, #subListAdd {
    position: absolute;
-   transform: translateY(-50%);
    font-size: 30px;
+   top: 50%;
+   transform: translateY(-50%);
 }
 
 /* удаление */
 .delete-btn {
    right: 5px;
-   top:50%;
+}
+
+.rename-btn {
+   right: 30px;
+   font-size: 18px;
 }
 
 /* добавление */
 #addBtn,#subListAdd {
    font-size: 30px;
    right: 5px;
-   top: 50%;
 }
 
 /* параметры */
 .settings-btn {
    right: 55px;
-   top: 50%;
 }
 
 /* закрытие параметров */
-.close-modal {
+.save-modal {
    right: 10px;
    top: 30px;
    font-size: 35px;
@@ -495,7 +501,6 @@ button {
 /* открытие опций списка */
 #optionsBtn {
    right: 30px;
-   top: 50%;
    width: 5px;
    height: 40px;
 }
@@ -527,7 +532,10 @@ button:hover {
 }
 
 /* удаление и закрытие */
-.close-modal:hover,.delete-btn:hover {
+.save-modal:hover {
+   color: greenyellow;
+}
+.delete-btn:hover {
    color: red;
 }
 
@@ -681,7 +689,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
    border-radius: 5px;
    cursor: pointer;
    line-height: 25px;
-   padding: 0 50px 0 30px;
+   padding: 0 70px 0 30px;
    position: relative;
    margin-top: 10px;
    white-space: nowrap; /* Запрещаем перенос строк */
@@ -709,6 +717,9 @@ input[type=date]::-webkit-calendar-picker-indicator {
    background: var(--list-line-bg-hover);
    color: var(--list-line-text-hover);
 }
+
+
+
 @media(max-width:700px) {
    .mobile-header {
       display: flex;
