@@ -183,7 +183,9 @@ function createTask(task) {
       changeCheck(task, label);
       if (task.check) {
          let date = new Date();
-         task.checkTime = `${date.getHours()}:${date.getMinutes()}`;
+         let minute = date.getMinutes();
+         if (minute < 10) minute = `0${minute}`;
+         task.checkTime = `${date.getHours()}:${minute}`;
          task.checkDate = `${date.getDate()}.${date.getMonth() + 1}`;
          refreshLocalStorage();
          refreshActiveList();
@@ -199,14 +201,17 @@ addListBtn.addEventListener('click', function () {
    listNameField.classList.toggle('listNameFieldActive');
    listsList.classList.toggle('listsListInput');
    listNameField.focus();
+   if (!listNameField.classList.contains('listNameFieldActive')) {
+      listNameField.blur();
+   }
    document.addEventListener('click', (e) => {
       if (e.target.id != 'addListBtn') {
-         listNameField.value = '';
          listNameField.classList.remove('listNameFieldActive');
          listNameField.classList.remove('listNameFieldError');
          listsList.classList.remove('listsListInput');
       }
    })
+   listNameField.value = '';
 });
 
 //нажатие enter в поле ввода списка
@@ -386,6 +391,10 @@ function refreshAllLists() {
 
    //создать листы и добавить их в список листов
    lists.forEach(list => listsList.appendChild(createList(list)));
+
+   if (document.querySelector('.menu').classList.contains('showMenu')) {
+      document.querySelector('.mobile-header button').click();
+   }
 }
 
 //функция для получения даты или времени в формате инпутов в окне настроек задачи (в параметр передается тип - дата или время)
