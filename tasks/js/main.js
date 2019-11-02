@@ -243,7 +243,31 @@ function addList() {
    refreshLocalStorage(); //обновление
    refreshAllLists();
    refreshActiveList();
+   if (document.querySelector('.menu').classList.contains('showMenu')) {
+      document.querySelector('.mobile-header button').click();
+   }
 }
+
+let initialPoint;
+let finalPoint;
+document.addEventListener('touchstart', () => initialPoint = event.changedTouches[0], false);
+document.addEventListener('touchend', () => {
+   finalPoint = event.changedTouches[0];
+   const xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
+   const yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
+   if (xAbs > 20 || yAbs > 20) {
+      if (xAbs > yAbs) {
+         if (finalPoint.pageX < initialPoint.pageX) {
+            /*СВАЙП ВЛЕВО*/
+            document.querySelector('.mobile-header button').click();
+         }
+         else {
+            /*СВАЙП ВПРАВО*/
+            document.querySelector('.mobile-header button').click();
+         }
+      }
+   }
+}, false);
 
 //создание листа на странице
 function createList(list) {
@@ -338,6 +362,9 @@ function openList(list) {
    refreshLocalStorage();
    refreshAllLists();
    refreshActiveList(); //обновление
+   if (document.querySelector('.menu').classList.contains('showMenu')) {
+      document.querySelector('.mobile-header button').click();
+   }
 }
 
 
@@ -391,10 +418,6 @@ function refreshAllLists() {
 
    //создать листы и добавить их в список листов
    lists.forEach(list => listsList.appendChild(createList(list)));
-
-   if (document.querySelector('.menu').classList.contains('showMenu')) {
-      document.querySelector('.mobile-header button').click();
-   }
 }
 
 //функция для получения даты или времени в формате инпутов в окне настроек задачи (в параметр передается тип - дата или время)
