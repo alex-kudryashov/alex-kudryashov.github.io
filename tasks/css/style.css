@@ -16,6 +16,7 @@ body {
    -moz-user-select: none;
    -ms-user-select: none;
    outline: none;
+   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
  
 /* очищение стандартных отступов */
