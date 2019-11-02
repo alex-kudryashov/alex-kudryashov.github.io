@@ -15,6 +15,7 @@ body {
    -webkit-user-select: none; /* запрет выделения */
    -moz-user-select: none;
    -ms-user-select: none;
+   outline: none;
 }
 
 /* очищение стандартных отступов */
@@ -50,6 +51,8 @@ input[type="checkbox"] {
    z-index: 100;
    border-radius: 10px;
    transform: scale(0,0);
+   transition: 0.5s;
+   transform-origin: 50% 100%;
 }
 
 /* блок с кнопкой открытия меню и названием списка для мобил */
@@ -62,6 +65,7 @@ input[type="checkbox"] {
    align-items: center;
    padding: 0 20px;
    display: none;
+   border-bottom: 2px solid var(--borders);
 }
 .mobile-header span {
    white-space: nowrap;
@@ -93,6 +97,8 @@ input[type="checkbox"] {
    padding: 20px;
    margin: 2.5vh 30px 2.5vh 10px;
    transform: scaleX(1);
+   transition: 0.5s;
+   transform-origin: 0 0;
 }
 
 /* блок с надписью и кнопкой */
@@ -204,6 +210,10 @@ input[type="checkbox"] {
    transform: scale(0);
 }
 
+.listNameFieldError {
+   border-color: var(--error-color)!important;
+}
+
 /* класс для всплатия поля ввода */
 .listNameFieldActive {
    transform: scale(1)!important;
@@ -256,29 +266,7 @@ input[type="checkbox"] {
    position: absolute;
 }
 
-/* эффекты при наведении */
 
-.optionsList>li:hover {
-   background-color: var(--options-bg-hover);
-}
-
-.optionsList>li:hover a {
-   color: var(--options-color-hover);
-}
-
-#themes>li:hover {
-   border-color: var(--text);
-}
-
-.listsList>li:hover {
-   background-color: var(--list-line-bg-hover);
-   color: var(--list-line-text-hover);
-}
-
-.listsList>.activeList:hover {
-   color: var(--list-line-text-hover);
-   background-size: var(--items);
-}
 
 
 /* темы ----------------------------*/
@@ -355,6 +343,8 @@ input[type="checkbox"] {
    margin: 20px 30px; 
    height: 95vh;
    margin: 2.5vh 10px;
+   transition: 0.5s;
+   transform-origin: 100% 0;
 }
 
 /* чекбокс */
@@ -442,7 +432,7 @@ button {
 .addList button {
    font-size: 50px;
    width: 50px;
-   margin-right: 20px;
+
 }
 
 /* кнопка восстановления */
@@ -500,9 +490,7 @@ button {
 
 /* открытие опций списка */
 #optionsBtn {
-   right: 30px;
-   width: 5px;
-   height: 40px;
+   right: 10px;
 }
 
 /* цвет кнопки опций в активном списке */
@@ -521,23 +509,6 @@ button {
    margin-right: 20px;
 }
 
-/* кнопки при наведении */
-button:hover {
-   color: var(--text);
-}
-
-/* наведение на кнопку опций в активном списке */
-.listsList>.activeList>#optionsBtn:hover {
-   color: var(--buttons);
-}
-
-/* удаление и закрытие */
-.save-modal:hover {
-   color: greenyellow;
-}
-.delete-btn:hover {
-   color: red;
-}
 
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -648,6 +619,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
 }
 .modal-check::before {
    color: var(--buttons);
+   margin-right: 10px;
 }
 
 /* панель подзадач */
@@ -697,7 +669,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
    text-overflow: ellipsis; /* Добавляем многоточие */
    width: 100%;
    transition: 0.4s;
-
+   
 }
 
 /* чекбокс */
@@ -709,93 +681,82 @@ input[type=date]::-webkit-calendar-picker-indicator {
    color: var(--buttons);
 }
 
-/* наведение и фокус в модалке */
-
-
-.modal-check:hover,
-#subList>li>label:hover {
-   background: var(--list-line-bg-hover);
-   color: var(--list-line-text-hover);
-}
-
-
-
 @media(max-width:700px) {
    .mobile-header {
       display: flex;
    }
    .modal-settings {
-      width: 310px;
+      min-width: 320px;
+      margin: 0;
+      top: 0;
+      border-radius: 0;
+      padding: 30px 0;
+      height: -webkit-fill-available;
+   }
+   .modal-delete-btn {
+      font-size: 25px;
+   }
+   .save-modal {
+      font-size: 30px;
    }
    .menu {
-      margin-right: 10px;
+      margin: 0;
       transform: scaleX(0);
       position: absolute;
-      max-width: 97vw;
-      left: 10px;
+      width: 100vw;
+      left: 0;
       top: 8vh;
-      bottom: 2.5vh;
-      right: 10px;
+      bottom: 0;
+      right: 0;
       z-index: 1100;
-      height: 87vh;
+      height: 92vh;
       font-size: 20px;
+      box-shadow: none;
+      border-radius: 0;
    }
    body {
       flex-direction: column;
       font-display: flex-start;
    }
    .taskField {
-      height: 87vh;
+      height: 92vh;
+      margin: 0;
       transform: scaleX(1);
+      bottom: 0;
+      right: 0;
+      left: 0;
+      border-radius: 0;
+      box-shadow: none;
    }
-   li {
-      font-size: 12px;
-   }
-   label {
+   .time-modal, .date-modal {
       font-size: 20px;
-   }
-   label::before {
-      height: 18px;
-      width: 18px;
-   }
-   .settings-btn,.delete-btn {
-      width: 30px;
-      height: 30px;
-   }
-   #listsList li, .time-modal, .date-modal, .modal-input, #taskNameField, #listNameField, #subListInp {
-      font-size: 20px;
-   }
-   #addListBtn {
-      width: 40px;
-      height: 40px;
-   }
-   #listsList button {
-      width: 25px;
-      height: 25px;   
-   }
-   #listsList {
-      right: 50px;
-   }
-   .date-time-modal {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-   }
-   .time-modal {
       margin-left: 20px;
    }
+   input[type=date]::-webkit-calendar-picker-indicator {
+      -webkit-appearance: none;
+      display: none;
+   }
    #subListInp {
-      width: 75%;
+      font-size: 15px;
+      padding-right: 40px;
+   }
+   .modal-input {
+      font-size: 25px;
+   }
+   #subListAdd {
+      font-size: 20px;
    }
    .undo-delete {
       height: auto;
-      left: 20px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 0;
       z-index: 999999;
+      line-height: 30px;
+      font-size: 18px;
    }
    .modal-check {
-      font-size: 15px;
-   }
-   #subListInp, #subList label {
       font-size: 15px;
    }
    .showMenu {
@@ -804,10 +765,78 @@ input[type=date]::-webkit-calendar-picker-indicator {
    .hideTasks {
       transform: scaleX(0);
    }
+   #taskList>li>label>span {
+      font-size: 22px;
+   }
+   .taskTitle {
+      line-height: 0px;
+   }
+   #taskList>li>label {
+      height: 40px;
+      padding-left: 40px;
+   }
+   #taskList>li>.date-time-out {
+      font-size: 14px;
+   }
+   #taskList>li>label::before {
+      left: 5px;
+   }
 }
 
 @media(min-width:1000px) {
    .taskField {
       width: 600px;
    }
+}
+
+@media(min-width: 700px) {
+   /* эффекты при наведении */
+   
+   .optionsList>li:hover {
+      background-color: var(--options-bg-hover);
+   }
+   
+   .optionsList>li:hover a {
+      color: var(--options-color-hover);
+   }
+   
+   #themes>li:hover {
+      border-color: var(--text);
+   }
+   
+   .listsList>li:hover {
+      background-color: var(--list-line-bg-hover);
+      color: var(--list-line-text-hover);
+   }
+   
+   .listsList>.activeList:hover {
+      color: var(--list-line-text-hover);
+      background-size: var(--items);
+   }
+   /* кнопки при наведении */
+   button:hover {
+      color: var(--text);
+   }
+   
+   /* наведение на кнопку опций в активном списке */
+   .listsList>.activeList>#optionsBtn:hover {
+      color: var(--buttons);
+   }
+   
+   /* удаление и закрытие */
+   .save-modal:hover {
+      color: greenyellow;
+   }
+   .delete-btn:hover {
+      color: red;
+   }
+   /* наведение и фокус в модалке */
+   
+   
+   .modal-check:hover,
+   #subList>li>label:hover {
+      background: var(--list-line-bg-hover);
+      color: var(--list-line-text-hover);
+   }
+   
 }

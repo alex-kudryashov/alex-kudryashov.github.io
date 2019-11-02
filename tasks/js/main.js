@@ -114,12 +114,14 @@ function addTask() {
       //отображение новой задачи в списке(обновление списка)
       refreshActiveList();
    } else {
-      taskNameField.style.borderColor = 'var(--error-color)';
-      taskNameField.addEventListener('keydown', function clearError() {
-         taskNameField.style.borderColor = 'var(--borders)';
-         taskNameField.removeEventListener('keydown', clearError);
+      taskNameField.classList.add('listNameFieldError');
+      taskNameField.addEventListener('keydown', function clearError(e) {
+         if (e.keyCode != 13) {
+            taskNameField.classList.remove('listNameFieldError');
+            taskNameField.removeEventListener('keydown', clearError);
+         }
       })
-      taskNameField.addEventListener('blur', () => taskNameField.style.borderColor = 'var(--borders)');
+      taskNameField.addEventListener('blur', () => taskNameField.classList.remove('listNameFieldError'));
    }
    taskNameField.value = '';
    taskNameField.focus();
@@ -193,10 +195,18 @@ function createTask(task) {
 }
 
 //нажатие на кнопку добавления списка
-addListBtn.addEventListener('click', () => {
-   listNameField.classList.add('listNameFieldActive');
-   listsList.classList.add('listsListInput');
+addListBtn.addEventListener('click', function () {
+   listNameField.classList.toggle('listNameFieldActive');
+   listsList.classList.toggle('listsListInput');
    listNameField.focus();
+   document.addEventListener('click', (e) => {
+      if (e.target.id != 'addListBtn') {
+         listNameField.value = '';
+         listNameField.classList.remove('listNameFieldActive');
+         listNameField.classList.remove('listNameFieldError');
+         listsList.classList.remove('listsListInput');
+      }
+   })
 });
 
 //нажатие enter в поле ввода списка
@@ -207,23 +217,16 @@ listNameField.addEventListener('keydown', e => {
          listsList.classList.remove('listsListInput');
          addList();
       } else {
-         listNameField.style.borderColor = 'var(--error-color)';
-         listNameField.addEventListener('keydown', function clearError() {
-            listNameField.style.borderColor = 'var(--text)';
-            listNameField.removeEventListener('keydown', clearError);
+         listNameField.classList.add('listNameFieldError');
+         listNameField.addEventListener('keydown', function clearError(e) {
+            if (e.keyCode != 13) {
+               listNameField.classList.remove('listNameFieldError');
+               listNameField.removeEventListener('keydown', clearError);
+            }
          })
-         listNameField.addEventListener('blur', () => listNameField.style.borderColor = 'var(--borders)');
       }
       listNameField.value = '';
    }
-})
-
-//смена фокуса с поля ввода списка
-listNameField.addEventListener('blur', () => {
-   listNameField.value = '';
-   listNameField.classList.remove('listNameFieldActive');
-   listNameField.classList.remove('listNameFieldError');
-   listsList.classList.remove('listsListInput');
 })
 
 //добавление списка
@@ -248,28 +251,6 @@ function createList(list) {
    const deleteBtn = options.querySelector('.deleteList');
    const name = li.querySelector('span');
    name.innerHTML = list.name;//назавние списка
-   optionsBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      if (options.classList.contains('optionsListOpen')) {
-         options.classList.remove('optionsListOpen')
-      } else {
-         document.querySelectorAll('.optionsList').forEach(e => {
-            if (e.classList.contains('optionsListOpen'))
-               e.classList.remove('optionsListOpen')
-         });
-
-         options.classList.add('optionsListOpen');
-
-         document.addEventListener('click', e => {
-            e.stopPropagation();
-            document.querySelectorAll('.optionsList').forEach(e => {
-               if (e.classList.contains('optionsListOpen'))
-                  e.classList.remove('optionsListOpen')
-            })
-         });
-      }
-
-   })
 
    deleteBtn.addEventListener('click', e => {
       e.stopPropagation();
@@ -281,7 +262,31 @@ function createList(list) {
       renameList(name, list);
    })
 
-   li.addEventListener('click', openList(list)); //открытие списка
+   li.addEventListener('click', (e) => {
+      if (e.target.id != 'optionsBtn') {
+         openList(list);
+      } else {
+         if (options.classList.contains('optionsListOpen')) {
+            options.classList.remove('optionsListOpen')
+         } else {
+            document.querySelectorAll('.optionsList').forEach(e => {
+               if (e.classList.contains('optionsListOpen')) {
+                  e.classList.remove('optionsListOpen')
+               }
+            });
+            options.classList.add('optionsListOpen');
+
+            document.addEventListener('click', (event) => {
+               if (event.target.id != 'optionsBtn') {
+                  document.querySelectorAll('.optionsList').forEach(e => {
+                     if (e.classList.contains('optionsListOpen'))
+                        e.classList.remove('optionsListOpen')
+                  })
+               }
+            });
+         }
+      }
+   }); //открытие списка
 
    // стили для активного листа
    if (list.active) {
@@ -323,13 +328,11 @@ function renameList(where, what, task) {
 
 //открытие списка
 function openList(list) {
-   return function () {
-      lists.forEach(l => l.active = false);//деактивировать все
-      list.active = true;//активировать выбранный
-      refreshLocalStorage();
-      refreshAllLists();
-      refreshActiveList(); //обновление
-   }
+   lists.forEach(l => l.active = false);//деактивировать все
+   list.active = true;//активировать выбранный
+   refreshLocalStorage();
+   refreshAllLists();
+   refreshActiveList(); //обновление
 }
 
 
@@ -466,7 +469,11 @@ function openSettings(task) {
             task.day = new Date(task.date).getDay();
             refreshActiveList();
          } else {
-            modalInput.style.borderColor = 'red';
+            modalInput.classList.add('listNameFieldError');
+            modalInput.addEventListener('keydown', function clearError() {
+               modalInput.classList.remove('listNameFieldError');
+               modalInput.removeEventListener('keydown', clearError);
+            })
             modalInput.value = '';
             modalInput.focus();
          }
@@ -621,7 +628,6 @@ function hoverTitle(elem) {
 
 //запрет вызова контекстного меню
 window.addEventListener('contextmenu', (e) => e.preventDefault());
-window.addEventListener('load', () => taskNameField.focus());
 
 Array.prototype.insert = function (index, item) {
    this.splice(index, 0, item);
