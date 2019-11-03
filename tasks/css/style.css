@@ -8,6 +8,7 @@ body {
    display: flex;
    justify-content: flex-start;
    font-family: sans-serif;
+   font-display: swap;
 }
 
 * {
