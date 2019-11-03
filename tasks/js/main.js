@@ -191,7 +191,6 @@ function createTask(task) {
          refreshActiveList();
       }
    });
-
    li.setAttribute('title', task.name);
    return li; //возврат элемента для вставки
 }
@@ -248,26 +247,43 @@ function addList() {
    }
 }
 
-let initialPoint;
-let finalPoint;
-document.addEventListener('touchstart', () => initialPoint = event.changedTouches[0], false);
-document.addEventListener('touchend', () => {
-   finalPoint = event.changedTouches[0];
-   const xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
-   const yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
-   if (xAbs > 20 || yAbs > 20) {
-      if (xAbs > yAbs) {
-         if (finalPoint.pageX < initialPoint.pageX) {
-            /*СВАЙП ВЛЕВО*/
-            document.querySelector('.mobile-header button').click();
-         }
-         else {
-            /*СВАЙП ВПРАВО*/
-            document.querySelector('.mobile-header button').click();
+
+function swipe(what, func, func2) {
+   let initialPoint;
+   let finalPoint;
+   what.addEventListener('touchstart', () => initialPoint = event.changedTouches[0], false);
+   what.addEventListener('touchend', () => {
+      finalPoint = event.changedTouches[0];
+      const xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
+      const yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
+      if (xAbs > 20 || yAbs > 20) {
+         if (xAbs > yAbs) {
+            if (finalPoint.pageX < initialPoint.pageX) {
+               /*СВАЙП ВЛЕВО*/
+
+               func()
+            }
+            else {
+               /*СВАЙП ВПРАВО*/
+               func2()
+
+            }
          }
       }
+   }, false);
+}
+
+function hideMenu() {
+   if (document.querySelector('.menu').classList.contains('showMenu')) {
+      document.querySelector('.mobile-header button').click()
    }
-}, false);
+}
+function showMenu() {
+   if (!document.querySelector('.menu').classList.contains('showMenu')) {
+      document.querySelector('.mobile-header button').click();
+   }
+}
+swipe(document, hideMenu, showMenu);
 
 //создание листа на странице
 function createList(list) {

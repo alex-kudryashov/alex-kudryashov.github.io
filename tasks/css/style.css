@@ -608,6 +608,10 @@ input[type=date]::-webkit-calendar-picker-indicator {
    color: var(--buttons);
    background: none;
 }
+input[type="date"],
+input[type="time"] {
+    -webkit-appearance: none;
+}
 
 /* галочка для очистки даты */
 .modal-check {
@@ -692,7 +696,8 @@ input[type=date]::-webkit-calendar-picker-indicator {
       top: 0;
       border-radius: 0;
       padding: 30px 0;
-      height: -webkit-fill-available;
+      min-height: fill-available;
+      height: fit-content;
    }
    .modal-delete-btn {
       font-size: 25px;
@@ -718,6 +723,9 @@ input[type=date]::-webkit-calendar-picker-indicator {
    body {
       flex-direction: column;
       font-display: flex-start;
+   }
+   .note-modal{
+      margin-bottom: 0;
    }
    .taskField {
       height: 92vh;
@@ -780,7 +788,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
       font-size: 14px;
    }
    #taskList>li>label::before {
-      left: 5px;
+      left: 10px;
    }
 }
 
