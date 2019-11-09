@@ -1,0 +1,99 @@
+{
+   "dark": [
+      {
+         "--text": "antiquewhite"
+      },
+      {
+         "--buttons": "#ffcc00"
+      },
+      {
+         "--body-bg": "#000"
+      },
+      {
+         "--active-list-text": "#000"
+      },
+      {
+         "--panels-color": "rgba(63,61,84,0.97)"
+      },
+      {
+         "--error-color": "red"
+      },
+      {
+         "--options-bg": "#333"
+      },
+      {
+         "--borders": "#8b8b8b"
+      },
+      {
+         "--items": "rgb(91, 86, 95)"
+      },
+      {
+         "--active-list": "rgba(255, 255, 255, 0.9)"
+      },
+      {
+         "--delete-message": "#333"
+      },
+      {
+         "--options-bg-hover": "#ccc"
+      },
+      {
+         "--text-shadow-color": "black"
+      },
+      {
+         "--options-color-hover": "black"
+      },
+      {
+         "--list-line-bg-hover": "#ccc"
+      },
+      {
+         "--list-line-text-hover": "black"
+      }
+   ],
+   "light": [
+      {
+         "--text": "#333"
+      },
+      {
+         "--buttons": "blue"
+      },
+      {
+         "--body-bg": "#FFF"
+      },
+      {
+         "--active-list-text": "antiquewhite"
+      },
+      {
+         "--panels-color": "rgba(189,215,253,0.8)"
+      },
+      {
+         "--error-color": "red"
+      },
+      {
+         "--options-bg": "#ccc"
+      },
+      {
+         "--borders": "#8b8b8b"
+      },
+      {
+         "--items": "rgb(171, 171, 171)"
+      },
+      {
+         "--active-list": "blue"
+      },
+      {
+         "--delete-message": "blue"
+      },
+      {
+         "--options-bg-hover": "black"
+      },
+      {
+         "--text-shadow-color": "blue"
+      },
+      {
+         "--options-color-hover": "white"
+      },
+      {
+         "--list-line-text-hover": "black"
+      }
+   ]
+}
