@@ -167,7 +167,7 @@ input[type="checkbox"] {
    border-radius: 10px;
    padding-right: 40px;
    cursor: pointer;
-   background-color: var(--items) else;
+   background-color: var(--items);
    transition: 0.4s;
 }
 
