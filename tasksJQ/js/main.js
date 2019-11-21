@@ -655,3 +655,5 @@ window.addEventListener('contextmenu', (e) => e.preventDefault());
 Array.prototype.insert = function (index, item) {
    this.splice(index, 0, item);
 };
+
+$('body').css('background',`var(--body-bg) url('img/${Math.round(0.5 + Math.random() * 4)}.png')`);
