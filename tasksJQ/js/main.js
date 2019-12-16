@@ -443,6 +443,7 @@ function getToday(type) {
 function openSettings(task) {
    const $modalWrap = $(document.getElementById('modalSettingsTemplate').cloneNode(true).content).find('.modal-wrap');
    $('body').append($modalWrap);
+   $modalWrap.hide().slideDown(500);
    const $modalInput = $modalWrap.find('.modal-input');
    const $timeModal = $modalWrap.find('.time-modal');
    const $dateModal = $modalWrap.find('.date-modal');
@@ -480,25 +481,30 @@ function openSettings(task) {
    task.date ? $dateModal.val(task.date) : $dateModal.val(getToday('date'));
    $dateModal.attr('min', getToday('date'));
    $modalWrap.find('.modal-delete-btn').on('click', function () {
+   	$modalWrap.slideUp('fast', ()=> {
       deleteElement('task', task);
       $('body').find($modalWrap).remove();
       checkOpenModal = false;
+    })
    })
 
    //закрытие окна настроек
    $modalWrap.find('.save-modal').on('click', function () {
       if (!(/^\s*$/.test($modalInput.val()))) {
-         $('body').find($modalWrap).remove();
-         task.name = $modalInput.val();
-         task.note = $noteModal.val();
-         if ($timeCheck.prop('checked')) {
-            $timeModal.val('');
-            $dateModal.val('');
-         }
-         task.time = $timeModal.val();
-         task.date = $dateModal.val();
-         task.day = new Date(task.date).getDay();
-         refreshActiveList();
+      	$modalWrap.slideUp(500, ()=> {
+      		$('body').find($modalWrap).remove();
+      		task.name = $modalInput.val();
+      		task.note = $noteModal.val();
+      		if ($timeCheck.prop('checked')) {
+      		   $timeModal.val('');
+      		   $dateModal.val('');
+      		}
+      		task.time = $timeModal.val();
+      		task.date = $dateModal.val();
+      		task.day = new Date(task.date).getDay();
+      		refreshActiveList();
+      	});
+         
       } else {
          $modalInput.addClass('listNameFieldError');
          $modalInput.on('keydown', function clearError() {
