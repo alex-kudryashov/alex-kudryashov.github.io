@@ -1,0 +1,980 @@
+* {
+  outline: none;
+  box-sizing: border-box;
+  -moz-user-select: none;
+  /* Mozilla Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer (не поддерживается) */
+  -o-user-select: none;
+  /* Opera Presto (не поддерживается) */
+  -webkit-user-select: none;
+  /* Google Chrome, Opera Next, Safari */
+}
+p,
+button,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+hr {
+  width: 100%;
+  height: 1px;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #F5F5F5;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(left, #fff, #e4e4e4);
+  border: 1px solid #aaa;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(left, #22ADD4, #1E98BA);
+}
+body {
+  font-family: 'Comfortaa', cursive;
+  background: url('../img/brushed_alu_dark.png') repeat;
+}
+button {
+  font-family: 'Comfortaa', cursive;
+}
+#tableWrap {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+}
+table {
+  left: 50%;
+  top: -200px;
+  transform: translateX(-50%);
+  transition: 0.3s;
+  box-shadow: 0px 10px 20px 0px #000000a3;
+  text-align: center;
+  border-collapse: collapse;
+  color: #27281e;
+  background: linear-gradient(121.4983942deg, #a7cce1 6.140625%, #ecf6ed 95.515625%);
+  position: relative;
+}
+table button {
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+input,
+select {
+  border: 2px solid #27281e;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+td,
+th {
+  padding: 15px;
+  border: 1px solid #27281e;
+}
+.buttons {
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+  color: #27281e;
+  border-radius: 5px;
+  padding: 10px;
+}
+.buttons:hover {
+  background-color: #69c3f7;
+  color: #fff;
+}
+#card {
+  border-radius: 5px;
+  width: 320px;
+  height: 600px;
+  position: absolute;
+  left: 100px;
+  top: 100px;
+  font-size: 26px;
+  text-align: center;
+  color: #27281e;
+  overflow: hidden;
+  box-shadow: 0px 0px 22px -2px rgba(0, 13, 64, 0.46);
+  background: linear-gradient(121.4983942deg, #a7cce1 6.140625%, #ecf6ed 95.515625%);
+  z-index: 999;
+  transform: rotate(0);
+  cursor: pointer;
+}
+#card #category {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  max-width: 190px;
+  font-size: 10px;
+  text-align: left;
+  word-break: break-word;
+}
+#card #origWord {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 40px;
+  overflow: auto;
+  bottom: 400px;
+  word-break: break-word;
+}
+#card #origWord .transcription {
+  font-size: 14px;
+  color: #707070;
+  display: block;
+  width: 100%;
+}
+#card #translatedWord {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 140px;
+  overflow: auto;
+  bottom: 320px;
+  word-break: break-word;
+}
+#card #translatedWord .transcription {
+  font-size: 14px;
+  color: #707070;
+  display: block;
+  width: 100%;
+}
+#card #forgot,
+#card #learned,
+#card #checkWord,
+#card #start {
+  height: 70px;
+  width: 50%;
+  position: absolute;
+  bottom: 0;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+  color: #27281e;
+  border-radius: 5px;
+  padding: 10px;
+}
+#card #forgot:hover,
+#card #learned:hover,
+#card #checkWord:hover,
+#card #start:hover {
+  background-color: #69c3f7;
+  color: #fff;
+}
+#card #start {
+  left: 10%;
+  right: 10%;
+  top: 170px;
+  width: 80%;
+}
+#card #forgot {
+  left: 0;
+}
+#card #learned {
+  right: 0;
+}
+#card #checkWord {
+  width: 100%;
+  height: 50px;
+  left: 0;
+  right: 0;
+  top: 200px;
+}
+#card #examples {
+  position: absolute;
+  top: 250px;
+  left: 20px;
+  right: 20px;
+  font-size: 14px;
+  border-top: 1px solid gray;
+  text-align: left;
+  padding-top: 10px;
+  bottom: 80px;
+  overflow: auto;
+}
+#card #examples .engExample {
+  padding: 5px;
+  background: rgba(167, 204, 225, 0.7);
+  margin: 2px 0;
+  cursor: pointer;
+  position: relative;
+  border-radius: 2px;
+  padding-right: 20px;
+}
+#card #examples .engExample:hover {
+  background: rgba(167, 204, 225, 0.3);
+  transition: 0.4s;
+}
+#card #examples .engExample::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid teal;
+  width: 5px;
+  height: 5px;
+  border-right: 0;
+  border-top: 0;
+  transform: rotate(-45deg);
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  transition: 0.5s;
+}
+#card #examples .rotateArrow::after {
+  transform: rotate(135deg);
+}
+#card #examples .ruExample {
+  margin: 2px 0;
+  padding: 5px;
+}
+#card #examples p {
+  word-break: break-word;
+}
+#card .optionsBtn {
+  background: transparent;
+  border: none;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  cursor: pointer;
+  font-size: 25px;
+}
+#card .options {
+  position: absolute;
+  background: #00000087;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+#card .options .optionsWrap {
+  background-color: #000;
+  width: 90%;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+}
+#card .options .optionsWrap li button {
+  background: transparent;
+  border: none;
+  color: #e0e2db;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 15px;
+}
+#card .options .optionsWrap li:not(:last-child) button {
+  border-bottom: 1px solid gray;
+}
+#categoriesBlock {
+  position: absolute;
+  right: 400px;
+  top: 100px;
+  width: 500px;
+}
+#categoriesBlock #openAddingWindow,
+#categoriesBlock #openSheduleWindow {
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+  color: #27281e;
+  border-radius: 5px;
+  padding: 10px;
+  display: block;
+  margin: 0 auto;
+}
+#categoriesBlock #openAddingWindow:hover,
+#categoriesBlock #openSheduleWindow:hover {
+  background-color: #69c3f7;
+  color: #fff;
+}
+#categoriesBlock #categoriesList .category_item {
+  background-color: #e0e2db;
+  margin: 5px;
+  padding: 5px;
+  text-align: left;
+  border-radius: 5px;
+  position: relative;
+  font-size: 20px;
+}
+#categoriesBlock #categoriesList .category_item_name:hover {
+  text-decoration: underline;
+}
+#categoriesBlock #categoriesList .category_item span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#categoriesBlock #categoriesList .category_item .checkedList {
+  background-color: transparent;
+  border: none;
+  color: #27281e;
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  font-size: 25px;
+  cursor: pointer;
+}
+#categoriesBlock #categoriesList .category_item .deleteCategory {
+  background-color: transparent;
+  border: none;
+  color: #27281e;
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  font-size: 25px;
+  cursor: pointer;
+  right: 55px;
+  font-size: 20px;
+}
+#categoriesBlock #categoriesList .category_item .clearCategory {
+  background-color: transparent;
+  border: none;
+  color: #27281e;
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  font-size: 25px;
+  cursor: pointer;
+  right: 35px;
+  top: 3px;
+  font-size: 20px;
+}
+#categoriesBlock #categoriesList .category_item .icon-check-empty {
+  right: 9px;
+}
+#categoriesBlock #categoriesList .category_item .wordInCategory {
+  background-color: #27281e;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 5px;
+  color: #e0e2db;
+  position: relative;
+  cursor: initial;
+  padding: 8px;
+}
+#categoriesBlock #categoriesList .category_item .wordInCategory span {
+  margin-right: 20px;
+  display: block;
+}
+#categoriesBlock #categoriesList .category_item .wordInCategory:first-child {
+  margin-top: 20px;
+}
+#categoriesBlock #categoriesList .category_item .wordInCategory .optionsBtn {
+  background: transparent;
+  border: none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #e0e2db;
+  cursor: pointer;
+  font-size: 25px;
+}
+#categoriesBlock #categoriesList .category_item .wordInCategory .options {
+  position: absolute;
+  background: #000000;
+  z-index: 99999;
+  border-radius: 10px;
+  right: -45%;
+  top: -150%;
+}
+#categoriesBlock #categoriesList .category_item .wordInCategory .options::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 10px solid transparent;
+  border-right: 10px solid black;
+}
+#categoriesBlock #categoriesList .category_item .wordInCategory .options li button {
+  background: transparent;
+  border: none;
+  color: #e0e2db;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 15px;
+}
+#categoriesBlock #categoriesList .category_item .wordInCategory .options li:not(:last-child) button {
+  border-bottom: 1px solid gray;
+}
+#categoriesBlock #categoriesList .category_item .openCategory {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 20px;
+  height: 14px;
+}
+#categoriesBlock #categoriesList .category_item .openCategory::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid teal;
+  width: 7px;
+  height: 7px;
+  border-right: 0;
+  border-top: 0;
+  transform: rotate(-45deg);
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  transition: 0.5s;
+}
+#categoriesBlock #categoriesList .category_item .rotateArrow::after {
+  transform: rotate(135deg);
+}
+#wordsSectionWrap,
+#editingSectionWrap {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: auto;
+}
+#wordsSectionWrap #wordsSection,
+#editingSectionWrap #wordsSection,
+#wordsSectionWrap #editingSection,
+#editingSectionWrap #editingSection {
+  position: absolute;
+  left: 50%;
+  top: -200px;
+  transform: translateX(-50%);
+  transition: 0.3s;
+  box-shadow: 0px 10px 20px 0px #000000a3;
+  text-align: center;
+  display: flex;
+  width: 650px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  margin-bottom: 100px;
+}
+#wordsSectionWrap #wordsSection #closeAddingWindow,
+#editingSectionWrap #wordsSection #closeAddingWindow,
+#wordsSectionWrap #editingSection #closeAddingWindow,
+#editingSectionWrap #editingSection #closeAddingWindow,
+#wordsSectionWrap #wordsSection #closeEditingWindow,
+#editingSectionWrap #wordsSection #closeEditingWindow,
+#wordsSectionWrap #editingSection #closeEditingWindow,
+#editingSectionWrap #editingSection #closeEditingWindow {
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  border: none;
+  color: #fff;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+#wordsSectionWrap #wordsSection #addWordBtn,
+#editingSectionWrap #wordsSection #addWordBtn,
+#wordsSectionWrap #editingSection #addWordBtn,
+#editingSectionWrap #editingSection #addWordBtn,
+#wordsSectionWrap #wordsSection #addExampleFormBtn,
+#editingSectionWrap #wordsSection #addExampleFormBtn,
+#wordsSectionWrap #editingSection #addExampleFormBtn,
+#editingSectionWrap #editingSection #addExampleFormBtn,
+#wordsSectionWrap #wordsSection #addExampleEditingFormBtn,
+#editingSectionWrap #wordsSection #addExampleEditingFormBtn,
+#wordsSectionWrap #editingSection #addExampleEditingFormBtn,
+#editingSectionWrap #editingSection #addExampleEditingFormBtn,
+#wordsSectionWrap #wordsSection #saveEditing,
+#editingSectionWrap #wordsSection #saveEditing,
+#wordsSectionWrap #editingSection #saveEditing,
+#editingSectionWrap #editingSection #saveEditing {
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+  color: #27281e;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 20px auto;
+}
+#wordsSectionWrap #wordsSection #addWordBtn:hover,
+#editingSectionWrap #wordsSection #addWordBtn:hover,
+#wordsSectionWrap #editingSection #addWordBtn:hover,
+#editingSectionWrap #editingSection #addWordBtn:hover,
+#wordsSectionWrap #wordsSection #addExampleFormBtn:hover,
+#editingSectionWrap #wordsSection #addExampleFormBtn:hover,
+#wordsSectionWrap #editingSection #addExampleFormBtn:hover,
+#editingSectionWrap #editingSection #addExampleFormBtn:hover,
+#wordsSectionWrap #wordsSection #addExampleEditingFormBtn:hover,
+#editingSectionWrap #wordsSection #addExampleEditingFormBtn:hover,
+#wordsSectionWrap #editingSection #addExampleEditingFormBtn:hover,
+#editingSectionWrap #editingSection #addExampleEditingFormBtn:hover,
+#wordsSectionWrap #wordsSection #saveEditing:hover,
+#editingSectionWrap #wordsSection #saveEditing:hover,
+#wordsSectionWrap #editingSection #saveEditing:hover,
+#editingSectionWrap #editingSection #saveEditing:hover {
+  background-color: #69c3f7;
+  color: #fff;
+}
+#wordsSectionWrap #wordsSection #contextsWrap,
+#editingSectionWrap #wordsSection #contextsWrap,
+#wordsSectionWrap #editingSection #contextsWrap,
+#editingSectionWrap #editingSection #contextsWrap,
+#wordsSectionWrap #wordsSection .contextsEditingWrap,
+#editingSectionWrap #wordsSection .contextsEditingWrap,
+#wordsSectionWrap #editingSection .contextsEditingWrap,
+#editingSectionWrap #editingSection .contextsEditingWrap {
+  position: relative;
+  padding-top: 20px;
+}
+#wordsSectionWrap #wordsSection #contextsWrap #closeContextExample,
+#editingSectionWrap #wordsSection #contextsWrap #closeContextExample,
+#wordsSectionWrap #editingSection #contextsWrap #closeContextExample,
+#editingSectionWrap #editingSection #contextsWrap #closeContextExample,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #closeContextExample,
+#editingSectionWrap #wordsSection .contextsEditingWrap #closeContextExample,
+#wordsSectionWrap #editingSection .contextsEditingWrap #closeContextExample,
+#editingSectionWrap #editingSection .contextsEditingWrap #closeContextExample,
+#wordsSectionWrap #wordsSection #contextsWrap .closeContextEditingExample,
+#editingSectionWrap #wordsSection #contextsWrap .closeContextEditingExample,
+#wordsSectionWrap #editingSection #contextsWrap .closeContextEditingExample,
+#editingSectionWrap #editingSection #contextsWrap .closeContextEditingExample,
+#wordsSectionWrap #wordsSection .contextsEditingWrap .closeContextEditingExample,
+#editingSectionWrap #wordsSection .contextsEditingWrap .closeContextEditingExample,
+#wordsSectionWrap #editingSection .contextsEditingWrap .closeContextEditingExample,
+#editingSectionWrap #editingSection .contextsEditingWrap .closeContextEditingExample {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+#wordsSectionWrap #wordsSection #categoriesWrap,
+#editingSectionWrap #wordsSection #categoriesWrap,
+#wordsSectionWrap #editingSection #categoriesWrap,
+#editingSectionWrap #editingSection #categoriesWrap,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap,
+#editingSectionWrap #wordsSection #categoriesEditingWrap,
+#wordsSectionWrap #editingSection #categoriesEditingWrap,
+#editingSectionWrap #editingSection #categoriesEditingWrap,
+#wordsSectionWrap #wordsSection #wordInputsWrap,
+#editingSectionWrap #wordsSection #wordInputsWrap,
+#wordsSectionWrap #editingSection #wordInputsWrap,
+#editingSectionWrap #editingSection #wordInputsWrap,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap,
+#editingSectionWrap #editingSection #wordInputsEditingWrap,
+#wordsSectionWrap #wordsSection #contextsWrap,
+#editingSectionWrap #wordsSection #contextsWrap,
+#wordsSectionWrap #editingSection #contextsWrap,
+#editingSectionWrap #editingSection #contextsWrap,
+#wordsSectionWrap #wordsSection .contextsEditingWrap,
+#editingSectionWrap #wordsSection .contextsEditingWrap,
+#wordsSectionWrap #editingSection .contextsEditingWrap,
+#editingSectionWrap #editingSection .contextsEditingWrap {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex-wrap: wrap;
+}
+#wordsSectionWrap #wordsSection #categoriesWrap label,
+#editingSectionWrap #wordsSection #categoriesWrap label,
+#wordsSectionWrap #editingSection #categoriesWrap label,
+#editingSectionWrap #editingSection #categoriesWrap label,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap label,
+#editingSectionWrap #wordsSection #categoriesEditingWrap label,
+#wordsSectionWrap #editingSection #categoriesEditingWrap label,
+#editingSectionWrap #editingSection #categoriesEditingWrap label,
+#wordsSectionWrap #wordsSection #wordInputsWrap label,
+#editingSectionWrap #wordsSection #wordInputsWrap label,
+#wordsSectionWrap #editingSection #wordInputsWrap label,
+#editingSectionWrap #editingSection #wordInputsWrap label,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap label,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap label,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap label,
+#editingSectionWrap #editingSection #wordInputsEditingWrap label,
+#wordsSectionWrap #wordsSection #contextsWrap label,
+#editingSectionWrap #wordsSection #contextsWrap label,
+#wordsSectionWrap #editingSection #contextsWrap label,
+#editingSectionWrap #editingSection #contextsWrap label,
+#wordsSectionWrap #wordsSection .contextsEditingWrap label,
+#editingSectionWrap #wordsSection .contextsEditingWrap label,
+#wordsSectionWrap #editingSection .contextsEditingWrap label,
+#editingSectionWrap #editingSection .contextsEditingWrap label,
+#wordsSectionWrap #wordsSection #categoriesWrap #transcriptionSymbols,
+#editingSectionWrap #wordsSection #categoriesWrap #transcriptionSymbols,
+#wordsSectionWrap #editingSection #categoriesWrap #transcriptionSymbols,
+#editingSectionWrap #editingSection #categoriesWrap #transcriptionSymbols,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap #transcriptionSymbols,
+#editingSectionWrap #wordsSection #categoriesEditingWrap #transcriptionSymbols,
+#wordsSectionWrap #editingSection #categoriesEditingWrap #transcriptionSymbols,
+#editingSectionWrap #editingSection #categoriesEditingWrap #transcriptionSymbols,
+#wordsSectionWrap #wordsSection #wordInputsWrap #transcriptionSymbols,
+#editingSectionWrap #wordsSection #wordInputsWrap #transcriptionSymbols,
+#wordsSectionWrap #editingSection #wordInputsWrap #transcriptionSymbols,
+#editingSectionWrap #editingSection #wordInputsWrap #transcriptionSymbols,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap #transcriptionSymbols,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap #transcriptionSymbols,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap #transcriptionSymbols,
+#editingSectionWrap #editingSection #wordInputsEditingWrap #transcriptionSymbols,
+#wordsSectionWrap #wordsSection #contextsWrap #transcriptionSymbols,
+#editingSectionWrap #wordsSection #contextsWrap #transcriptionSymbols,
+#wordsSectionWrap #editingSection #contextsWrap #transcriptionSymbols,
+#editingSectionWrap #editingSection #contextsWrap #transcriptionSymbols,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #transcriptionSymbols,
+#editingSectionWrap #wordsSection .contextsEditingWrap #transcriptionSymbols,
+#wordsSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols,
+#editingSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 45%;
+  text-align: center;
+  font-size: 20px;
+}
+#wordsSectionWrap #wordsSection #categoriesWrap #transcriptionSymbols,
+#editingSectionWrap #wordsSection #categoriesWrap #transcriptionSymbols,
+#wordsSectionWrap #editingSection #categoriesWrap #transcriptionSymbols,
+#editingSectionWrap #editingSection #categoriesWrap #transcriptionSymbols,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap #transcriptionSymbols,
+#editingSectionWrap #wordsSection #categoriesEditingWrap #transcriptionSymbols,
+#wordsSectionWrap #editingSection #categoriesEditingWrap #transcriptionSymbols,
+#editingSectionWrap #editingSection #categoriesEditingWrap #transcriptionSymbols,
+#wordsSectionWrap #wordsSection #wordInputsWrap #transcriptionSymbols,
+#editingSectionWrap #wordsSection #wordInputsWrap #transcriptionSymbols,
+#wordsSectionWrap #editingSection #wordInputsWrap #transcriptionSymbols,
+#editingSectionWrap #editingSection #wordInputsWrap #transcriptionSymbols,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap #transcriptionSymbols,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap #transcriptionSymbols,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap #transcriptionSymbols,
+#editingSectionWrap #editingSection #wordInputsEditingWrap #transcriptionSymbols,
+#wordsSectionWrap #wordsSection #contextsWrap #transcriptionSymbols,
+#editingSectionWrap #wordsSection #contextsWrap #transcriptionSymbols,
+#wordsSectionWrap #editingSection #contextsWrap #transcriptionSymbols,
+#editingSectionWrap #editingSection #contextsWrap #transcriptionSymbols,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #transcriptionSymbols,
+#editingSectionWrap #wordsSection .contextsEditingWrap #transcriptionSymbols,
+#wordsSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols,
+#editingSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+#wordsSectionWrap #wordsSection #categoriesWrap #transcriptionSymbols span,
+#editingSectionWrap #wordsSection #categoriesWrap #transcriptionSymbols span,
+#wordsSectionWrap #editingSection #categoriesWrap #transcriptionSymbols span,
+#editingSectionWrap #editingSection #categoriesWrap #transcriptionSymbols span,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap #transcriptionSymbols span,
+#editingSectionWrap #wordsSection #categoriesEditingWrap #transcriptionSymbols span,
+#wordsSectionWrap #editingSection #categoriesEditingWrap #transcriptionSymbols span,
+#editingSectionWrap #editingSection #categoriesEditingWrap #transcriptionSymbols span,
+#wordsSectionWrap #wordsSection #wordInputsWrap #transcriptionSymbols span,
+#editingSectionWrap #wordsSection #wordInputsWrap #transcriptionSymbols span,
+#wordsSectionWrap #editingSection #wordInputsWrap #transcriptionSymbols span,
+#editingSectionWrap #editingSection #wordInputsWrap #transcriptionSymbols span,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap #transcriptionSymbols span,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap #transcriptionSymbols span,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap #transcriptionSymbols span,
+#editingSectionWrap #editingSection #wordInputsEditingWrap #transcriptionSymbols span,
+#wordsSectionWrap #wordsSection #contextsWrap #transcriptionSymbols span,
+#editingSectionWrap #wordsSection #contextsWrap #transcriptionSymbols span,
+#wordsSectionWrap #editingSection #contextsWrap #transcriptionSymbols span,
+#editingSectionWrap #editingSection #contextsWrap #transcriptionSymbols span,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #transcriptionSymbols span,
+#editingSectionWrap #wordsSection .contextsEditingWrap #transcriptionSymbols span,
+#wordsSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols span,
+#editingSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols span {
+  font-family: serif;
+  font-size: 30px;
+  margin-right: 5px;
+  background: black;
+  border: none;
+  color: #FFE;
+  padding: 5px;
+  border-radius: 2px;
+}
+#wordsSectionWrap #wordsSection #categoriesWrap input,
+#editingSectionWrap #wordsSection #categoriesWrap input,
+#wordsSectionWrap #editingSection #categoriesWrap input,
+#editingSectionWrap #editingSection #categoriesWrap input,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap input,
+#editingSectionWrap #wordsSection #categoriesEditingWrap input,
+#wordsSectionWrap #editingSection #categoriesEditingWrap input,
+#editingSectionWrap #editingSection #categoriesEditingWrap input,
+#wordsSectionWrap #wordsSection #wordInputsWrap input,
+#editingSectionWrap #wordsSection #wordInputsWrap input,
+#wordsSectionWrap #editingSection #wordInputsWrap input,
+#editingSectionWrap #editingSection #wordInputsWrap input,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap input,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap input,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap input,
+#editingSectionWrap #editingSection #wordInputsEditingWrap input,
+#wordsSectionWrap #wordsSection #contextsWrap input,
+#editingSectionWrap #wordsSection #contextsWrap input,
+#wordsSectionWrap #editingSection #contextsWrap input,
+#editingSectionWrap #editingSection #contextsWrap input,
+#wordsSectionWrap #wordsSection .contextsEditingWrap input,
+#editingSectionWrap #wordsSection .contextsEditingWrap input,
+#wordsSectionWrap #editingSection .contextsEditingWrap input,
+#editingSectionWrap #editingSection .contextsEditingWrap input,
+#wordsSectionWrap #wordsSection #categoriesWrap select,
+#editingSectionWrap #wordsSection #categoriesWrap select,
+#wordsSectionWrap #editingSection #categoriesWrap select,
+#editingSectionWrap #editingSection #categoriesWrap select,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap select,
+#editingSectionWrap #wordsSection #categoriesEditingWrap select,
+#wordsSectionWrap #editingSection #categoriesEditingWrap select,
+#editingSectionWrap #editingSection #categoriesEditingWrap select,
+#wordsSectionWrap #wordsSection #wordInputsWrap select,
+#editingSectionWrap #wordsSection #wordInputsWrap select,
+#wordsSectionWrap #editingSection #wordInputsWrap select,
+#editingSectionWrap #editingSection #wordInputsWrap select,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap select,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap select,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap select,
+#editingSectionWrap #editingSection #wordInputsEditingWrap select,
+#wordsSectionWrap #wordsSection #contextsWrap select,
+#editingSectionWrap #wordsSection #contextsWrap select,
+#wordsSectionWrap #editingSection #contextsWrap select,
+#editingSectionWrap #editingSection #contextsWrap select,
+#wordsSectionWrap #wordsSection .contextsEditingWrap select,
+#editingSectionWrap #wordsSection .contextsEditingWrap select,
+#wordsSectionWrap #editingSection .contextsEditingWrap select,
+#editingSectionWrap #editingSection .contextsEditingWrap select {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  height: 45px;
+}
+#wordsSectionWrap #wordsSection #categoriesWrap #categories,
+#editingSectionWrap #wordsSection #categoriesWrap #categories,
+#wordsSectionWrap #editingSection #categoriesWrap #categories,
+#editingSectionWrap #editingSection #categoriesWrap #categories,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap #categories,
+#editingSectionWrap #wordsSection #categoriesEditingWrap #categories,
+#wordsSectionWrap #editingSection #categoriesEditingWrap #categories,
+#editingSectionWrap #editingSection #categoriesEditingWrap #categories,
+#wordsSectionWrap #wordsSection #wordInputsWrap #categories,
+#editingSectionWrap #wordsSection #wordInputsWrap #categories,
+#wordsSectionWrap #editingSection #wordInputsWrap #categories,
+#editingSectionWrap #editingSection #wordInputsWrap #categories,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap #categories,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap #categories,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap #categories,
+#editingSectionWrap #editingSection #wordInputsEditingWrap #categories,
+#wordsSectionWrap #wordsSection #contextsWrap #categories,
+#editingSectionWrap #wordsSection #contextsWrap #categories,
+#wordsSectionWrap #editingSection #contextsWrap #categories,
+#editingSectionWrap #editingSection #contextsWrap #categories,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #categories,
+#editingSectionWrap #wordsSection .contextsEditingWrap #categories,
+#wordsSectionWrap #editingSection .contextsEditingWrap #categories,
+#editingSectionWrap #editingSection .contextsEditingWrap #categories,
+#wordsSectionWrap #wordsSection #categoriesWrap #categoriesEditing,
+#editingSectionWrap #wordsSection #categoriesWrap #categoriesEditing,
+#wordsSectionWrap #editingSection #categoriesWrap #categoriesEditing,
+#editingSectionWrap #editingSection #categoriesWrap #categoriesEditing,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap #categoriesEditing,
+#editingSectionWrap #wordsSection #categoriesEditingWrap #categoriesEditing,
+#wordsSectionWrap #editingSection #categoriesEditingWrap #categoriesEditing,
+#editingSectionWrap #editingSection #categoriesEditingWrap #categoriesEditing,
+#wordsSectionWrap #wordsSection #wordInputsWrap #categoriesEditing,
+#editingSectionWrap #wordsSection #wordInputsWrap #categoriesEditing,
+#wordsSectionWrap #editingSection #wordInputsWrap #categoriesEditing,
+#editingSectionWrap #editingSection #wordInputsWrap #categoriesEditing,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap #categoriesEditing,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap #categoriesEditing,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap #categoriesEditing,
+#editingSectionWrap #editingSection #wordInputsEditingWrap #categoriesEditing,
+#wordsSectionWrap #wordsSection #contextsWrap #categoriesEditing,
+#editingSectionWrap #wordsSection #contextsWrap #categoriesEditing,
+#wordsSectionWrap #editingSection #contextsWrap #categoriesEditing,
+#editingSectionWrap #editingSection #contextsWrap #categoriesEditing,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #categoriesEditing,
+#editingSectionWrap #wordsSection .contextsEditingWrap #categoriesEditing,
+#wordsSectionWrap #editingSection .contextsEditingWrap #categoriesEditing,
+#editingSectionWrap #editingSection .contextsEditingWrap #categoriesEditing {
+  width: 100%;
+  font-size: 14px;
+}
+#wordsSectionWrap #wordsSection #categoriesWrap #addNewCategory,
+#editingSectionWrap #wordsSection #categoriesWrap #addNewCategory,
+#wordsSectionWrap #editingSection #categoriesWrap #addNewCategory,
+#editingSectionWrap #editingSection #categoriesWrap #addNewCategory,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap #addNewCategory,
+#editingSectionWrap #wordsSection #categoriesEditingWrap #addNewCategory,
+#wordsSectionWrap #editingSection #categoriesEditingWrap #addNewCategory,
+#editingSectionWrap #editingSection #categoriesEditingWrap #addNewCategory,
+#wordsSectionWrap #wordsSection #wordInputsWrap #addNewCategory,
+#editingSectionWrap #wordsSection #wordInputsWrap #addNewCategory,
+#wordsSectionWrap #editingSection #wordInputsWrap #addNewCategory,
+#editingSectionWrap #editingSection #wordInputsWrap #addNewCategory,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap #addNewCategory,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap #addNewCategory,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap #addNewCategory,
+#editingSectionWrap #editingSection #wordInputsEditingWrap #addNewCategory,
+#wordsSectionWrap #wordsSection #contextsWrap #addNewCategory,
+#editingSectionWrap #wordsSection #contextsWrap #addNewCategory,
+#wordsSectionWrap #editingSection #contextsWrap #addNewCategory,
+#editingSectionWrap #editingSection #contextsWrap #addNewCategory,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #addNewCategory,
+#editingSectionWrap #wordsSection .contextsEditingWrap #addNewCategory,
+#wordsSectionWrap #editingSection .contextsEditingWrap #addNewCategory,
+#editingSectionWrap #editingSection .contextsEditingWrap #addNewCategory,
+#wordsSectionWrap #wordsSection #categoriesWrap #addNewEditingCategory,
+#editingSectionWrap #wordsSection #categoriesWrap #addNewEditingCategory,
+#wordsSectionWrap #editingSection #categoriesWrap #addNewEditingCategory,
+#editingSectionWrap #editingSection #categoriesWrap #addNewEditingCategory,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap #addNewEditingCategory,
+#editingSectionWrap #wordsSection #categoriesEditingWrap #addNewEditingCategory,
+#wordsSectionWrap #editingSection #categoriesEditingWrap #addNewEditingCategory,
+#editingSectionWrap #editingSection #categoriesEditingWrap #addNewEditingCategory,
+#wordsSectionWrap #wordsSection #wordInputsWrap #addNewEditingCategory,
+#editingSectionWrap #wordsSection #wordInputsWrap #addNewEditingCategory,
+#wordsSectionWrap #editingSection #wordInputsWrap #addNewEditingCategory,
+#editingSectionWrap #editingSection #wordInputsWrap #addNewEditingCategory,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap #addNewEditingCategory,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap #addNewEditingCategory,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap #addNewEditingCategory,
+#editingSectionWrap #editingSection #wordInputsEditingWrap #addNewEditingCategory,
+#wordsSectionWrap #wordsSection #contextsWrap #addNewEditingCategory,
+#editingSectionWrap #wordsSection #contextsWrap #addNewEditingCategory,
+#wordsSectionWrap #editingSection #contextsWrap #addNewEditingCategory,
+#editingSectionWrap #editingSection #contextsWrap #addNewEditingCategory,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #addNewEditingCategory,
+#editingSectionWrap #wordsSection .contextsEditingWrap #addNewEditingCategory,
+#wordsSectionWrap #editingSection .contextsEditingWrap #addNewEditingCategory,
+#editingSectionWrap #editingSection .contextsEditingWrap #addNewEditingCategory {
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+  color: #27281e;
+  border-radius: 5px;
+  padding: 10px;
+}
+#wordsSectionWrap #wordsSection #categoriesWrap #addNewCategory:hover,
+#editingSectionWrap #wordsSection #categoriesWrap #addNewCategory:hover,
+#wordsSectionWrap #editingSection #categoriesWrap #addNewCategory:hover,
+#editingSectionWrap #editingSection #categoriesWrap #addNewCategory:hover,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap #addNewCategory:hover,
+#editingSectionWrap #wordsSection #categoriesEditingWrap #addNewCategory:hover,
+#wordsSectionWrap #editingSection #categoriesEditingWrap #addNewCategory:hover,
+#editingSectionWrap #editingSection #categoriesEditingWrap #addNewCategory:hover,
+#wordsSectionWrap #wordsSection #wordInputsWrap #addNewCategory:hover,
+#editingSectionWrap #wordsSection #wordInputsWrap #addNewCategory:hover,
+#wordsSectionWrap #editingSection #wordInputsWrap #addNewCategory:hover,
+#editingSectionWrap #editingSection #wordInputsWrap #addNewCategory:hover,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap #addNewCategory:hover,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap #addNewCategory:hover,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap #addNewCategory:hover,
+#editingSectionWrap #editingSection #wordInputsEditingWrap #addNewCategory:hover,
+#wordsSectionWrap #wordsSection #contextsWrap #addNewCategory:hover,
+#editingSectionWrap #wordsSection #contextsWrap #addNewCategory:hover,
+#wordsSectionWrap #editingSection #contextsWrap #addNewCategory:hover,
+#editingSectionWrap #editingSection #contextsWrap #addNewCategory:hover,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #addNewCategory:hover,
+#editingSectionWrap #wordsSection .contextsEditingWrap #addNewCategory:hover,
+#wordsSectionWrap #editingSection .contextsEditingWrap #addNewCategory:hover,
+#editingSectionWrap #editingSection .contextsEditingWrap #addNewCategory:hover,
+#wordsSectionWrap #wordsSection #categoriesWrap #addNewEditingCategory:hover,
+#editingSectionWrap #wordsSection #categoriesWrap #addNewEditingCategory:hover,
+#wordsSectionWrap #editingSection #categoriesWrap #addNewEditingCategory:hover,
+#editingSectionWrap #editingSection #categoriesWrap #addNewEditingCategory:hover,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap #addNewEditingCategory:hover,
+#editingSectionWrap #wordsSection #categoriesEditingWrap #addNewEditingCategory:hover,
+#wordsSectionWrap #editingSection #categoriesEditingWrap #addNewEditingCategory:hover,
+#editingSectionWrap #editingSection #categoriesEditingWrap #addNewEditingCategory:hover,
+#wordsSectionWrap #wordsSection #wordInputsWrap #addNewEditingCategory:hover,
+#editingSectionWrap #wordsSection #wordInputsWrap #addNewEditingCategory:hover,
+#wordsSectionWrap #editingSection #wordInputsWrap #addNewEditingCategory:hover,
+#editingSectionWrap #editingSection #wordInputsWrap #addNewEditingCategory:hover,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap #addNewEditingCategory:hover,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap #addNewEditingCategory:hover,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap #addNewEditingCategory:hover,
+#editingSectionWrap #editingSection #wordInputsEditingWrap #addNewEditingCategory:hover,
+#wordsSectionWrap #wordsSection #contextsWrap #addNewEditingCategory:hover,
+#editingSectionWrap #wordsSection #contextsWrap #addNewEditingCategory:hover,
+#wordsSectionWrap #editingSection #contextsWrap #addNewEditingCategory:hover,
+#editingSectionWrap #editingSection #contextsWrap #addNewEditingCategory:hover,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #addNewEditingCategory:hover,
+#editingSectionWrap #wordsSection .contextsEditingWrap #addNewEditingCategory:hover,
+#wordsSectionWrap #editingSection .contextsEditingWrap #addNewEditingCategory:hover,
+#editingSectionWrap #editingSection .contextsEditingWrap #addNewEditingCategory:hover {
+  background-color: #69c3f7;
+  color: #fff;
+}
+#categories,
+#categoriesEditing {
+  width: 45%;
+  text-align: left;
+}
+#categories span,
+#categoriesEditing span {
+  background-color: #9cbbb6;
+  border-radius: 5px;
+  padding: 3px 8px;
+  margin: 0 10px 10px 0;
+  display: inline-block;
+}
+#categories span button,
+#categoriesEditing span button {
+  margin-left: 5px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.closeSecondInput {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}

@@ -1,0 +1,679 @@
+// reset
+* {
+  outline: none;
+  box-sizing: border-box;
+  -moz-user-select: none;
+  /* Mozilla Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer (не поддерживается) */
+  -o-user-select: none;
+  /* Opera Presto (не поддерживается) */
+  -webkit-user-select: none;
+  /* Google Chrome, Opera Next, Safari */
+}
+
+p,
+button,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+hr {
+  width: 100%;
+  height: 1px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(left, #fff, #e4e4e4);
+  border: 1px solid #aaa;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(left, #22ADD4, #1E98BA);
+}
+
+// ---------------------------------------------------------------------
+
+// colours
+
+@main-color: #27281e;
+@second-color: #9cbbb6;
+@hovers: #69c3f7;
+
+
+// ----------------------------------------------------------------------------
+
+body {
+  font-family: 'Comfortaa', cursive;
+  background: url('../img/brushed_alu_dark.png') repeat;
+}
+
+button {
+  font-family: 'Comfortaa', cursive;
+}
+
+#tableWrap {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+}
+
+table {
+  left: 50%;
+  top: -200px;
+  transform: translateX(-50%);
+  transition: 0.3s;
+  box-shadow: 0px 10px 20px 0px #000000a3;
+  text-align: center;
+  border-collapse: collapse;
+  color: @main-color;
+  background: linear-gradient(121.49839420425917deg, rgba(167, 204, 225, 1) 6.140625%, rgba(236, 246, 237, 1) 95.51562499999999%);
+  position: relative;
+
+  button {
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
+
+input,
+select {
+  border: 2px solid #27281e;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+td,
+th {
+  padding: 15px;
+  border: 1px solid #27281e;
+}
+
+.buttons {
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+  color: @main-color;
+  border-radius: 5px;
+  padding: 10px;
+
+  &:hover {
+    background-color: @hovers;
+    color: #fff;
+  }
+}
+
+// блок с карточкой
+#card {
+  border-radius: 5px;
+  width: 320px;
+  height: 600px;
+  position: absolute;
+  left: 100px;
+  top: 100px;
+  font-size: 26px;
+  text-align: center;
+  color: @main-color;
+  overflow: hidden;
+  box-shadow: 0px 0px 22px -2px rgba(0, 13, 64, 0.46);
+  background: linear-gradient(121.49839420425917deg, rgba(167, 204, 225, 1) 6.140625%, rgba(236, 246, 237, 1) 95.51562499999999%);
+  z-index: 999;
+  // transition: 0.3s;
+  transform: rotate(0);
+  cursor: pointer;
+
+  #category {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    max-width: 190px;
+    font-size: 10px;
+    text-align: left;
+    word-break: break-word;
+  }
+
+  #origWord {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 40px;
+    overflow: auto;
+    bottom: 400px;
+    word-break: break-word;
+
+    .transcription {
+      font-size: 14px;
+      color: #707070;
+      display: block;
+      width: 100%;
+    }
+  }
+
+  #translatedWord {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 140px;
+    overflow: auto;
+    bottom: 320px;
+    word-break: break-word;
+
+    .transcription {
+      font-size: 14px;
+      color: #707070;
+      display: block;
+      width: 100%;
+    }
+  }
+
+  #forgot,
+  #learned,
+  #checkWord,
+  #start {
+    height: 70px;
+    width: 50%;
+    position: absolute;
+    bottom: 0;
+    .buttons;
+  }
+
+  #start {
+    left: 10%;
+    right: 10%;
+    top: 170px;
+    width: 80%;
+  }
+
+  #forgot {
+    left: 0;
+  }
+
+  #learned {
+    right: 0;
+  }
+
+  #checkWord {
+    width: 100%;
+    height: 50px;
+    left: 0;
+    right: 0;
+    top: 200px;
+  }
+
+  #examples {
+    position: absolute;
+    top: 250px;
+    left: 20px;
+    right: 20px;
+    font-size: 14px;
+    border-top: 1px solid gray;
+    text-align: left;
+    padding-top: 10px;
+    bottom: 80px;
+    overflow: auto;
+
+    .engExample {
+      padding: 5px;
+      background: rgba(167, 204, 225, 0.7);
+      margin: 2px 0;
+      cursor: pointer;
+      position: relative;
+      border-radius: 2px;
+      padding-right: 20px;
+
+      &:hover {
+        background: rgba(167, 204, 225, 0.3);
+        transition: 0.4s;
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        width: 10px;
+        height: 10px;
+        border: 1px solid teal;
+        width: 5px;
+        height: 5px;
+        border-right: 0;
+        border-top: 0;
+        transform: rotate(-45deg);
+        position: absolute;
+        right: 10px;
+        top: 8px;
+        transition: 0.5s;
+      }
+    }
+
+    .rotateArrow {
+      &::after {
+        transform: rotate(135deg);
+      }
+    }
+
+    .ruExample {
+      margin: 2px 0;
+      padding: 5px;
+    }
+
+    p {
+      word-break: break-word;
+    }
+  }
+
+  .optionsBtn {
+    background: transparent;
+    border: none;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    cursor: pointer;
+    font-size: 25px;
+  }
+
+  .options {
+    position: absolute;
+    background: #00000087;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    .optionsWrap {
+      background-color: #000;
+      width: 90%;
+      margin: auto;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 5px;
+
+      li {
+        button {
+          background: transparent;
+          border: none;
+          color: #e0e2db;
+          padding: 10px;
+          cursor: pointer;
+
+          width: 100%;
+          font-size: 15px;
+        }
+
+        &:not(:last-child) {
+          button {
+            border-bottom: 1px solid gray;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+
+
+#categoriesBlock {
+  position: absolute;
+  right: 400px;
+  top: 100px;
+  width: 500px;
+
+  #openAddingWindow,
+  #openSheduleWindow {
+    .buttons;
+    display: block;
+    margin: 0 auto;
+  }
+
+
+  #categoriesList {
+
+    .category_item {
+      background-color: #e0e2db;
+      margin: 5px;
+      padding: 5px;
+      text-align: left;
+      border-radius: 5px;
+      position: relative;
+      font-size: 20px;
+
+
+      &_name {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .checkedList {
+        background-color: transparent;
+        border: none;
+        color: @main-color;
+        position: absolute;
+        right: 5px;
+        top: 4px;
+        font-size: 25px;
+        cursor: pointer;
+      }
+
+      .deleteCategory {
+        .checkedList;
+        right: 55px;
+        font-size: 20px;
+      }
+
+      .clearCategory {
+        .checkedList;
+        right: 35px;
+        top: 3px;
+        font-size: 20px;
+      }
+
+      .icon-check-empty {
+        right: 9px;
+      }
+
+      .wordInCategory {
+        background-color: #27281e;
+        padding: 5px;
+        border-radius: 5px;
+        margin: 5px;
+        color: #e0e2db;
+        position: relative;
+        cursor: initial;
+        padding: 8px;
+
+        span {
+          margin-right: 20px;
+          display: block;
+        }
+
+        &:first-child {
+          margin-top: 20px;
+        }
+
+        .optionsBtn {
+          background: transparent;
+          border: none;
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #e0e2db;
+          cursor: pointer;
+          font-size: 25px;
+        }
+
+        .options {
+          position: absolute;
+          background: #000000;
+          z-index: 99999;
+          border-radius: 10px;
+          right: -45%;
+          top: -150%;
+
+          &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 10px solid transparent;
+            border-right: 10px solid black;
+          }
+
+          li {
+            button {
+              background: transparent;
+              border: none;
+              color: #e0e2db;
+              padding: 10px;
+              cursor: pointer;
+
+              width: 100%;
+              font-size: 15px;
+            }
+
+            &:not(:last-child) {
+              button {
+                border-bottom: 1px solid gray;
+              }
+            }
+          }
+        }
+      }
+
+      .openCategory {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        width: 20px;
+        height: 14px;
+
+        &::after {
+          content: "";
+          display: block;
+          width: 10px;
+          height: 10px;
+          border: 1px solid teal;
+          width: 7px;
+          height: 7px;
+          border-right: 0;
+          border-top: 0;
+          transform: rotate(-45deg);
+          position: absolute;
+          left: 10px;
+          top: 8px;
+          transition: 0.5s;
+        }
+      }
+
+      .rotateArrow {
+        &::after {
+          transform: rotate(135deg);
+        }
+      }
+    }
+  }
+}
+
+#wordsSectionWrap,
+#editingSectionWrap {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: auto;
+
+
+  #wordsSection,
+  #editingSection {
+    position: absolute;
+    left: 50%;
+    top: -200px;
+    transform: translateX(-50%);
+    transition: 0.3s;
+    box-shadow: 0px 10px 20px 0px #000000a3;
+    text-align: center;
+    display: flex;
+    width: 650px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 100px;
+
+
+    #closeAddingWindow,
+    #closeEditingWindow {
+      position: absolute;
+      right: -20px;
+      top: -20px;
+      border: none;
+      color: #fff;
+      background: transparent;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    #addWordBtn,
+    #addExampleFormBtn,
+    #addExampleEditingFormBtn,
+    #saveEditing {
+      .buttons;
+      margin: 20px auto;
+    }
+
+    #contextsWrap,
+    .contextsEditingWrap {
+      position: relative;
+      padding-top: 20px;
+
+      #closeContextExample,
+      .closeContextEditingExample {
+        position: absolute;
+        right: 0;
+        top: 10px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
+    }
+
+    #categoriesWrap,
+    #categoriesEditingWrap,
+    #wordInputsWrap,
+    #wordInputsEditingWrap,
+    #contextsWrap,
+    .contextsEditingWrap {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      flex-wrap: wrap;
+
+      label,
+      #transcriptionSymbols {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        width: 45%;
+        text-align: center;
+        font-size: 20px;
+      }
+
+      #transcriptionSymbols {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+
+        span {
+          font-family: serif;
+          font-size: 30px;
+          margin-right: 5px;
+          background: black;
+          border: none;
+          color: #FFE;
+          padding: 5px;
+          border-radius: 2px;
+        }
+      }
+
+      input,
+      select {
+        margin-top: 10px;
+        margin-bottom: 30px;
+        height: 45px;
+      }
+
+      #categories,
+      #categoriesEditing {
+        width: 100%;
+        font-size: 14px;
+      }
+
+      #addNewCategory,
+      #addNewEditingCategory {
+        .buttons
+      }
+    }
+  }
+}
+
+#categories,
+#categoriesEditing {
+  width: 45%;
+  text-align: left;
+
+  span {
+    background-color: @second-color;
+    border-radius: 5px;
+    padding: 3px 8px;
+    margin: 0 10px 10px 0;
+    display: inline-block;
+
+    button {
+      margin-left: 5px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+  }
+}
+
+.closeSecondInput {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}

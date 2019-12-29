@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Memorizer</title>
+  <link rel="icon" type="image/ico" href="/favicon.ico">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700&display=swap&subset=cyrillic,cyrillic-ext"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/fontello.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- карточка с перебором слов -->
+  <div class="cardWrap">
+    <div id="card" style="transform: rotate(0deg);">
+      <span id="category" title="Категория" style="display: none;"></span>
+      <p id="origWord" style="display: none;"></p>
+      <p id="translatedWord" style="display: none;"></p>
+      <button id="checkWord" style="display: none;">Показать перевод</button>
+      <button id="forgot" style="display: none;">Забыл</button>
+      <button id="learned" style="display: none;">Запомнил</button>
+      <button id="start">Начать</button>
+      <div id="examples" style="display: none;"></div>
+      <button class="icon-ellipsis-vert optionsBtn" id="cardOptionsBtn" title="Опции" style="display: none;"></button>
+      <ul class="options" style="display: none;">
+        <div class="optionsWrap">
+          <li>
+            <button id="editWordFromCard">Редактировать слово</button>
+          </li>
+          <li>
+            <button id="deleteWordFromCard">Удалить слово</button>
+          </li>
+          <li>
+            <button id="resetWordFromCard">Сбросить прогресс</button>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+
+  <!-- блок для добавления слов -->
+
+  <div id="wordsSectionWrap" style="display: none;">
+    <div id="wordsSection" style="display:none">
+
+      <button id="closeAddingWindow" class="icon-cancel-circled2"></button>
+
+      <div id="wordInputsWrap">
+
+        <label>Слово на русском
+          <input type="text" id="rusWordInput" placeholder="Привет">
+        </label>
+
+        <label>Слово на английском
+          <input type="text" id="engWordInput" placeholder="Hello">
+        </label>
+
+        <label>Транскрипция
+          <input type="text" id="transcriptionInput" placeholder="[hɛˈləʊ]">
+        </label>
+
+        <div id="transcriptionSymbols" title="Вы можете скопировать необходимые символы">
+          <span>ð</span>
+          <span>θ</span>
+          <span>ʧ</span>
+          <span>ʤ</span>
+          <span>ʒ</span>
+          <span>ʃ</span>
+          <span>ŋ</span>
+          <span>ɔ</span>
+          <span>ʌ</span>
+          <span>æ</span>
+          <span>ə</span>
+          <span>ɛ</span>
+          <span>ɪ</span>
+          <span>ɑ</span>
+          <span>ɒ</span>
+          <span>ʊ</span>
+        </div>
+      </div>
+
+      <hr>
+
+      <button id="addExampleFormBtn">Добавить пример</button>
+
+      <hr>
+
+      <div id="categoriesWrap">
+        <label>
+          <select id="chooseCategory"></select>
+          <div id="categories"></div>
+        </label>
+
+        <label>
+          <input type="text" id="newCategoryTitle" placeholder="Ваша категория">
+          <button id="addNewCategory">Добавить категорию</button>
+        </label>
+      </div>
+
+      <button id="addWordBtn">Добавить слово</button>
+    </div>
+  </div>
+
+  <!-- блок для редактирования слов -->
+
+  <div id="editingSectionWrap" style="display: none;">
+    <div id="editingSection" style="display:none">
+
+      <button id="closeEditingWindow" class="icon-cancel-circled2" title="Закрыть окно(без сохранения)"></button>
+
+      <div id="wordInputsEditingWrap">
+
+        <label>Слово на русском
+          <input type="text" id="rusWordEditingInput">
+        </label>
+
+        <label>Слово на английском
+          <input type="text" id="engWordEditingInput">
+        </label>
+
+        <label>Транскрипция
+          <input type="text" id="transcriptionEditingInput">
+        </label>
+
+        <div id="transcriptionSymbols" title="Вы можете скопировать необходимые символы">
+          <span>ð</span>
+          <span>θ</span>
+          <span>ʧ</span>
+          <span>ʤ</span>
+          <span>ʒ</span>
+          <span>ʃ</span>
+          <span>ŋ</span>
+          <span>ɔ</span>
+          <span>ʌ</span>
+          <span>æ</span>
+          <span>ə</span>
+          <span>ɛ</span>
+          <span>ɪ</span>
+          <span>ɑ</span>
+          <span>ɒ</span>
+          <span>ʊ</span>
+        </div>
+
+      </div>
+
+      <hr>
+
+      <button id="addExampleEditingFormBtn">Добавить пример</button>
+
+      <hr>
+
+      <div id="categoriesEditingWrap">
+        <label>
+          <select id="chooseCategoryEditing"></select>
+          <div id="categoriesEditing"></div>
+        </label>
+
+        <label>
+          <input type="text" id="newEditingCategoryTitle" placeholder="Ваша категория">
+          <button id="addNewEditingCategory">Добавить категорию</button>
+        </label>
+      </div>
+
+      <button id="saveEditing">Сохранить</button>
+    </div>
+  </div>
+
+  <!-- блок со всеми словами, сгруппированными по категориям -->
+  <div id="categoriesBlock">
+    <ul id="categoriesList">
+    </ul>
+    <button id="openAddingWindow">Добавить слова и категории</button>
+    <button id="openSheduleWindow">Просмотреть расписание</button>
+  </div>
+
+  <!-- расписание повторений -->
+  <div id="tableWrap" style="display: none;">
+    <table>
+
+      <tbody>
+        <tr>
+          <th>№</th>
+          <th>Когда повторять</th>
+          <th>Пример<button id="closeSheduleWindow" class="icon-cancel-circled2"></button></th>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td>Выучили N новых слов</td>
+          <td>1 октября в 16:00</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Через 15 минут после ознакомления</td>
+          <td>1 октября в 16:15</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Через час после последнего повторения</td>
+          <td>1 октября в 17:15</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Через три часа после последнего повторения</td>
+          <td>1 октября в 20:15</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>На следующий день</td>
+          <td>2 октября</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Через два дня после последнего повторения</td>
+          <td>4 октября</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Через четыре дня после последнего повторения</td>
+          <td>8 октября</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Через неделю после последнего повторения</td>
+          <td>15 октября</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Через две недели после последнего повторения</td>
+          <td>29 октября</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>Через месяц после последнего повторения</td>
+          <td>29 ноября</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <template id="wordTemplate">
+    <li class="wordInCategory">
+      <span class="word_in_category_list"></span>
+      <button class="icon-ellipsis-vert optionsBtn" title="Опции"></button>
+      <ul class="options" style="display: none;">
+        <li>
+          <button class="deleteFromGlobalBtn">Удалить</button>
+        </li>
+        <li>
+          <button class="deleteFromCategoryBtn">Убрать из категории</button>
+        </li>
+        <li>
+          <button class="editWordBtn">Редактировать</button>
+        </li>
+        <li>
+          <button class="resetWordBtn">Сбросить прогресс</button>
+        </li>
+      </ul>
+    </li>
+  </template>
+
+  <template id="categoryTemplate">
+    <li class="category_item">
+      <button class="openCategory"></button>
+      <span class="category_item_name" contenteditable="true" title="Кликните чтобы переименовать"></span>
+      <button class="checkedList icon-check-empty" title="Включить категорию в изучение"></button>
+      <button class="clearCategory icon-undo" title="Очистить категорию"></button>
+      <button class="icon-trash deleteCategory" title="Удалить категорию"></button>
+      <ul class="wordsList" style="display: none;"></ul>
+    </li>
+  </template>
+
+  <template id="contextFormTemplate">
+    <div class="contextsEditingWrap">
+      <label>
+        <input type="text" class="rusExampleEditingInput" data-added-example-lang="ru"
+          placeholder="Контекст на русском">
+      </label>
+      <label>
+        <input type="text" class="engExampleEditingInput" data-added-example-lang="eng" placeholder="Перевод">
+      </label>
+      <button class="closeContextEditingExample icon-cancel-circled2" title="Удалить пример"></button>
+    </div>
+  </template>
+
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
