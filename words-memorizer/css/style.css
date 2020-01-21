@@ -1,14 +1,6 @@
 * {
   outline: none;
   box-sizing: border-box;
-  -moz-user-select: none;
-  /* Mozilla Firefox */
-  -ms-user-select: none;
-  /* Internet Explorer (не поддерживается) */
-  -o-user-select: none;
-  /* Opera Presto (не поддерживается) */
-  -webkit-user-select: none;
-  /* Google Chrome, Opera Next, Safari */
 }
 p,
 button,
@@ -460,6 +452,47 @@ th {
   top: 8px;
   transition: 0.5s;
 }
+#categoriesBlock #categoriesList .category_item .optionsBtn {
+  background: transparent;
+  border: none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #e0e2db;
+  cursor: pointer;
+  font-size: 25px;
+}
+#categoriesBlock #categoriesList .category_item .options {
+  position: absolute;
+  background: #000000;
+  z-index: 99999;
+  border-radius: 10px;
+  right: -45%;
+  top: -150%;
+}
+#categoriesBlock #categoriesList .category_item .options::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 10px solid transparent;
+  border-right: 10px solid black;
+}
+#categoriesBlock #categoriesList .category_item .options li button {
+  background: transparent;
+  border: none;
+  color: #e0e2db;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 15px;
+}
+#categoriesBlock #categoriesList .category_item .options li:not(:last-child) button {
+  border-bottom: 1px solid gray;
+}
 #categoriesBlock #categoriesList .category_item .rotateArrow::after {
   transform: rotate(135deg);
 }
@@ -667,7 +700,31 @@ th {
 #wordsSectionWrap #wordsSection .contextsEditingWrap #transcriptionSymbols,
 #editingSectionWrap #wordsSection .contextsEditingWrap #transcriptionSymbols,
 #wordsSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols,
-#editingSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols {
+#editingSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols,
+#wordsSectionWrap #wordsSection #categoriesWrap #transcriptionEditingSymbols,
+#editingSectionWrap #wordsSection #categoriesWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #editingSection #categoriesWrap #transcriptionEditingSymbols,
+#editingSectionWrap #editingSection #categoriesWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap #transcriptionEditingSymbols,
+#editingSectionWrap #wordsSection #categoriesEditingWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #editingSection #categoriesEditingWrap #transcriptionEditingSymbols,
+#editingSectionWrap #editingSection #categoriesEditingWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #wordsSection #wordInputsWrap #transcriptionEditingSymbols,
+#editingSectionWrap #wordsSection #wordInputsWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #editingSection #wordInputsWrap #transcriptionEditingSymbols,
+#editingSectionWrap #editingSection #wordInputsWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap #transcriptionEditingSymbols,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap #transcriptionEditingSymbols,
+#editingSectionWrap #editingSection #wordInputsEditingWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #wordsSection #contextsWrap #transcriptionEditingSymbols,
+#editingSectionWrap #wordsSection #contextsWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #editingSection #contextsWrap #transcriptionEditingSymbols,
+#editingSectionWrap #editingSection #contextsWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #transcriptionEditingSymbols,
+#editingSectionWrap #wordsSection .contextsEditingWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #editingSection .contextsEditingWrap #transcriptionEditingSymbols,
+#editingSectionWrap #editingSection .contextsEditingWrap #transcriptionEditingSymbols {
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -698,7 +755,31 @@ th {
 #wordsSectionWrap #wordsSection .contextsEditingWrap #transcriptionSymbols,
 #editingSectionWrap #wordsSection .contextsEditingWrap #transcriptionSymbols,
 #wordsSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols,
-#editingSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols {
+#editingSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols,
+#wordsSectionWrap #wordsSection #categoriesWrap #transcriptionEditingSymbols,
+#editingSectionWrap #wordsSection #categoriesWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #editingSection #categoriesWrap #transcriptionEditingSymbols,
+#editingSectionWrap #editingSection #categoriesWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap #transcriptionEditingSymbols,
+#editingSectionWrap #wordsSection #categoriesEditingWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #editingSection #categoriesEditingWrap #transcriptionEditingSymbols,
+#editingSectionWrap #editingSection #categoriesEditingWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #wordsSection #wordInputsWrap #transcriptionEditingSymbols,
+#editingSectionWrap #wordsSection #wordInputsWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #editingSection #wordInputsWrap #transcriptionEditingSymbols,
+#editingSectionWrap #editingSection #wordInputsWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap #transcriptionEditingSymbols,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap #transcriptionEditingSymbols,
+#editingSectionWrap #editingSection #wordInputsEditingWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #wordsSection #contextsWrap #transcriptionEditingSymbols,
+#editingSectionWrap #wordsSection #contextsWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #editingSection #contextsWrap #transcriptionEditingSymbols,
+#editingSectionWrap #editingSection #contextsWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #transcriptionEditingSymbols,
+#editingSectionWrap #wordsSection .contextsEditingWrap #transcriptionEditingSymbols,
+#wordsSectionWrap #editingSection .contextsEditingWrap #transcriptionEditingSymbols,
+#editingSectionWrap #editingSection .contextsEditingWrap #transcriptionEditingSymbols {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
@@ -726,7 +807,31 @@ th {
 #wordsSectionWrap #wordsSection .contextsEditingWrap #transcriptionSymbols span,
 #editingSectionWrap #wordsSection .contextsEditingWrap #transcriptionSymbols span,
 #wordsSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols span,
-#editingSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols span {
+#editingSectionWrap #editingSection .contextsEditingWrap #transcriptionSymbols span,
+#wordsSectionWrap #wordsSection #categoriesWrap #transcriptionEditingSymbols span,
+#editingSectionWrap #wordsSection #categoriesWrap #transcriptionEditingSymbols span,
+#wordsSectionWrap #editingSection #categoriesWrap #transcriptionEditingSymbols span,
+#editingSectionWrap #editingSection #categoriesWrap #transcriptionEditingSymbols span,
+#wordsSectionWrap #wordsSection #categoriesEditingWrap #transcriptionEditingSymbols span,
+#editingSectionWrap #wordsSection #categoriesEditingWrap #transcriptionEditingSymbols span,
+#wordsSectionWrap #editingSection #categoriesEditingWrap #transcriptionEditingSymbols span,
+#editingSectionWrap #editingSection #categoriesEditingWrap #transcriptionEditingSymbols span,
+#wordsSectionWrap #wordsSection #wordInputsWrap #transcriptionEditingSymbols span,
+#editingSectionWrap #wordsSection #wordInputsWrap #transcriptionEditingSymbols span,
+#wordsSectionWrap #editingSection #wordInputsWrap #transcriptionEditingSymbols span,
+#editingSectionWrap #editingSection #wordInputsWrap #transcriptionEditingSymbols span,
+#wordsSectionWrap #wordsSection #wordInputsEditingWrap #transcriptionEditingSymbols span,
+#editingSectionWrap #wordsSection #wordInputsEditingWrap #transcriptionEditingSymbols span,
+#wordsSectionWrap #editingSection #wordInputsEditingWrap #transcriptionEditingSymbols span,
+#editingSectionWrap #editingSection #wordInputsEditingWrap #transcriptionEditingSymbols span,
+#wordsSectionWrap #wordsSection #contextsWrap #transcriptionEditingSymbols span,
+#editingSectionWrap #wordsSection #contextsWrap #transcriptionEditingSymbols span,
+#wordsSectionWrap #editingSection #contextsWrap #transcriptionEditingSymbols span,
+#editingSectionWrap #editingSection #contextsWrap #transcriptionEditingSymbols span,
+#wordsSectionWrap #wordsSection .contextsEditingWrap #transcriptionEditingSymbols span,
+#editingSectionWrap #wordsSection .contextsEditingWrap #transcriptionEditingSymbols span,
+#wordsSectionWrap #editingSection .contextsEditingWrap #transcriptionEditingSymbols span,
+#editingSectionWrap #editingSection .contextsEditingWrap #transcriptionEditingSymbols span {
   font-family: serif;
   font-size: 30px;
   margin-right: 5px;

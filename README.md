@@ -1,4 +1,4 @@
-# Alex Kudryashov
+# https://github.com/alex-kudryashov/alex-kudryashov.github.io
 -----
 + [mini](https://alex-kudryashov.github.io/mini)
 -----

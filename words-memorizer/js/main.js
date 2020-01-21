@@ -55,7 +55,6 @@ const allWords = JSON.parse(localStorage.getItem('allWords')) || [],
   $cardOptionsBtn = $('#cardOptionsBtn');
 
 
-
 let categories = JSON.parse(localStorage.getItem('categories')) || { 'Разное': false },
   chosenCategories = new Set(),
   wordCounter,
@@ -92,6 +91,18 @@ $('#addNewCategory').on('click', () => {
   let currentCategory = $chooseCategory.val();
   addNewCategory();
   $chooseCategory.val(currentCategory);
+})
+
+$('#transcriptionSymbols').on('click', 'span', function () {
+  let input = document.querySelector('#transcriptionInput');
+  input.setRangeText(this.textContent, input.selectionStart, input.selectionEnd, "end");
+  input.focus();
+})
+
+$('#transcriptionEditingSymbols').on('click', 'span', function () {
+  let input = document.querySelector('#transcriptionEditingInput');
+  input.setRangeText(this.textContent, input.selectionStart, input.selectionEnd, "end");
+  input.focus();
 })
 
 $('#openAddingWindow').on('click', () => {
@@ -196,7 +207,7 @@ $forgotBtn.on('click', () => {
 $categoriesList.on('click', e => {
   let ul;
   if (e.target.classList.contains('openCategory')) {
-    ul = e.target.parentNode.querySelector('ul');
+    ul = e.target.parentNode.querySelector('ul.wordsList');
   } else {
     return
   }
@@ -290,7 +301,7 @@ function includeCategory(category, checkedBtn) {
 function createCategoryOnPage(globalCategory) {
   const $categoryTemplate = $(document.getElementById('categoryTemplate').cloneNode(true).content);
   const $categoryLi = $categoryTemplate.find('li');
-  const $categoryUl = $categoryTemplate.find('ul');
+  const $categoryUl = $categoryTemplate.find('ul.wordsList');
   const $checkedBtn = $categoryTemplate.find('.checkedList');
   const $deleteCategoryBtn = $categoryTemplate.find('.deleteCategory');
   const $clearCategoryBtn = $categoryTemplate.find('.clearCategory');
@@ -469,9 +480,9 @@ function deleteWord(wordLi, category) {
         const wordsInCurrentCategory = document.querySelectorAll(`li[data-word-id="${wordLi.data('wordId')}"]`);
 
         wordsInCurrentCategory.forEach(word => {
-          word.parentNode.removeChild(word);
-          if (category.find('ul li').length === 0) {
-            $(category.find('ul')).hide();
+          word.remove();
+          if (category.find('ul.wordsList li').length === 0) {
+            $(category.find('ul.wordsList')).hide();
           }
         })
         refreshStorage();
@@ -485,10 +496,10 @@ function deleteWordFromCategory(wordLi) {
   if (confirm(`Вы действительно хотите убрать это слово из категории "${wordLi.parent().parent().data('categoryName')}"?`)) {
     allWords.forEach(word => {
       if (word.wordId == wordLi.data('wordId')) {
-        word.category.splice(word.category.indexOf(wordLi.parent().parent().data('categoryName')), 1);
-        wordLi.parent().remove(wordLi);
-        if (category.querySelectorAll('ul li').length === 0) {
-          $(category.querySelector('ul')).hide()
+        word.category.splice(word.category.indexOf(wordLi.closest('[data-category-name]')), 1);
+        wordLi.remove();
+        if (category.querySelectorAll('ul.wordsList li').length === 0) {
+          $(category.querySelector('ul.wordsList')).hide()
         }
         refreshStorage();
         stopClosingCategoryList();
@@ -588,10 +599,7 @@ function fillSelect() {
     $chooseCategory.html('');
   }
   for (const category in categories) {
-    const option = document.createElement('option');
-    option.value = category;
-    option.innerHTML = category;
-    option.removeAttribute('selected');
+    const option = new Option(category, category);
     if (editing) {
       $chooseCategoryEditing.append(option);
     } else {
@@ -623,7 +631,7 @@ function addOptionToSelect() {
     })
 
     categoryTitle.innerHTML = category;
-    categoryTitle.appendChild(closeBtn);
+    categoryTitle.append(closeBtn);
     if (editing) {
       $categoriesEditing.append(categoryTitle);
     } else {
@@ -699,7 +707,7 @@ function closeAddingWindow() {
   $wordsSection.css({ top: '-200px' }).slideUp(100);
   $wordsSectionWrap.fadeOut('slow');
   document.querySelectorAll('.contextsEditingWrap').forEach(element => {
-    element.parentNode.removeChild(element);
+    element.remove();
     examplesCount = 0;
   });
   $rusWordInput.val('');
@@ -825,7 +833,7 @@ function closeEditingWindow() {
   $newEditingCategoryTitle.val('');
   $transcriptionEditingInput.val('');
   document.querySelectorAll('.contextsEditingWrap').forEach(element => {
-    element.parentNode.removeChild(element);
+    element.remove();
     examplesCount = 0;
   });
 }
@@ -837,12 +845,20 @@ function resetWordProgress(word) {
   word.forgotInThisSession = false;
 }
 
+
+
+
+
+
+
+
+
 let isMouseDown = false;
 let startX;
 let startFirstDeg = 0;
 let startSecondDeg = 0;
 
-$('#card').on('touchstart mousedown', function (event) {
+$('#card').on('touchstart', function (event) {
   isMouseDown = true;
   if (event.clientX) {
     startX = event.clientX;
@@ -851,7 +867,7 @@ $('#card').on('touchstart mousedown', function (event) {
   }
 });
 
-$(document).on('touchend mouseup', function () {
+$(document).on('touchend', function () {
   isMouseDown = false;
   $('#card').css({ left: `100px` });
   $('#card').css({ top: `100px` });
@@ -860,7 +876,7 @@ $(document).on('touchend mouseup', function () {
   startSecondDeg = 0;
 });
 
-$('#card').on('touchmove mousemove', function (event) {
+$('#card').on('touchmove', function (event) {
   if (isMouseDown) {
     let tempClientX;
     if (event.clientX) {
@@ -874,7 +890,7 @@ $('#card').on('touchmove mousemove', function (event) {
         $('#card').css({ transform: `matrix(1, ${startFirstDeg -= 0.01}, ${startSecondDeg += 0.01}, 1, 0, 0)` });
       }
       startX = tempClientX + 1;
-    } else if (startX < tempClientX && parseInt($('#card').css('left')) < 300) {
+    } else if (startX < tempClientX && parseInt($('#card').css('left')) < (parseInt($('#card').css('width')) + 50)) {
       $('#card').css({ left: `${parseInt($('#card').css('left')) + 5}px` });
       if (startFirstDeg < 0.2) {
         $('#card').css({ transform: `matrix(1, ${startFirstDeg += 0.01}, ${startSecondDeg -= 0.01}, 1, 0, 0)` });
@@ -883,6 +899,8 @@ $('#card').on('touchmove mousemove', function (event) {
     }
   }
 });
+
+
 
 
 // http://www.ispeech.org/api/#text-to-speech
@@ -895,6 +913,8 @@ $('#card').on('touchmove mousemove', function (event) {
 // стили полей при пустом вводе
 // анимации и дизайн
 // исправить редактирование через карточку чтобы после редактирования слово обновлялось
+// сброс прогресса по всей категории
+
 
 
 // добавить окно со статистикой
@@ -902,4 +922,6 @@ $('#card').on('touchmove mousemove', function (event) {
 // процент изученных слов в каждой категории
 // выбор первого показываемого языка
 // функцию высчитывающую желаемое количество новых слов в день
-// сброс прогресса по всей категории
+
+
+// удалять слова если нет категорий
