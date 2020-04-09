@@ -15,3 +15,5 @@
 + [NewProvidence](https://alex-kudryashov.github.io/newprovidence)
 --------
 + [Crowdme](https://alex-kudryashov.github.io/crowdme)
+--------
++ [WordsMemorizer](https://alex-kudryashov.github.io/words-memorizer/)
