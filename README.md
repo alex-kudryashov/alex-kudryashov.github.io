@@ -1,4 +1,4 @@
-# https://github.com/alex-kudryashov/alex-kudryashov.github.io
++ [Профиль GitHub](https://github.com/alex-kudryashov)
 -----
 + [mini](https://alex-kudryashov.github.io/mini)
 -----
