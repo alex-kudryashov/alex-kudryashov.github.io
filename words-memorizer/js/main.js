@@ -1,26 +1,18 @@
 "use strict";
 
-// $.ajax({
+$.ajax({
 
-//   type: "GET",
-//   url: "/js/words.json",
-//   success: function (response) {
-//     localStorage.setItem('allWords', JSON.stringify(response))
-//   }
-// }
+  type: "GET",
+  url: "https://dry-thicket-77260.herokuapp.com/users",
+  success: function (response) {
+    currentUser = response[0];
+    allWords = response[0].words;
+    categories = response[0].categories;
+    fillCategories();
+  }
+})
 
-// )
-// localStorage.setItem('categories', JSON.stringify({
-//   'Разное': false,
-//   'Природа': false,
-//   'Компьютер': false,
-//   'Экономика': false,
-// }
-
-// ))
-
-
-const allWords = JSON.parse(localStorage.getItem('allWords')) || [],
+const
   $checkWordBtn = $('#checkWord'),
   $learnedBtn = $('#learned'),
   $forgotBtn = $('#forgot'),
@@ -55,17 +47,19 @@ const allWords = JSON.parse(localStorage.getItem('allWords')) || [],
   $cardOptionsBtn = $('#cardOptionsBtn');
 
 
-let categories = JSON.parse(localStorage.getItem('categories')) || { 'Разное': false },
+let
   chosenCategories = new Set(),
   wordCounter,
   langNum,
   currentWord,
   examplesCount = 0,
   editing = false,
-  editingWord;
+  editingWord,
+  allWords,
+  categories,
+  currentUser;
 
 
-fillCategories();
 
 $('#resetWordFromCard').on('click', () => {
   resetWordProgress(allWords.find(word => word.wordId == currentWord));
@@ -109,8 +103,24 @@ $('#openAddingWindow').on('click', () => {
   openAddingWindow();
 })
 
+$('#signInBtn').on('click', () => {
+  openSignInWindow();
+})
+
+$('#signUpBtn').on('click', () => {
+  openSignUpWindow();
+})
+
 $('#closeAddingWindow').on('click', () => {
   closeAddingWindow();
+})
+
+$('#closeSignInWindow').on('click', () => {
+  closeSignInWindow();
+})
+
+$('#closeSignUpWindow').on('click', () => {
+  closeSignUpWindow();
 })
 
 $('#openSheduleWindow').on('click', () => {
@@ -189,6 +199,7 @@ $learnedBtn.on('click', () => {
           word.learned = true;
           break;
       }
+      word.date = new Date(word.date)
     }
   })
   nextWord();
@@ -588,8 +599,22 @@ function getRandomInteger(min, max) {
 }
 
 function refreshStorage() {
-  localStorage.setItem('categories', JSON.stringify(categories));
-  localStorage.setItem('allWords', JSON.stringify(allWords));
+  // localStorage.setItem('categories', JSON.stringify(categories));
+  // localStorage.setItem('allWords', JSON.stringify(allWords));
+
+  $.ajax({
+    type: "PUT",
+    url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
+    data: {
+      "words": allWords,
+      "categories": categories,
+      "name": currentUser.name,
+      "password": currentUser.password
+    },
+    success: function (response) {
+      console.log(response);
+    }
+  })
 }
 
 function fillSelect() {
@@ -703,6 +728,18 @@ function openAddingWindow() {
   fillSelect();
 }
 
+function openSignInWindow() {
+  $('#signInFormWrap').fadeIn('slow');
+  $('#signInForm').slideDown(100, () => { $('#signInForm').css({ top: '100px' }) });
+  fillSelect();
+}
+
+function openSignUpWindow() {
+  $('#signUpFormWrap').fadeIn('slow');
+  $('#signUpForm').slideDown(100, () => { $('#signUpForm').css({ top: '100px' }) });
+  fillSelect();
+}
+
 function closeAddingWindow() {
   $wordsSection.css({ top: '-200px' }).slideUp(100);
   $wordsSectionWrap.fadeOut('slow');
@@ -714,6 +751,16 @@ function closeAddingWindow() {
   $engWordInput.val('');
   $newCategoryTitle.val('');
   $transcriptionInput.val('');
+}
+
+function closeSignInWindow() {
+  $('#signInForm').css({ top: '-200px' }).slideUp(100);
+  $('#signInFormWrap').fadeOut('slow');
+}
+
+function closeSignUpWindow() {
+  $('#signUpForm').css({ top: '-200px' }).slideUp(100);
+  $('#signUpFormWrap').fadeOut('slow');
 }
 
 function chooseCategory() {
@@ -848,62 +895,6 @@ function resetWordProgress(word) {
 
 
 
-
-
-
-
-
-let isMouseDown = false;
-let startX;
-let startFirstDeg = 0;
-let startSecondDeg = 0;
-
-$('#card').on('touchstart', function (event) {
-  isMouseDown = true;
-  if (event.clientX) {
-    startX = event.clientX;
-  } else {
-    startX = event.touches[0].clientX;
-  }
-});
-
-$(document).on('touchend', function () {
-  isMouseDown = false;
-  $('#card').css({ left: `100px` });
-  $('#card').css({ top: `100px` });
-  $('#card').css({ transform: 'matrix(1, 0, 0, 1, 0, 0)' });
-  startFirstDeg = 0;
-  startSecondDeg = 0;
-});
-
-$('#card').on('touchmove', function (event) {
-  if (isMouseDown) {
-    let tempClientX;
-    if (event.clientX) {
-      tempClientX = event.clientX
-    } else {
-      tempClientX = event.touches[0].clientX
-    }
-    if (startX > tempClientX && parseInt($('#card').css('left')) > -150) {
-      $('#card').css({ left: `${parseInt($('#card').css('left')) - 5}px` });
-      if (startFirstDeg > -0.2) {
-        $('#card').css({ transform: `matrix(1, ${startFirstDeg -= 0.01}, ${startSecondDeg += 0.01}, 1, 0, 0)` });
-      }
-      startX = tempClientX + 1;
-    } else if (startX < tempClientX && parseInt($('#card').css('left')) < (parseInt($('#card').css('width')) + 50)) {
-      $('#card').css({ left: `${parseInt($('#card').css('left')) + 5}px` });
-      if (startFirstDeg < 0.2) {
-        $('#card').css({ transform: `matrix(1, ${startFirstDeg += 0.01}, ${startSecondDeg -= 0.01}, 1, 0, 0)` });
-      }
-      startX = tempClientX - 1;
-    }
-  }
-});
-
-
-
-
-// http://www.ispeech.org/api/#text-to-speech
 
 
 

@@ -145,8 +145,8 @@ th {
   width: 320px;
   height: 600px;
   position: absolute;
-  left: 100px;
-  top: 100px;
+  left: 20px;
+  top: 20px;
   font-size: 26px;
   text-align: center;
   color: @main-color;
@@ -351,8 +351,8 @@ th {
 
 #categoriesBlock {
   position: absolute;
-  right: 400px;
-  top: 100px;
+  right: 20px;
+  top: 20px;
   width: 500px;
 
   #openAddingWindow,
@@ -571,7 +571,9 @@ th {
 }
 
 #wordsSectionWrap,
-#editingSectionWrap {
+#editingSectionWrap,
+#signInFormWrap,
+#signUpFormWrap {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   left: 0;
@@ -583,7 +585,9 @@ th {
 
 
   #wordsSection,
-  #editingSection {
+  #editingSection,
+  #signInForm,
+  #signUpForm {
     position: absolute;
     left: 50%;
     top: -200px;
@@ -602,7 +606,9 @@ th {
 
 
     #closeAddingWindow,
-    #closeEditingWindow {
+    #closeEditingWindow,
+    #closeSignInWindow,
+    #closeSignUpWindow {
       position: absolute;
       right: -20px;
       top: -20px;
@@ -642,7 +648,9 @@ th {
     #wordInputsWrap,
     #wordInputsEditingWrap,
     #contextsWrap,
-    .contextsEditingWrap {
+    .contextsEditingWrap,
+    #signInInputsWrap,
+    #signUpInputsWrap {
       display: flex;
       justify-content: space-around;
       width: 100%;

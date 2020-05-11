@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Memorizer</title>
-  <link rel="icon" type="image/ico" href="/favicon.ico">
+  <link rel="icon" type="image/ico" href="favicon.ico">
   <link rel="stylesheet" href="css/normalize.css">
   <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700&display=swap&subset=cyrillic,cyrillic-ext"
     rel="stylesheet">
@@ -243,6 +243,79 @@
     </table>
 
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="loginButtons">
+    <button id="signInBtn">Вход</button>
+    <button id="signUpBtn">Регистрация</button>
+  </div>
+
+
+  <div id="signInFormWrap" style="display: none;">
+    <div id="signInForm" style="display:none">
+
+      <button id="closeSignInWindow" class="icon-cancel-circled2"></button>
+
+      <div id="signInInputsWrap">
+
+        <label>Введите логин
+          <input type="text" id="loginInInput">
+        </label>
+
+        <label>Введите пароль
+          <input type="text" id="passwordInInput">
+        </label>
+
+        <button id="signIn" class="buttons">Войти</button>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="signUpFormWrap" style="display: none;">
+    <div id="signUpForm" style="display:none">
+
+      <button id="closeSignUpWindow" class="icon-cancel-circled2"></button>
+
+      <div id="signUpInputsWrap">
+
+        <label>Введите логин
+          <input type="text" id="loginUpInput">
+        </label>
+
+        <label>Введите пароль
+          <input type="text" id="passwordUpInput">
+        </label>
+
+        <button id="signUp" class="buttons">Зарегистрироваться</button>
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
   <template id="wordTemplate">
     <li class="wordInCategory">
