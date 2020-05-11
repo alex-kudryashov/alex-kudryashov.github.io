@@ -3,6 +3,7 @@
 $.ajax({
 
   type: "GET",
+  Access-Control-Allow-Origin: "https://amazing.site",
   url: "https://dry-thicket-77260.herokuapp.com/users",
   success: function (response) {
     currentUser = response[0];
@@ -604,6 +605,7 @@ function refreshStorage() {
 
   $.ajax({
     type: "PUT",
+    Access-Control-Allow-Origin: "https://amazing.site",
     url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
     data: {
       "words": allWords,
