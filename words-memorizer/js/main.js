@@ -1,17 +1,5 @@
 "use strict";
 
-$.ajax({
-
-  type: "GET",
-  url: "https://dry-thicket-77260.herokuapp.com/users",
-  success: function (response) {
-    currentUser = response[0];
-    allWords = response[0].words;
-    categories = response[0].categories;
-    fillCategories();
-  }
-})
-
 const
   $checkWordBtn = $('#checkWord'),
   $learnedBtn = $('#learned'),
@@ -60,7 +48,6 @@ let
   currentUser;
 
 
-
 $('#resetWordFromCard').on('click', () => {
   resetWordProgress(allWords.find(word => word.wordId == currentWord));
   refreshStorage();
@@ -101,14 +88,6 @@ $('#transcriptionEditingSymbols').on('click', 'span', function () {
 
 $('#openAddingWindow').on('click', () => {
   openAddingWindow();
-})
-
-$('#signInBtn').on('click', () => {
-  openSignInWindow();
-})
-
-$('#signUpBtn').on('click', () => {
-  openSignUpWindow();
 })
 
 $('#closeAddingWindow').on('click', () => {
@@ -298,15 +277,19 @@ function fillCategories() {
 }
 
 function includeCategory(category, checkedBtn) {
-  categories[category] = !categories[category];
-  if (checkedBtn.hasClass('icon-check-empty')) {
-    checkedBtn.removeClass('icon-check-empty');
-    checkedBtn.addClass('icon-check');
-  } else {
+  let curCut = categories[category];
+  if (curCut === "true") {
+    categories[category] = "false";
     checkedBtn.addClass('icon-check-empty');
     checkedBtn.removeClass('icon-check');
+    refreshStorage();
+    return
+  } else {
+    categories[category] = "true";
+    checkedBtn.removeClass('icon-check-empty');
+    checkedBtn.addClass('icon-check');
+    refreshStorage();
   }
-  refreshStorage();
 }
 
 function createCategoryOnPage(globalCategory) {
@@ -318,7 +301,7 @@ function createCategoryOnPage(globalCategory) {
   const $clearCategoryBtn = $categoryTemplate.find('.clearCategory');
   const $listTitle = $categoryTemplate.find('span');
 
-  if (categories[globalCategory]) {
+  if (categories[globalCategory] === "true") {
     $checkedBtn.removeClass('icon-check-empty');
     $checkedBtn.addClass('icon-check');
   }
@@ -543,19 +526,20 @@ function nextWord() {
 
   allWords.forEach(el => {
     const catsInWord = new Set();
-
     for (const cat in categories) {
       const catPos = el.category.indexOf(cat);
 
-      if (categories[el.category[catPos]]) {
+      if (categories[el.category[catPos]] === "true") {
         catsInWord.add(categories[cat]);
       }
     }
 
-    if (catsInWord.size > 0 && !el.learned && !(new Date(el.date) > now)) {
+    if (catsInWord.size > 0 && el.learned === "false" && !(new Date(el.date) > now)) {
       availableWords.push(el);
     }
   })
+
+
 
   if (availableWords.length == 0) {
     $origWord.html('Вы изучили все слова!').slideDown(300);
@@ -596,25 +580,6 @@ function nextWord() {
 function getRandomInteger(min, max) {
   const rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
-}
-
-function refreshStorage() {
-  // localStorage.setItem('categories', JSON.stringify(categories));
-  // localStorage.setItem('allWords', JSON.stringify(allWords));
-
-  $.ajax({
-    type: "PUT",
-    url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
-    data: {
-      "words": allWords,
-      "categories": categories,
-      "name": currentUser.name,
-      "password": currentUser.password
-    },
-    success: function (response) {
-      console.log(response);
-    }
-  })
 }
 
 function fillSelect() {
@@ -731,13 +696,11 @@ function openAddingWindow() {
 function openSignInWindow() {
   $('#signInFormWrap').fadeIn('slow');
   $('#signInForm').slideDown(100, () => { $('#signInForm').css({ top: '100px' }) });
-  fillSelect();
 }
 
 function openSignUpWindow() {
   $('#signUpFormWrap').fadeIn('slow');
   $('#signUpForm').slideDown(100, () => { $('#signUpForm').css({ top: '100px' }) });
-  fillSelect();
 }
 
 function closeAddingWindow() {
@@ -754,8 +717,12 @@ function closeAddingWindow() {
 }
 
 function closeSignInWindow() {
-  $('#signInForm').css({ top: '-200px' }).slideUp(100);
-  $('#signInFormWrap').fadeOut('slow');
+  if (JSON.parse(localStorage.getItem('userName'))) {
+    $('#signInForm').css({ top: '-200px' }).slideUp(100);
+    $('#signInFormWrap').fadeOut('slow');
+  } else {
+    alert('Войдите или зарегистрируйтесь!');
+  }
 }
 
 function closeSignUpWindow() {
@@ -895,6 +862,120 @@ function resetWordProgress(word) {
 
 
 
+
+function refreshStorage() {
+  // localStorage.setItem('categories', JSON.stringify(categories));
+  // localStorage.setItem('allWords', JSON.stringify(allWords));
+  console.log(categories);
+
+  $.ajax({
+    type: "PUT",
+    url: `https://fathomless-reef-88997.herokuapp.com/users/${currentUser._id}`,
+    data: {
+      "words": allWords,
+      "categories": categories,
+      "name": currentUser.name,
+      "password": currentUser.password
+    },
+    success: function (response) {
+      console.log(response);
+    }
+  })
+}
+
+
+
+
+checkStorage()
+
+function checkStorage() {
+  let user = JSON.parse(localStorage.getItem('userName'));
+  if (user) {
+    $.ajax({
+      type: "GET",
+      url: `https://fathomless-reef-88997.herokuapp.com/users/${user}`,
+      success: function (response) {
+        currentUser = response;
+        allWords = response.words;
+        categories = response.categories;
+        fillCategories();
+        $('#signInBtn').hide();
+        $('#signUpBtn').hide();
+      }
+    })
+  } else {
+    openSignInWindow();
+  }
+}
+
+$('#signIn').on('click', () => {
+  $.ajax({
+    type: "GET",
+    url: `https://fathomless-reef-88997.herokuapp.com/users/${$('#loginInInput').val()}`,
+    success: function (response) {
+      if ($('#passwordInInput').val() == response.password) {
+        currentUser = response;
+        allWords = response.words;
+        categories = response.categories;
+        fillCategories();
+        localStorage.setItem('userName', JSON.stringify(response.name));
+        localStorage.setItem('userPassword', JSON.stringify(response.password));
+        closeSignInWindow();
+      } else {
+        alert('Пароль не верный!');
+      }
+    }
+  })
+})
+
+$('#goTosignUp').on('click', () => {
+  openSignUpWindow();
+})
+
+$('#signUp').on('click', () => {
+  $.ajax({
+    type: "GET",
+    url: `https://fathomless-reef-88997.herokuapp.com/users/${$('#loginUpInput').val()}`,
+    success: function (response) {
+      if ($('#loginUpInput').val() == response.name) {
+        alert(`Пользователь с логином ${$('#loginUpInput').val()} уже существует, придумайте другой логин.`)
+      } else {
+        if ($('#passwordUpInput').val().length > 4) {
+          addUserToDB();
+        } else {
+          alert('Пароль слишком короткий!');
+        }
+      }
+    }
+  })
+})
+
+
+function addUserToDB() {
+  $.ajax({
+    url: `https://fathomless-reef-88997.herokuapp.com/users/`,
+    type: "POST",
+    data: {
+      name: $('#loginUpInput').val(),
+      password: $('#passwordUpInput').val()
+    },
+    success: function (response) { }
+  });
+  $.ajax({
+    type: "GET",
+    url: `https://fathomless-reef-88997.herokuapp.com/users/${$('#loginUpInput').val()}`,
+    success: function (response) {
+      currentUser = response;
+      allWords = response.words;
+      categories = response.categories;
+      fillCategories();
+      localStorage.setItem('userName', JSON.stringify($('#loginUpInput').val()));
+      localStorage.setItem('userPassword', JSON.stringify($('#passwordUpInput').val()));
+      closeSignInWindow();
+      closeSignUpWindow();
+    }
+  })
+}
 
 
 

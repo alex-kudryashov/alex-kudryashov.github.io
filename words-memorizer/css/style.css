@@ -2985,3 +2985,15 @@ th {
   font-size: 25px;
   cursor: pointer;
 }
+#goToSignUpBlock {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+#goToSignUpBlock #goTosignUp {
+  margin-top: 50px;
+  text-align: right;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
