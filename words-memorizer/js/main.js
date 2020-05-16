@@ -864,13 +864,11 @@ function resetWordProgress(word) {
 
 
 function refreshStorage() {
-  // localStorage.setItem('categories', JSON.stringify(categories));
-  // localStorage.setItem('allWords', JSON.stringify(allWords));
   console.log(categories);
 
   $.ajax({
     type: "PUT",
-    url: `https://fathomless-reef-88997.herokuapp.com/users/${currentUser._id}`,
+    url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
     data: {
       "words": allWords,
       "categories": categories,
@@ -893,7 +891,7 @@ function checkStorage() {
   if (user) {
     $.ajax({
       type: "GET",
-      url: `https://fathomless-reef-88997.herokuapp.com/users/${user}`,
+      url: `https://dry-thicket-77260.herokuapp.com/users/${user}`,
       success: function (response) {
         currentUser = response;
         allWords = response.words;
@@ -911,7 +909,7 @@ function checkStorage() {
 $('#signIn').on('click', () => {
   $.ajax({
     type: "GET",
-    url: `https://fathomless-reef-88997.herokuapp.com/users/${$('#loginInInput').val()}`,
+    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginInInput').val()}`,
     success: function (response) {
       if ($('#passwordInInput').val() == response.password) {
         currentUser = response;
@@ -935,7 +933,7 @@ $('#goTosignUp').on('click', () => {
 $('#signUp').on('click', () => {
   $.ajax({
     type: "GET",
-    url: `https://fathomless-reef-88997.herokuapp.com/users/${$('#loginUpInput').val()}`,
+    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}`,
     success: function (response) {
       if ($('#loginUpInput').val() == response.name) {
         alert(`Пользователь с логином ${$('#loginUpInput').val()} уже существует, придумайте другой логин.`)
@@ -953,7 +951,7 @@ $('#signUp').on('click', () => {
 
 function addUserToDB() {
   $.ajax({
-    url: `https://fathomless-reef-88997.herokuapp.com/users/`,
+    url: `https://dry-thicket-77260.herokuapp.com/users/`,
     type: "POST",
     data: {
       name: $('#loginUpInput').val(),
@@ -963,7 +961,7 @@ function addUserToDB() {
   });
   $.ajax({
     type: "GET",
-    url: `https://fathomless-reef-88997.herokuapp.com/users/${$('#loginUpInput').val()}`,
+    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}`,
     success: function (response) {
       currentUser = response;
       allWords = response.words;
