@@ -16,8 +16,9 @@
 
 <body>
 
-  <!-- карточка с перебором слов -->
+
   <div class="cardWrap">
+    <!-- карточка с перебором слов -->
     <div id="card" style="transform: rotate(0deg);">
       <span id="category" title="Категория" style="display: none;"></span>
       <p id="origWord" style="display: none;"></p>
@@ -42,10 +43,14 @@
         </div>
       </ul>
     </div>
+    <!-- блок со всеми словами, сгруппированными по категориям -->
+    <div id="categoriesBlock">
+      <ul id="categoriesList">
+      </ul>
+    </div>
   </div>
 
   <!-- блок для добавления слов -->
-
   <div id="wordsSectionWrap" style="display: none;">
     <div id="wordsSection" style="display:none">
 
@@ -108,7 +113,6 @@
   </div>
 
   <!-- блок для редактирования слов -->
-
   <div id="editingSectionWrap" style="display: none;">
     <div id="editingSection" style="display:none">
 
@@ -169,14 +173,6 @@
 
       <button id="saveEditing">Сохранить</button>
     </div>
-  </div>
-
-  <!-- блок со всеми словами, сгруппированными по категориям -->
-  <div id="categoriesBlock">
-    <ul id="categoriesList">
-    </ul>
-    <button id="openAddingWindow">Добавить слова и категории</button>
-    <button id="openSheduleWindow">Просмотреть расписание</button>
   </div>
 
   <!-- расписание повторений -->
@@ -244,12 +240,7 @@
 
   </div>
 
-
-
-
-
-
-
+  <!-- форма входа -->
   <div id="signInFormWrap" style="display: none;">
     <div id="signInForm" style="display:none">
 
@@ -262,12 +253,17 @@
         </label>
 
         <label>Введите пароль
-          <input type="text" id="passwordInInput">
+          <input type="password" id="passwordInInput">
         </label>
 
+
+
+      </div>
+      <div id="signingWrap">
+        <label>
+          <input type="checkbox" id="rememberMeIn" checked="true">Запомнить меня
+        </label>
         <button id="signIn" class="buttons">Войти</button>
-
-
       </div>
       <div id="goToSignUpBlock">
         <button id="goTosignUp">Зарегистрироваться</button>
@@ -275,6 +271,7 @@
     </div>
   </div>
 
+  <!-- форма регистрации -->
   <div id="signUpFormWrap" style="display: none;">
     <div id="signUpForm" style="display:none">
 
@@ -287,14 +284,30 @@
         </label>
 
         <label>Введите пароль
-          <input type="text" id="passwordUpInput">
+          <input type="password" id="passwordUpInput">
         </label>
 
-        <button id="signUp" class="buttons">Зарегистрироваться</button>
-
       </div>
-
+      <div id="signingWrap">
+        <label>
+          <input type="checkbox" id="rememberMeUp" checked="true">Запомнить меня
+        </label>
+        <button id="signUp" class="buttons">Зарегистрироваться</button>
+      </div>
     </div>
+  </div>
+
+
+  <div class="mainButtonsWrap">
+    <button id="mainMenuBtn" class="icon-list-bullet"></button>
+    <button id="cardOpenBtn" class="icon-check"></button>
+    <button id="categoriesOpenBtn" class="icon-clipboard-1"></button>
+  </div>
+
+  <div id="mainButtons" style="display: none;">
+    <button class="buttons" id="changeUser">Сменить пользователя</button>
+    <button id="openAddingWindow" class="buttons">Добавить слова и категории</button>
+    <button id="openSheduleWindow" class="buttons">Просмотреть расписание</button>
   </div>
 
 
@@ -305,10 +318,7 @@
 
 
 
-
-
-
-
+  <!-- шаблон слова в списке категорий -->
   <template id="wordTemplate">
     <li class="wordInCategory">
       <span class="word_in_category_list"></span>
@@ -330,6 +340,7 @@
     </li>
   </template>
 
+  <!-- шаблон категории в списке категорий -->
   <template id="categoryTemplate">
     <li class="category_item">
       <button class="openCategory"></button>
@@ -341,6 +352,7 @@
     </li>
   </template>
 
+  <!-- шаблон формы примеров в контекстах для слов -->
   <template id="contextFormTemplate">
     <div class="contextsEditingWrap">
       <label>

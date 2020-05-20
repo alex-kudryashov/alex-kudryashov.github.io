@@ -45,12 +45,11 @@ let
   editingWord,
   allWords,
   categories,
-  currentUser;
-
+  currentUser,
+  tempUserData;
 
 $('#resetWordFromCard').on('click', () => {
   resetWordProgress(allWords.find(word => word.wordId == currentWord));
-  refreshStorage();
   nextWord();
   stopClosingCategoryList();
 })
@@ -63,7 +62,6 @@ $('#editWordFromCard').on('click', () => {
 
 $('#deleteWordFromCard').on('click', () => {
   allWords.splice(allWords.indexOf(allWords.find(word => word.wordId == currentWord)), 1);
-  refreshStorage();
   nextWord();
   stopClosingCategoryList();
 })
@@ -104,7 +102,12 @@ $('#closeSignUpWindow').on('click', () => {
 
 $('#openSheduleWindow').on('click', () => {
   $('#tableWrap').fadeIn('slow');
-  $('#tableWrap table').slideDown(100, () => { $('#tableWrap table').css({ top: '100px' }) });
+  if (screen.width > 899) {
+    $('#tableWrap table').slideDown(100, () => { $('#tableWrap table').css({ top: '100px' }) });
+  } else {
+    $('#tableWrap table').slideDown(100, () => { $('#tableWrap table').css({ top: '0px' }) });
+  }
+
 })
 
 $('#closeSheduleWindow').on('click', () => {
@@ -689,18 +692,32 @@ function openAddingWindow() {
   addOptionToSelect();
   $chooseCategory.val(chosenCategories[0]);
   $wordsSectionWrap.fadeIn('slow');
-  $wordsSection.slideDown(100, () => { $wordsSection.css({ top: '100px' }) });
+  if (screen.width > 899) {
+    $wordsSection.slideDown(100, () => { $wordsSection.css({ top: '100px' }) });
+  } else {
+    $wordsSection.slideDown(100, () => { $wordsSection.css({ top: '0px' }) });
+  }
   fillSelect();
 }
 
 function openSignInWindow() {
   $('#signInFormWrap').fadeIn('slow');
-  $('#signInForm').slideDown(100, () => { $('#signInForm').css({ top: '100px' }) });
+  if (screen.width > 899) {
+    $('#signInForm').slideDown(100, () => { $('#signInForm').css({ top: '100px' }) });
+  } else {
+    $('#signInForm').slideDown(100, () => { $('#signInForm').css({ top: '0px' }) });
+  }
 }
 
 function openSignUpWindow() {
   $('#signUpFormWrap').fadeIn('slow');
-  $('#signUpForm').slideDown(100, () => { $('#signUpForm').css({ top: '100px' }) });
+  $('#signInFormWrap').fadeIn('slow');
+  if (screen.width > 899) {
+    $('#signUpForm').slideDown(100, () => { $('#signUpForm').css({ top: '100px' }) });
+  } else {
+    $('#signUpForm').slideDown(100, () => { $('#signUpForm').css({ top: '0px' }) });
+  }
+
 }
 
 function closeAddingWindow() {
@@ -717,7 +734,7 @@ function closeAddingWindow() {
 }
 
 function closeSignInWindow() {
-  if (JSON.parse(localStorage.getItem('userName'))) {
+  if (tempUserData || JSON.parse(localStorage.getItem('userName'))) {
     $('#signInForm').css({ top: '-200px' }).slideUp(100);
     $('#signInFormWrap').fadeOut('slow');
   } else {
@@ -750,7 +767,7 @@ function addWord() {
     $transcriptionInput.val('');
     document.querySelectorAll('input[data-added-example-lang="ru"]').forEach(input => {
       input.value = '';
-      input.parentNode.parentNode.querySelector('#closeContextExample').click();
+      input.parentNode.parentNode.querySelector('.closeContextEditingExample').click();
     })
     document.querySelectorAll('input[data-added-example-lang="eng"]').forEach(input => {
       input.value = '';
@@ -788,7 +805,11 @@ function openEditingWindow(word) {
   addOptionToSelect();
   $chooseCategoryEditing.val(chosenCategories[0]);
   $editingSectionWrap.fadeIn('slow');
-  $editingSection.slideDown(100, () => { $editingSection.css({ top: '100px' }) });
+  if (screen.width > 899) {
+    $editingSection.slideDown(100, () => { $editingSection.css({ top: '100px' }) });
+  } else {
+    $editingSection.slideDown(100, () => { $editingSection.css({ top: '0px' }) });
+  }
   fillSelect();
   $rusWordEditingInput.val(word.rus);
   $engWordEditingInput.val(word.eng);
@@ -832,6 +853,7 @@ function saveEditing() {
       refreshStorage();
       stopClosingCategoryList();
       closeEditingWindow();
+      nextWord();
       return
     }
   })
@@ -862,21 +884,64 @@ function resetWordProgress(word) {
 
 
 
+$('#cardOpenBtn').on('click', () => {
+  $('#card').show(100);
+  $('#categoriesBlock').hide(100);
+  $('#mainButtons').hide(100);
+})
+
+
+$('#categoriesOpenBtn').on('click', () => {
+  $('#card').hide(100);
+  $('#categoriesBlock').show(100);
+  $('#mainButtons').hide(100);
+})
+
+$('#mainMenuBtn').on('click', () => {
+  $('#card').hide(100);
+  $('#categoriesBlock').hide(100);
+  $('#mainButtons').show(100);
+})
+
+
+
+
+
+
+
+
+
+
+
 
 function refreshStorage() {
-  console.log(categories);
 
   $.ajax({
     type: "PUT",
     url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
+    // url: `http://localhost:3000/users/${currentUser._id}`,
     data: {
       "words": allWords,
       "categories": categories,
       "name": currentUser.name,
       "password": currentUser.password
     },
-    success: function (response) {
-      console.log(response);
+    success: function (resp) {
+      let user = JSON.parse(localStorage.getItem('userName'));
+      if (!user) {
+        user = tempUserData;
+      }
+      $.ajax({
+        type: "GET",
+        url: `https://dry-thicket-77260.herokuapp.com/users/${user}`,
+        // url: `http://localhost:3000/users/${user}`,
+        success: function (response) {
+          currentUser = response;
+          allWords = response.words;
+          categories = response.categories;
+          stopClosingCategoryList();
+        }
+      })
     }
   })
 }
@@ -892,13 +957,16 @@ function checkStorage() {
     $.ajax({
       type: "GET",
       url: `https://dry-thicket-77260.herokuapp.com/users/${user}`,
+      // url: `http://localhost:3000/users/${user}`,
       success: function (response) {
         currentUser = response;
         allWords = response.words;
         categories = response.categories;
         fillCategories();
-        $('#signInBtn').hide();
-        $('#signUpBtn').hide();
+
+        if (screen.width > 899) {
+          $('#mainButtons').show();
+        }
       }
     })
   } else {
@@ -910,15 +978,22 @@ $('#signIn').on('click', () => {
   $.ajax({
     type: "GET",
     url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginInInput').val()}`,
+    // url: `http://localhost:3000/users/${$('#loginInInput').val()}`,
     success: function (response) {
       if ($('#passwordInInput').val() == response.password) {
         currentUser = response;
         allWords = response.words;
         categories = response.categories;
         fillCategories();
-        localStorage.setItem('userName', JSON.stringify(response.name));
-        localStorage.setItem('userPassword', JSON.stringify(response.password));
+        if ($('#rememberMeIn').prop('checked')) {
+          localStorage.setItem('userName', JSON.stringify(response.name));
+        } else {
+          tempUserData = response.name;
+        }
         closeSignInWindow();
+        if (screen.width > 899) {
+          $('#mainButtons').show();
+        }
       } else {
         alert('Пароль не верный!');
       }
@@ -934,6 +1009,7 @@ $('#signUp').on('click', () => {
   $.ajax({
     type: "GET",
     url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}`,
+    // url: `http://localhost:3000/users/${$('#loginUpInput').val()}`,
     success: function (response) {
       if ($('#loginUpInput').val() == response.name) {
         alert(`Пользователь с логином ${$('#loginUpInput').val()} уже существует, придумайте другой логин.`)
@@ -952,6 +1028,7 @@ $('#signUp').on('click', () => {
 function addUserToDB() {
   $.ajax({
     url: `https://dry-thicket-77260.herokuapp.com/users/`,
+    // url: `http://localhost:3000/users/`,
     type: "POST",
     data: {
       name: $('#loginUpInput').val(),
@@ -962,36 +1039,45 @@ function addUserToDB() {
   $.ajax({
     type: "GET",
     url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}`,
+    // url: `http://localhost:3000/users/${$('#loginUpInput').val()}`,
     success: function (response) {
       currentUser = response;
       allWords = response.words;
       categories = response.categories;
       fillCategories();
-      localStorage.setItem('userName', JSON.stringify($('#loginUpInput').val()));
-      localStorage.setItem('userPassword', JSON.stringify($('#passwordUpInput').val()));
+      if ($('#rememberMeUp').prop('checked')) {
+        // localStorage.setItem('userName', JSON.stringify($('#loginUpInput').val()));
+        localStorage.setItem('userPassword', JSON.stringify($('#passwordUpInput').val()));
+      } else {
+        tempUserData = $('#loginUpInput').val();
+      }
       closeSignInWindow();
       closeSignUpWindow();
+      if (screen.width > 899) {
+        $('#mainButtons').show();
+      }
     }
   })
 }
 
 
+$('#changeUser').on('click', () => {
+  if (JSON.parse(localStorage.getItem('userName'))) {
+    localStorage.clear();
+  }
+  openSignInWindow();
+})
+
+
 
 // Список фич:
-
-// уведомления
 // стили полей при пустом вводе
 // анимации и дизайн
 // исправить редактирование через карточку чтобы после редактирования слово обновлялось
 // сброс прогресса по всей категории
-
-
-
 // добавить окно со статистикой
 // поиск по словам - при вводе слова - выводятся подходящий варианты, которые можно редачить, удалять и сбрасывать прогресс
 // процент изученных слов в каждой категории
 // выбор первого показываемого языка
 // функцию высчитывающую желаемое количество новых слов в день
-
-
 // удалять слова если нет категорий

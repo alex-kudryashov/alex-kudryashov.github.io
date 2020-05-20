@@ -140,297 +140,374 @@ th {
 }
 
 // блок с карточкой
-#card {
-  border-radius: 5px;
-  width: 320px;
-  height: 600px;
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  font-size: 26px;
-  text-align: center;
-  color: @main-color;
-  overflow: hidden;
-  box-shadow: 0px 0px 22px -2px rgba(0, 13, 64, 0.46);
-  background: linear-gradient(121.49839420425917deg, rgba(167, 204, 225, 1) 6.140625%, rgba(236, 246, 237, 1) 95.51562499999999%);
-  z-index: 999;
-  // transition: 0.3s;
-  transform: rotate(0);
-  cursor: pointer;
+.cardWrap {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  #category {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    max-width: 190px;
-    font-size: 10px;
-    text-align: left;
-    word-break: break-word;
-  }
+  #card {
+    border-radius: 5px;
+    width: 320px;
+    margin-right: 50px;
+    height: 600px;
+    font-size: 26px;
+    text-align: center;
+    color: @main-color;
+    overflow: hidden;
+    box-shadow: 0px 0px 22px -2px rgba(0, 13, 64, 0.46);
+    background: linear-gradient(121.49839420425917deg, rgba(167, 204, 225, 1) 6.140625%, rgba(236, 246, 237, 1) 95.51562499999999%);
+    z-index: 999;
+    // transition: 0.3s;
+    transform: rotate(0);
+    cursor: pointer;
 
-  #origWord {
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    top: 40px;
-    overflow: auto;
-    bottom: 400px;
-    word-break: break-word;
-
-    .transcription {
-      font-size: 14px;
-      color: #707070;
-      display: block;
-      width: 100%;
-    }
-  }
-
-  #translatedWord {
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    top: 140px;
-    overflow: auto;
-    bottom: 320px;
-    word-break: break-word;
-
-    .transcription {
-      font-size: 14px;
-      color: #707070;
-      display: block;
-      width: 100%;
-    }
-  }
-
-  #forgot,
-  #learned,
-  #checkWord,
-  #start {
-    height: 70px;
-    width: 50%;
-    position: absolute;
-    bottom: 0;
-    .buttons;
-  }
-
-  #start {
-    left: 10%;
-    right: 10%;
-    top: 170px;
-    width: 80%;
-  }
-
-  #forgot {
-    left: 0;
-  }
-
-  #learned {
-    right: 0;
-  }
-
-  #checkWord {
-    width: 100%;
-    height: 50px;
-    left: 0;
-    right: 0;
-    top: 200px;
-  }
-
-  #examples {
-    position: absolute;
-    top: 250px;
-    left: 20px;
-    right: 20px;
-    font-size: 14px;
-    border-top: 1px solid gray;
-    text-align: left;
-    padding-top: 10px;
-    bottom: 80px;
-    overflow: auto;
-
-    .engExample {
-      padding: 5px;
-      background: rgba(167, 204, 225, 0.7);
-      margin: 2px 0;
-      cursor: pointer;
-      position: relative;
-      border-radius: 2px;
-      padding-right: 20px;
-
-      &:hover {
-        background: rgba(167, 204, 225, 0.3);
-        transition: 0.4s;
-      }
-
-      &::after {
-        content: "";
-        display: block;
-        width: 10px;
-        height: 10px;
-        border: 1px solid teal;
-        width: 5px;
-        height: 5px;
-        border-right: 0;
-        border-top: 0;
-        transform: rotate(-45deg);
-        position: absolute;
-        right: 10px;
-        top: 8px;
-        transition: 0.5s;
-      }
-    }
-
-    .rotateArrow {
-      &::after {
-        transform: rotate(135deg);
-      }
-    }
-
-    .ruExample {
-      margin: 2px 0;
-      padding: 5px;
-    }
-
-    p {
+    #category {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      max-width: 190px;
+      font-size: 10px;
+      text-align: left;
       word-break: break-word;
     }
-  }
 
-  .optionsBtn {
-    background: transparent;
-    border: none;
-    position: absolute;
-    right: 0;
-    top: 10px;
-    cursor: pointer;
-    font-size: 25px;
-  }
-
-  .options {
-    position: absolute;
-    background: #00000087;
-    right: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-
-    .optionsWrap {
-      background-color: #000;
-      width: 90%;
-      margin: auto;
+    #origWord {
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      border-radius: 5px;
+      left: 10px;
+      right: 10px;
+      top: 40px;
+      overflow: auto;
+      bottom: 400px;
+      word-break: break-word;
 
-      li {
-        button {
-          background: transparent;
-          border: none;
-          color: #e0e2db;
-          padding: 10px;
-          cursor: pointer;
+      .transcription {
+        font-size: 14px;
+        color: #707070;
+        display: block;
+        width: 100%;
+      }
+    }
 
-          width: 100%;
-          font-size: 15px;
+    #translatedWord {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 140px;
+      overflow: auto;
+      bottom: 320px;
+      word-break: break-word;
+
+      .transcription {
+        font-size: 14px;
+        color: #707070;
+        display: block;
+        width: 100%;
+      }
+    }
+
+    #forgot,
+    #learned,
+    #checkWord,
+    #start {
+      height: 70px;
+      width: 50%;
+      position: absolute;
+      bottom: 0;
+      .buttons;
+    }
+
+    #start {
+      left: 10%;
+      right: 10%;
+      top: 170px;
+      width: 80%;
+    }
+
+    #forgot {
+      left: 0;
+    }
+
+    #learned {
+      right: 0;
+    }
+
+    #checkWord {
+      width: 100%;
+      height: 50px;
+      left: 0;
+      right: 0;
+      top: 200px;
+    }
+
+    #examples {
+      position: absolute;
+      top: 250px;
+      left: 20px;
+      right: 20px;
+      font-size: 14px;
+      border-top: 1px solid gray;
+      text-align: left;
+      padding-top: 10px;
+      bottom: 80px;
+      overflow: auto;
+
+      .engExample {
+        padding: 5px;
+        background: rgba(167, 204, 225, 0.7);
+        margin: 2px 0;
+        cursor: pointer;
+        position: relative;
+        border-radius: 2px;
+        padding-right: 20px;
+
+        &:hover {
+          background: rgba(167, 204, 225, 0.3);
+          transition: 0.4s;
         }
 
-        &:not(:last-child) {
+        &::after {
+          content: "";
+          display: block;
+          width: 10px;
+          height: 10px;
+          border: 1px solid teal;
+          width: 5px;
+          height: 5px;
+          border-right: 0;
+          border-top: 0;
+          transform: rotate(-45deg);
+          position: absolute;
+          right: 10px;
+          top: 8px;
+          transition: 0.5s;
+        }
+      }
+
+      .rotateArrow {
+        &::after {
+          transform: rotate(135deg);
+        }
+      }
+
+      .ruExample {
+        margin: 2px 0;
+        padding: 5px;
+      }
+
+      p {
+        word-break: break-word;
+      }
+    }
+
+    .optionsBtn {
+      background: transparent;
+      border: none;
+      position: absolute;
+      right: 0;
+      top: 10px;
+      cursor: pointer;
+      font-size: 25px;
+    }
+
+    .options {
+      position: absolute;
+      background: #00000087;
+      right: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      .optionsWrap {
+        background-color: #000;
+        width: 90%;
+        margin: auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 5px;
+
+        li {
           button {
-            border-bottom: 1px solid gray;
+            background: transparent;
+            border: none;
+            color: #e0e2db;
+            padding: 10px;
+            cursor: pointer;
+
+            width: 100%;
+            font-size: 15px;
+          }
+
+          &:not(:last-child) {
+            button {
+              border-bottom: 1px solid gray;
+            }
           }
         }
       }
+
+    }
+  }
+
+  #categoriesBlock {
+    width: 500px;
+
+    #openAddingWindow,
+    #openSheduleWindow {
+      .buttons;
+      display: block;
+      margin: 0 auto;
     }
 
-  }
-}
 
+    #categoriesList {
 
-
-#categoriesBlock {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  width: 500px;
-
-  #openAddingWindow,
-  #openSheduleWindow {
-    .buttons;
-    display: block;
-    margin: 0 auto;
-  }
-
-
-  #categoriesList {
-
-    .category_item {
-      background-color: #e0e2db;
-      margin: 5px;
-      padding: 5px;
-      text-align: left;
-      border-radius: 5px;
-      position: relative;
-      font-size: 20px;
-
-      &_name {
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-
-      span {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .checkedList {
-        background-color: transparent;
-        border: none;
-        color: @main-color;
-        position: absolute;
-        right: 5px;
-        top: 4px;
-        font-size: 25px;
-        cursor: pointer;
-      }
-
-      .deleteCategory {
-        .checkedList;
-        right: 55px;
-        font-size: 20px;
-      }
-
-      .clearCategory {
-        .checkedList;
-        right: 35px;
-        top: 3px;
-        font-size: 20px;
-      }
-
-      .icon-check-empty {
-        right: 9px;
-      }
-
-      .wordInCategory {
-        background-color: #27281e;
-        padding: 5px;
-        border-radius: 5px;
+      .category_item {
+        background-color: #e0e2db;
         margin: 5px;
-        color: #e0e2db;
+        padding: 5px;
+        text-align: left;
+        border-radius: 5px;
         position: relative;
-        cursor: initial;
-        padding: 8px;
+        font-size: 20px;
+
+        &_name {
+          &:hover {
+            text-decoration: underline;
+          }
+        }
 
         span {
-          margin-right: 20px;
-          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
-        &:first-child {
-          margin-top: 20px;
+        .checkedList {
+          background-color: transparent;
+          border: none;
+          color: @main-color;
+          position: absolute;
+          right: 5px;
+          top: 4px;
+          font-size: 25px;
+          cursor: pointer;
+        }
+
+        .deleteCategory {
+          .checkedList;
+          right: 55px;
+          font-size: 20px;
+        }
+
+        .clearCategory {
+          .checkedList;
+          right: 35px;
+          top: 3px;
+          font-size: 20px;
+        }
+
+        .icon-check-empty {
+          right: 9px;
+        }
+
+        .wordInCategory {
+          background-color: #27281e;
+          padding: 5px;
+          border-radius: 5px;
+          margin: 5px;
+          color: #e0e2db;
+          position: relative;
+          cursor: initial;
+          padding: 8px;
+
+          span {
+            margin-right: 20px;
+            display: block;
+          }
+
+          &:first-child {
+            margin-top: 20px;
+          }
+
+          .optionsBtn {
+            background: transparent;
+            border: none;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #e0e2db;
+            cursor: pointer;
+            font-size: 25px;
+          }
+
+          .options {
+            position: absolute;
+            background: #e0e2db;
+            z-index: 99999;
+            border-radius: 10px;
+            right: 10%;
+            top: 10%;
+
+            &::before {
+              content: '';
+              display: block;
+              position: absolute;
+              right: -20px;
+              top: 5%;
+              border: 10px solid transparent;
+              border-left: 10px solid #e0e2db;
+              left: unset;
+              transform: unset;
+            }
+
+            li {
+              button {
+                background: transparent;
+                border: none;
+                color: #000000;
+                padding: 10px;
+                cursor: pointer;
+
+                width: 100%;
+                font-size: 15px;
+              }
+
+              &:not(:last-child) {
+                button {
+                  border-bottom: 1px solid gray;
+                }
+              }
+            }
+          }
+        }
+
+        .openCategory {
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          width: 20px;
+          height: 14px;
+
+          &::after {
+            content: "";
+            display: block;
+            width: 10px;
+            height: 10px;
+            border: 1px solid teal;
+            width: 7px;
+            height: 7px;
+            border-right: 0;
+            border-top: 0;
+            transform: rotate(-45deg);
+            position: absolute;
+            left: 10px;
+            top: 8px;
+            transition: 0.5s;
+          }
         }
 
         .optionsBtn {
@@ -483,92 +560,20 @@ th {
             }
           }
         }
-      }
 
-      .openCategory {
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        width: 20px;
-        height: 14px;
-
-        &::after {
-          content: "";
-          display: block;
-          width: 10px;
-          height: 10px;
-          border: 1px solid teal;
-          width: 7px;
-          height: 7px;
-          border-right: 0;
-          border-top: 0;
-          transform: rotate(-45deg);
-          position: absolute;
-          left: 10px;
-          top: 8px;
-          transition: 0.5s;
-        }
-      }
-
-      .optionsBtn {
-        background: transparent;
-        border: none;
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #e0e2db;
-        cursor: pointer;
-        font-size: 25px;
-      }
-
-      .options {
-        position: absolute;
-        background: #000000;
-        z-index: 99999;
-        border-radius: 10px;
-        right: -45%;
-        top: -150%;
-
-        &::before {
-          content: '';
-          display: block;
-          position: absolute;
-          left: -20px;
-          top: 50%;
-          transform: translateY(-50%);
-          border: 10px solid transparent;
-          border-right: 10px solid black;
-        }
-
-        li {
-          button {
-            background: transparent;
-            border: none;
-            color: #e0e2db;
-            padding: 10px;
-            cursor: pointer;
-
-            width: 100%;
-            font-size: 15px;
+        .rotateArrow {
+          &::after {
+            transform: rotate(135deg);
           }
-
-          &:not(:last-child) {
-            button {
-              border-bottom: 1px solid gray;
-            }
-          }
-        }
-      }
-
-      .rotateArrow {
-        &::after {
-          transform: rotate(135deg);
         }
       }
     }
   }
 }
+
+
+
+
 
 #wordsSectionWrap,
 #editingSectionWrap,
@@ -751,5 +756,185 @@ th {
     background-color: transparent;
     border: none;
     cursor: pointer;
+  }
+}
+
+#signingWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  label {
+    margin: 25px 0;
+  }
+}
+
+ul.wordsList {
+  max-height: 450px;
+  overflow: auto;
+}
+
+#mainButtons {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 10px;
+
+  button {
+    width: 100%;
+  }
+}
+
+
+.mainButtonsWrap {
+  display: none;
+}
+
+#mainMenuBtn,
+#categoriesOpenBtn,
+#cardOpenBtn {
+  border: none;
+  background-color: transparent;
+  font-size: 30px;
+}
+
+@media(max-width:900px) {
+  #mainButtons {
+    background-color: #e4e4e4;
+    width: 100%;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+
+  .cardWrap {
+    height: 90vh;
+
+
+    #card {
+      border-radius: 0;
+      position: absolute;
+      top: 8vh;
+      margin-right: 0px !important;
+      height: 92vh;
+    }
+
+    #categoriesBlock {
+      display: none;
+      // position: absolute;
+      // top: 8vh;
+      height: 92vh;
+      padding-top: 10vh;
+    }
+  }
+
+  .mainButtonsWrap {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    align-items: center;
+    height: 8vh;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  #signInInputsWrap,
+  #signUpInputsWrap,
+  #wordInputsWrap,
+  #wordInputsEditingWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    label {
+      width: 100% !important;
+
+      input {
+        margin-bottom: 10px !important;
+      }
+    }
+  }
+
+  #closeSignInWindow,
+  #closeSignUpWindow,
+  #closeAddingWindow,
+  #closeEditingWindow,
+  #closeSheduleWindow {
+    right: 0px !important;
+    top: 0px !important;
+    color: #000000 !important;
+  }
+
+  #signInForm,
+  #signUpForm,
+  #wordsSection,
+  #transcriptionSymbols,
+  #transcriptionEditingSymbols,
+  #editingSection {
+    width: 100% !important;
+  }
+
+  #transcriptionSymbols,
+  #transcriptionEditingSymbols {
+    justify-content: space-around;
+  }
+
+  .contextsEditingWrap,
+  #categoriesWrap,
+  #categoriesEditingWrap {
+    flex-direction: column;
+    justify-content: unset;
+
+    label {
+      width: 100% !important;
+
+      input {
+        margin-bottom: 10px !important;
+      }
+    }
+  }
+
+  .wordsList {
+    width: 300px;
+  }
+
+
+  #editingSection,
+  #wordsSection,
+  #signInForm,
+  #signUpForm {
+    margin-bottom: 0 !important;
+    border-radius: unset !important;
+  }
+
+  #signInForm,
+  #signUpForm {
+    height: 100vh !important;
+  }
+
+  #origWord,
+  #translatedWord {
+    min-height: 50px;
+  }
+
+  #examples {
+    min-height: 100px;
+  }
+
+  #learned,
+  #forgot {
+    height: 50px !important;
+  }
+
+  #tableWrap {
+    position: absolute;
+    height: 100vh;
   }
 }
