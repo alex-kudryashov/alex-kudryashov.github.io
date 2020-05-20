@@ -3010,7 +3010,7 @@ th {
 }
 ul.wordsList {
   max-height: 450px;
-  overflow: auto;
+  overflow-y: auto;
 }
 #mainButtons {
   position: absolute;
@@ -3051,6 +3051,7 @@ ul.wordsList {
     top: 8vh;
     margin-right: 0px !important;
     height: 92vh;
+    width: 100%;
   }
   .cardWrap #categoriesBlock {
     display: none;
@@ -3126,7 +3127,7 @@ ul.wordsList {
     margin-bottom: 10px !important;
   }
   .wordsList {
-    width: 300px;
+    max-width: 94vw;
   }
   #editingSection,
   #wordsSection,
