@@ -297,6 +297,8 @@ th {
 }
 .cardWrap #categoriesBlock {
   width: 500px;
+  max-height: 600px;
+  overflow: auto;
 }
 .cardWrap #categoriesBlock #openAddingWindow,
 .cardWrap #categoriesBlock #openSheduleWindow {
@@ -3023,6 +3025,16 @@ ul.wordsList {
 }
 #mainButtons button {
   width: 100%;
+  background-color: #e0e2db;
+  margin-bottom: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+#mainButtons button:hover {
+  background-color: #69c3f7;
+}
+#mainButtons #deleteUser:hover {
+  background-color: #ff2b2b;
 }
 .mainButtonsWrap {
   display: none;
@@ -3034,13 +3046,47 @@ ul.wordsList {
   background-color: transparent;
   font-size: 30px;
 }
+#loadingWindowWrap {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#loadingWindowWrap #loadingWindow {
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  padding: 10px 5px;
+}
+#loadingWindowWrap #loadingWindow p {
+  text-align: center;
+  font-size: 12px;
+}
+#loadingWindowWrap #loadingWindow p:first-child {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
 @media (max-width: 900px) {
   #mainButtons {
-    background-color: #e4e4e4;
     width: 100%;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
+    padding: 5px;
+  }
+  #mainButtons button {
+    margin-bottom: 10px;
+    height: 70px;
   }
   .cardWrap {
     height: 90vh;
@@ -3055,8 +3101,8 @@ ul.wordsList {
   }
   .cardWrap #categoriesBlock {
     display: none;
-    height: 92vh;
-    padding-top: 10vh;
+    max-height: 92vh;
+    margin-top: 20vh;
   }
   .mainButtonsWrap {
     display: flex;

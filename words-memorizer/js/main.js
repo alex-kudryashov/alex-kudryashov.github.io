@@ -46,7 +46,7 @@ let
   allWords,
   categories,
   currentUser,
-  tempUserData;
+  tempUserData = {};
 
 $('#resetWordFromCard').on('click', () => {
   resetWordProgress(allWords.find(word => word.wordId == currentWord));
@@ -98,6 +98,25 @@ $('#closeSignInWindow').on('click', () => {
 
 $('#closeSignUpWindow').on('click', () => {
   closeSignUpWindow();
+})
+
+$('#cardOpenBtn').on('click', () => {
+  $('#card').show(100);
+  $('#categoriesBlock').hide(100);
+  $('#mainButtons').hide(100);
+})
+
+
+$('#categoriesOpenBtn').on('click', () => {
+  $('#card').hide(100);
+  $('#categoriesBlock').show(100);
+  $('#mainButtons').hide(100);
+})
+
+$('#mainMenuBtn').on('click', () => {
+  $('#card').hide(100);
+  $('#categoriesBlock').hide(100);
+  $('#mainButtons').show(100);
 })
 
 $('#openSheduleWindow').on('click', () => {
@@ -341,18 +360,22 @@ function createCategoryOnPage(globalCategory) {
 
 function deleteCategory(category) {
   if (confirm('Вы действительно хотите удалить эту категорию?')) {
-    delete categories[category];
-    allWords.forEach(word => {
-      if (word.category.includes(category)) {
-        let categoryIndex = word.category.indexOf(category);
-        word.category.splice(categoryIndex, 1);
-        if (word.category.length == 0) {
-          allWords.splice(allWords.indexOf(word), 1);
+    if (Object.keys(categories).length > 1) {
+      delete categories[category];
+      allWords.forEach(word => {
+        if (word.category.includes(category)) {
+          let categoryIndex = word.category.indexOf(category);
+          word.category.splice(categoryIndex, 1);
+          if (word.category.length == 0) {
+            allWords.splice(allWords.indexOf(word), 1);
+          }
         }
-      }
-    })
-    refreshStorage();
-    fillCategories();
+      })
+      refreshStorage();
+      fillCategories();
+    } else {
+      alert('Вы не можете удалить единственную категорию!')
+    }
   }
 }
 
@@ -681,6 +704,7 @@ function addNewCategory() {
       refreshStorage();
       fillSelect();
       stopClosingCategoryList();
+      $newCategoryTitle.val('');
     } else {
       alert('Такая категория уже существует. Выберите ее из списка.')
     }
@@ -734,7 +758,7 @@ function closeAddingWindow() {
 }
 
 function closeSignInWindow() {
-  if (tempUserData || JSON.parse(localStorage.getItem('userName'))) {
+  if (tempUserData.name || JSON.parse(localStorage.getItem('userName'))) {
     $('#signInForm').css({ top: '-200px' }).slideUp(100);
     $('#signInFormWrap').fadeOut('slow');
   } else {
@@ -774,6 +798,7 @@ function addWord() {
     })
     refreshStorage();
     stopClosingCategoryList();
+    $rusWordInput.focus();
   }
 }
 
@@ -884,38 +909,31 @@ function resetWordProgress(word) {
 
 
 
-$('#cardOpenBtn').on('click', () => {
-  $('#card').show(100);
-  $('#categoriesBlock').hide(100);
-  $('#mainButtons').hide(100);
+
+
+
+
+$('#deleteUser').on('click', () => {
+  if (confirm('Вы уверены что хотите удалить аккаунт?')) {
+    $('#loadingWindowWrap').show();
+    $.ajax({
+      type: "DELETE",
+      url: `https://dry-thicket-77260.herokuapp.com/users/${user}`,
+      // url: `http://localhost:3000/users/${currentUser._id}`,
+      success: function (response) {
+        if (JSON.parse(localStorage.getItem('userName'))) {
+          localStorage.clear();
+        }
+        $('#loadingWindowWrap').hide();
+        openSignInWindow();
+      }
+    })
+  }
 })
-
-
-$('#categoriesOpenBtn').on('click', () => {
-  $('#card').hide(100);
-  $('#categoriesBlock').show(100);
-  $('#mainButtons').hide(100);
-})
-
-$('#mainMenuBtn').on('click', () => {
-  $('#card').hide(100);
-  $('#categoriesBlock').hide(100);
-  $('#mainButtons').show(100);
-})
-
-
-
-
-
-
-
-
-
 
 
 
 function refreshStorage() {
-
   $.ajax({
     type: "PUT",
     url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
@@ -928,17 +946,19 @@ function refreshStorage() {
     },
     success: function (resp) {
       let user = JSON.parse(localStorage.getItem('userName'));
+      let password = JSON.parse(localStorage.getItem('userPass'));
       if (!user) {
-        user = tempUserData;
+        user = tempUserData.name;
+        password = tempUserData.password;
       }
       $.ajax({
         type: "GET",
-        url: `https://dry-thicket-77260.herokuapp.com/users/${user}`,
-        // url: `http://localhost:3000/users/${user}`,
+        url: `https://dry-thicket-77260.herokuapp.com/users/${user}/${password}`,
+        // url: `http://localhost:3000/users/${user}/${password}`,
         success: function (response) {
-          currentUser = response;
-          allWords = response.words;
-          categories = response.categories;
+          currentUser = response.data;
+          allWords = response.data.words;
+          categories = response.data.categories;
           stopClosingCategoryList();
         }
       })
@@ -953,20 +973,28 @@ checkStorage()
 
 function checkStorage() {
   let user = JSON.parse(localStorage.getItem('userName'));
+  let password = JSON.parse(localStorage.getItem('userPass'));
   if (user) {
+    $('#loadingWindowWrap').show();
     $.ajax({
       type: "GET",
-      url: `https://dry-thicket-77260.herokuapp.com/users/${user}`,
-      // url: `http://localhost:3000/users/${user}`,
+      url: `https://dry-thicket-77260.herokuapp.com/users/${user}/${password}`,
+      // url: `http://localhost:3000/users/${user}/${password}`,
       success: function (response) {
-        currentUser = response;
-        allWords = response.words;
-        categories = response.categories;
-        fillCategories();
+        if (response.correctLogin) {
+          currentUser = response.data;
+          allWords = response.data.words;
+          categories = response.data.categories;
+          fillCategories();
 
-        if (screen.width > 899) {
-          $('#mainButtons').show();
+          if (screen.width > 899) {
+            $('#mainButtons').show();
+          }
+        } else {
+          localStorage.clear();
+          checkStorage();
         }
+        $('#loadingWindowWrap').hide();
       }
     })
   } else {
@@ -975,28 +1003,36 @@ function checkStorage() {
 }
 
 $('#signIn').on('click', () => {
+  $('#loadingWindowWrap').show();
   $.ajax({
     type: "GET",
-    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginInInput').val()}`,
-    // url: `http://localhost:3000/users/${$('#loginInInput').val()}`,
+    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginInInput').val()}/${$('#passwordInInput').val()}`,
+    // url: `http://localhost:3000/users/${$('#loginInInput').val()}/${$('#passwordInInput').val()}`,
     success: function (response) {
-      if ($('#passwordInInput').val() == response.password) {
-        currentUser = response;
-        allWords = response.words;
-        categories = response.categories;
-        fillCategories();
-        if ($('#rememberMeIn').prop('checked')) {
-          localStorage.setItem('userName', JSON.stringify(response.name));
+      if (response.correctLogin) {
+        if (response.correctPassword) {
+          currentUser = response.data;
+          allWords = response.data.words;
+          categories = response.data.categories;
+          fillCategories();
+          if ($('#rememberMeIn').prop('checked')) {
+            localStorage.setItem('userName', JSON.stringify(response.data.name));
+            localStorage.setItem('userPass', JSON.stringify(response.data.password));
+          } else {
+            tempUserData.name = response.data.name;
+            tempUserData.password = response.data.password;
+          }
+          closeSignInWindow();
+          if (screen.width > 899) {
+            $('#mainButtons').show();
+          }
         } else {
-          tempUserData = response.name;
-        }
-        closeSignInWindow();
-        if (screen.width > 899) {
-          $('#mainButtons').show();
+          alert('Пароль не верный!');
         }
       } else {
-        alert('Пароль не верный!');
+        alert('Пользователя с таким логином не существует!')
       }
+      $('#loadingWindowWrap').hide();
     }
   })
 })
@@ -1006,17 +1042,20 @@ $('#goTosignUp').on('click', () => {
 })
 
 $('#signUp').on('click', () => {
+  $('#loadingWindowWrap').show();
   $.ajax({
     type: "GET",
-    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}`,
-    // url: `http://localhost:3000/users/${$('#loginUpInput').val()}`,
+    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
+    // url: `http://localhost:3000/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
     success: function (response) {
-      if ($('#loginUpInput').val() == response.name) {
-        alert(`Пользователь с логином ${$('#loginUpInput').val()} уже существует, придумайте другой логин.`)
+      if (response.correctLogin) {
+        $('#loadingWindowWrap').hide();
+        alert(`Пользователь с логином ${$('#loginUpInput').val()} уже существует, придумайте другой логин.`);
       } else {
         if ($('#passwordUpInput').val().length > 4) {
           addUserToDB();
         } else {
+          $('#loadingWindowWrap').hide();
           alert('Пароль слишком короткий!');
         }
       }
@@ -1034,30 +1073,33 @@ function addUserToDB() {
       name: $('#loginUpInput').val(),
       password: $('#passwordUpInput').val()
     },
-    success: function (response) { }
-  });
-  $.ajax({
-    type: "GET",
-    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}`,
-    // url: `http://localhost:3000/users/${$('#loginUpInput').val()}`,
     success: function (response) {
-      currentUser = response;
-      allWords = response.words;
-      categories = response.categories;
-      fillCategories();
-      if ($('#rememberMeUp').prop('checked')) {
-        // localStorage.setItem('userName', JSON.stringify($('#loginUpInput').val()));
-        localStorage.setItem('userPassword', JSON.stringify($('#passwordUpInput').val()));
-      } else {
-        tempUserData = $('#loginUpInput').val();
-      }
-      closeSignInWindow();
-      closeSignUpWindow();
-      if (screen.width > 899) {
-        $('#mainButtons').show();
-      }
+      $.ajax({
+        type: "GET",
+        url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
+        // url: `http://localhost:3000/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
+        success: function (response) {
+          currentUser = response.data;
+          allWords = response.data.words;
+          categories = response.data.categories;
+          if ($('#rememberMeUp').prop('checked')) {
+            localStorage.setItem('userName', JSON.stringify($('#loginUpInput').val()));
+            localStorage.setItem('userPass', JSON.stringify($('#passwordUpInput').val()));
+          } else {
+            tempUserData.name = response.data.name;
+            tempUserData.password = response.data.password;
+          }
+          closeSignInWindow();
+          closeSignUpWindow();
+          if (screen.width > 899) {
+            $('#mainButtons').show();
+          }
+          fillCategories();
+          $('#loadingWindowWrap').hide();
+        }
+      })
     }
-  })
+  });
 }
 
 
@@ -1071,9 +1113,7 @@ $('#changeUser').on('click', () => {
 
 
 // Список фич:
-// стили полей при пустом вводе
-// анимации и дизайн
-// исправить редактирование через карточку чтобы после редактирования слово обновлялось
+
 // сброс прогресса по всей категории
 // добавить окно со статистикой
 // поиск по словам - при вводе слова - выводятся подходящий варианты, которые можно редачить, удалять и сбрасывать прогресс

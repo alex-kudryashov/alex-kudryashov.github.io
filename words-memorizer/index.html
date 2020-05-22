@@ -305,9 +305,10 @@
   </div>
 
   <div id="mainButtons" style="display: none;">
-    <button class="buttons" id="changeUser">Сменить пользователя</button>
     <button id="openAddingWindow" class="buttons">Добавить слова и категории</button>
     <button id="openSheduleWindow" class="buttons">Просмотреть расписание</button>
+    <button class="buttons" id="changeUser">Сменить пользователя</button>
+    <button id="deleteUser" class="buttons">Удалить аккаунт</button>
   </div>
 
 
@@ -365,6 +366,14 @@
       <button class="closeContextEditingExample icon-cancel-circled2" title="Удалить пример"></button>
     </div>
   </template>
+
+  <div id="loadingWindowWrap" style="display: none;">
+    <div id="loadingWindow">
+      <p>Загрузка данных...</p>
+      <p>Пожалуйста подождите, это может занять несколько секунд.</p>
+      <p>Если загрузка идёт слишком долго - перезагрузите страницу.</p>
+    </div>
+  </div>
 
 
   <script src="js/jquery-3.4.1.min.js"></script>
