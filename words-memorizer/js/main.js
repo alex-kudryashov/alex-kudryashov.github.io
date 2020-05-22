@@ -918,7 +918,7 @@ $('#deleteUser').on('click', () => {
     $('#loadingWindowWrap').show();
     $.ajax({
       type: "DELETE",
-      url: `https://dry-thicket-77260.herokuapp.com/users/${user}`,
+      url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
       // url: `http://localhost:3000/users/${currentUser._id}`,
       success: function (response) {
         if (JSON.parse(localStorage.getItem('userName'))) {
