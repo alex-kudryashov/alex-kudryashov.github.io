@@ -2,14 +2,6 @@
 * {
   outline: none;
   box-sizing: border-box;
-  // -moz-user-select: none;
-  // /* Mozilla Firefox */
-  // -ms-user-select: none;
-  // /* Internet Explorer (не поддерживается) */
-  // -o-user-select: none;
-  // /* Opera Presto (не поддерживается) */
-  // -webkit-user-select: none;
-  // /* Google Chrome, Opera Next, Safari */
 }
 
 p,
@@ -367,7 +359,7 @@ th {
     #categoriesList {
 
       .category_item {
-        background-color: #e0e2db;
+        background: linear-gradient(121.49839420425917deg, rgba(167, 204, 225, 1) 6.140625%, rgba(236, 246, 237, 1) 95.51562499999999%);
         margin: 5px;
         padding: 5px;
         text-align: left;
@@ -573,14 +565,11 @@ th {
   }
 }
 
-
-
-
-
 #wordsSectionWrap,
 #editingSectionWrap,
 #signInFormWrap,
-#signUpFormWrap {
+#signUpFormWrap,
+#faqWrap {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   left: 0;
@@ -594,7 +583,8 @@ th {
   #wordsSection,
   #editingSection,
   #signInForm,
-  #signUpForm {
+  #signUpForm,
+  #faq {
     position: absolute;
     left: 50%;
     top: -200px;
@@ -606,7 +596,7 @@ th {
     width: 650px;
     flex-wrap: wrap;
     justify-content: space-between;
-    background-color: #fff;
+    background: linear-gradient(121.49839420425917deg, rgba(167, 204, 225, 1) 6.140625%, rgba(236, 246, 237, 1) 95.51562499999999%);
     padding: 30px;
     border-radius: 10px;
     margin-bottom: 100px;
@@ -615,7 +605,8 @@ th {
     #closeAddingWindow,
     #closeEditingWindow,
     #closeSignInWindow,
-    #closeSignUpWindow {
+    #closeSignUpWindow,
+    #closeFaq {
       position: absolute;
       right: -20px;
       top: -20px;
@@ -713,6 +704,61 @@ th {
   }
 }
 
+#faqWrap {
+  #faq {
+    width: 70vw;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+
+    h1 {
+      width: 100%;
+      text-align: center;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    #mainScreenShot {
+      margin-bottom: 50px;
+    }
+
+    #imagesWrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      figure {
+        figcaption {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    p {
+      margin-bottom: 20px;
+      text-align: justify;
+      text-indent: 50px;
+    }
+
+    ul {
+      li {
+        list-style: circle;
+      }
+
+      margin-bottom: 20px;
+      margin-left: 50px;
+      text-align: left;
+    }
+
+    sup {
+      color: red;
+    }
+  }
+}
+
 #categories,
 #categoriesEditing {
   width: 45%;
@@ -744,8 +790,6 @@ th {
   font-size: 25px;
   cursor: pointer;
 }
-
-
 
 #goToSignUpBlock {
   display: flex;
@@ -779,33 +823,28 @@ ul.wordsList {
 
 #mainButtons {
   position: absolute;
-  right: 20px;
+  left: 20px;
   top: 10px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   font-size: 10px;
+  max-height: 130px;
+  flex-wrap: wrap;
 
 
   button {
     width: 100%;
-    background-color: #e0e2db;
+    background: linear-gradient(121.49839420425917deg, rgba(167, 204, 225, 1) 6.140625%, rgba(236, 246, 237, 1) 95.51562499999999%);
     margin-bottom: 5px;
     padding-top: 3px;
     padding-bottom: 3px;
-
-    &:hover {
-      background-color: #69c3f7;
-    }
+    margin-right: 5px;
   }
 
   #deleteUser {
-    &:hover {
-      background-color: #ff2b2b;
-    }
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(255, 124, 124, 1) 0%, rgba(255, 255, 255, 1) 100%);
   }
 }
-
 
 .mainButtonsWrap {
   display: none;
@@ -832,7 +871,7 @@ ul.wordsList {
   align-items: center;
 
   #loadingWindow {
-    background-color: #fff;
+    background: linear-gradient(121.49839420425917deg, rgba(167, 204, 225, 1) 6.140625%, rgba(236, 246, 237, 1) 95.51562499999999%);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -853,6 +892,23 @@ ul.wordsList {
   }
 }
 
+#copyright {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 12px;
+  align-items: center;
+  line-height: 0;
+
+  p {
+    border-radius: 10px;
+  }
+}
+
 @media(max-width:900px) {
   #mainButtons {
     width: 100%;
@@ -860,6 +916,7 @@ ul.wordsList {
     top: 50%;
     transform: translateY(-50%);
     padding: 5px;
+    flex-wrap: nowrap;
 
     button {
       margin-bottom: 10px;
@@ -867,9 +924,13 @@ ul.wordsList {
     }
   }
 
+  #copyright {
+    font-size: 10px;
+    background-color: rgba(167, 204, 225, 1);
+  }
 
   .cardWrap {
-    height: 90vh;
+    height: 88vh;
 
 
     #card {
@@ -877,14 +938,14 @@ ul.wordsList {
       position: absolute;
       top: 8vh;
       margin-right: 0px !important;
-      height: 92vh;
+      height: 90vh;
       width: 100%;
     }
 
     #categoriesBlock {
       display: none;
-      max-height: 92vh;
-      margin-top: 20vh;
+      max-height: 90vh;
+      margin-top: 18vh;
     }
   }
 

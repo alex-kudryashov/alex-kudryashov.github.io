@@ -96,6 +96,11 @@ $('#closeSignInWindow').on('click', () => {
   closeSignInWindow();
 })
 
+$('#closeFaq').on('click', () => {
+  $('#faq').css({ top: '-200px' }).slideUp(100);
+  $('#faqWrap').fadeOut('slow');
+})
+
 $('#closeSignUpWindow').on('click', () => {
   closeSignUpWindow();
 })
@@ -568,7 +573,7 @@ function nextWord() {
 
 
   if (availableWords.length == 0) {
-    $origWord.html('Вы изучили все слова!').slideDown(300);
+    $origWord.html('На данный момент все слова из <u>выбранных</u> категорий изучены!').slideDown(300);
     $checkWordBtn.hide();
     $learnedBtn.hide();
     $forgotBtn.hide();
@@ -735,13 +740,11 @@ function openSignInWindow() {
 
 function openSignUpWindow() {
   $('#signUpFormWrap').fadeIn('slow');
-  $('#signInFormWrap').fadeIn('slow');
   if (screen.width > 899) {
     $('#signUpForm').slideDown(100, () => { $('#signUpForm').css({ top: '100px' }) });
   } else {
     $('#signUpForm').slideDown(100, () => { $('#signUpForm').css({ top: '0px' }) });
   }
-
 }
 
 function closeAddingWindow() {
@@ -1096,6 +1099,7 @@ function addUserToDB() {
           }
           fillCategories();
           $('#loadingWindowWrap').hide();
+          openGuideWindow();
         }
       })
     }
@@ -1108,6 +1112,19 @@ $('#changeUser').on('click', () => {
     localStorage.clear();
   }
   openSignInWindow();
+})
+
+function openGuideWindow() {
+  $('#faqWrap').fadeIn('slow');
+  if (screen.width > 899) {
+    $('#faq').slideDown(100, () => { $('#faq').css({ top: '100px' }) });
+  } else {
+    $('#faq').slideDown(100, () => { $('#faq').css({ top: '0px' }) });
+  }
+}
+
+$('#guideBtn').on('click', () => {
+  openGuideWindow();
 })
 
 

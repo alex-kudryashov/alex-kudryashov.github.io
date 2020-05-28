@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Memorizer</title>
+  <title>Веб-приложение для запоминания слов</title>
   <link rel="icon" type="image/ico" href="favicon.ico">
   <link rel="stylesheet" href="css/normalize.css">
   <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700&display=swap&subset=cyrillic,cyrillic-ext"
@@ -24,8 +24,8 @@
       <p id="origWord" style="display: none;"></p>
       <p id="translatedWord" style="display: none;"></p>
       <button id="checkWord" style="display: none;">Показать перевод</button>
-      <button id="forgot" style="display: none;">Забыл</button>
-      <button id="learned" style="display: none;">Запомнил</button>
+      <button id="forgot" style="display: none;">Забыл(а)</button>
+      <button id="learned" style="display: none;">Запомнил(а)</button>
       <button id="start">Начать</button>
       <div id="examples" style="display: none;"></div>
       <button class="icon-ellipsis-vert optionsBtn" id="cardOptionsBtn" title="Опции" style="display: none;"></button>
@@ -297,24 +297,124 @@
     </div>
   </div>
 
+  <!-- руководство пользователя -->
+  <div id="faqWrap" style="display: none;">
+    <div id="faq" style="display:none">
+      <button id="closeFaq" class="icon-cancel-circled2" title="Закрыть окно"></button>
+      <h1>Веб-приложение для запоминания слов</h1>
+      <p>
+        В этом руководстве описаны все основные функции приложения, а на скриншотах ниже помечены все его основные
+        блоки и кнопки. Если вы не нуждаетесь в инструкциях можете закрыть это окно.
+      </p>
+      <p>
+        При регистрации всем пользователям дается базовый набор слов и категорий. Слова могут быть отнесены к нескольким
+        категориям сразу. Для каждого слова может быть добавлена транскрипция и предложения, содержащие слова в
+        контексте.
+        Одним из главных разделов является список категорий<sup>1</sup>. У каждой категории есть кнопка в виде
+        стрелки<sup>2</sup>,
+        нажав на которую открывается список слов, содержащихся в этой категории<sup>3</sup>. У каждого слова есть список
+        опций<sup>4</sup>:
+      </p>
+      <ul>
+        <li>Безвозвратное удаление;</li>
+        <li>Удаление только из выбранной категории;</li>
+        <li>Сброс прогресса;</li>
+        <li>Редактирование.</li>
+      </ul>
+      <p>
+        Все категории можно переименовать, для этого необходимо один раз кликнуть по её названию<sup>5</sup>, а чтобы
+        изменения сохранились нажать <u>Enter↵</u>.
+        Так же категории могут быть безвозвратно удалены нажатием на кнопку в виде корзины<sup>6</sup>, или же очищены
+        от слов, нажатием на кнопку сброса<sup>7</sup>.
+      </p>
+      <p>
+        Чтобы приступить к изучению необходимо выбрать категории, которые вы хотите изучить, поставив флажок<sup>8</sup>
+        у нужных категорий. Затем нажать кнопку "Начать" на карточке<sup>9</sup>.
+      </p>
+      <p>
+        На карточке в случайном порядке будут появляться слова<sup>10</sup>. Если это новое для вас слово или вы забыли
+        его
+        перевод, вы можете нажать кнопку "Показать перевод", после чего будет показан перевод<sup>12</sup>,
+        транскрипция<sup>11</sup> и
+        примеры
+        слов в контексте<sup>15</sup>. При нажатии на пример слова в контексте вы увидите перевод контекста. В левом
+        верхнем углу
+        карточки<sup>13</sup> показан список категорий, в которые входит текущее слово а в скобочках указано сколько раз
+        вы запомнили
+        это слово. Чтобы узнать примерное время повторения слова откройте расписание, нажав на соответствующую
+        кнопку<sup>18</sup>. Так же у слов в карточке есть список опций<sup>14</sup>:
+      </p>
+      <ul>
+        <li>Безвозвратное удаление;</li>
+        <li>Сброс прогресса;</li>
+        <li>Редактирование.</li>
+      </ul>
+      <p>
+        Если вы запомнили слово нажмите кнопку "Запомнил(а)"<sup>17</sup>, в противном случае на кнопку
+        "Забыл(а)"<sup>16</sup>.
+        В любой момент вы можете сами добавлять новые слова нажав на соответствующую кнопку<sup>19</sup>
+      </p>
 
+      <img src="img/main screen.jpg" id="mainScreenShot" alt="Скриншот веб-приложения с метками">
+
+      <p>
+        В окне добавления слова необходимо запомнить поля "Слово на русском"<sup>20</sup> и "Слово на
+        английском"<sup>21</sup>. По желанию можно добавить транскрипцию<sup>22</sup>. Чтобы добавить примеры контекста
+        необходимо нажать на кнопку "Добавить пример"<sup>23</sup> и заполнить поля<sup>24</sup>, для добавления еще
+        одного примера
+        нажмите на кнопку повторно(максимальное количество примеров - 5).
+        Далее выберите категории подходящие для этого слова из списка<sup>25</sup>. Если нет необходимой категории
+        добавьте её, написав название в поле<sup>26</sup> и нажмите на кнопку добавить категорию<sup>27</sup>, затем
+        выберите её в списке<sup>25</sup> и
+        нажмите на кнопку "Добавить слово"<sup>29</sup>. Обратите внимание что выбранные для слова категории
+        отображаются под списком<sup>30</sup> и их можно убрать из этого списка, нажав на крестик<sup>31</sup>.
+      </p>
+      <p>
+        Окно редактирования выглядит точно так же, за исключением того что все поля уже заполнены и вместо кнопки
+        добавления - кнопка "Сохранить"<sup>31</sup>.
+      </p>
+      <div id="imagesWrap">
+        <figure>
+          <figcaption>Добавление слова</figcaption>
+          <img src="img/adding window.jpg" alt="Скриншот окна добавления слова">
+        </figure>
+        <figure>
+          <figcaption>Редактирование слова</figcaption>
+          <img src="img/editing window.jpg" alt="Скриншот окна редактирования слова">
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <!-- главные кнопки для телефона -->
   <div class="mainButtonsWrap">
     <button id="mainMenuBtn" class="icon-list-bullet"></button>
     <button id="cardOpenBtn" class="icon-check"></button>
     <button id="categoriesOpenBtn" class="icon-clipboard-1"></button>
   </div>
 
+  <!-- главные кнопки десктоп -->
   <div id="mainButtons" style="display: none;">
     <button id="openAddingWindow" class="buttons">Добавить слова и категории</button>
     <button id="openSheduleWindow" class="buttons">Просмотреть расписание</button>
     <button class="buttons" id="changeUser">Сменить пользователя</button>
+    <button id="guideBtn" class="buttons">Руководство пользователя</button>
     <button id="deleteUser" class="buttons">Удалить аккаунт</button>
   </div>
 
+  <!-- копирайтинг -->
+  <div id="copyright">
+    <p>© А. А. Кудряшов, 2020</p>
+  </div>
 
-
-
-
+  <!-- окно загрузки -->
+  <div id="loadingWindowWrap" style="display: none;">
+    <div id="loadingWindow">
+      <p>Загрузка данных...</p>
+      <p>Пожалуйста подождите, это может занять несколько секунд.</p>
+      <p>Если загрузка идёт слишком долго - перезагрузите страницу.</p>
+    </div>
+  </div>
 
 
 
@@ -367,13 +467,7 @@
     </div>
   </template>
 
-  <div id="loadingWindowWrap" style="display: none;">
-    <div id="loadingWindow">
-      <p>Загрузка данных...</p>
-      <p>Пожалуйста подождите, это может занять несколько секунд.</p>
-      <p>Если загрузка идёт слишком долго - перезагрузите страницу.</p>
-    </div>
-  </div>
+
 
 
   <script src="js/jquery-3.4.1.min.js"></script>
