@@ -4459,7 +4459,7 @@ ul.wordsList {
   font-size: 20px;
 }
 #copyright {
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   height: 2vh;
@@ -4505,6 +4505,9 @@ ul.wordsList {
     display: none;
     max-height: 90vh;
     margin-top: 18vh;
+  }
+  .cardWrap #categoriesBlock #categoriesList {
+    margin-bottom: 2vh;
   }
   .mainButtonsWrap {
     display: flex;
