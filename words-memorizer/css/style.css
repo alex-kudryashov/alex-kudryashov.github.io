@@ -297,8 +297,6 @@ th {
 }
 .cardWrap #categoriesBlock {
   width: 500px;
-  max-height: 600px;
-  overflow: auto;
 }
 .cardWrap #categoriesBlock #openAddingWindow,
 .cardWrap #categoriesBlock #openSheduleWindow {
@@ -318,6 +316,10 @@ th {
 .cardWrap #categoriesBlock #openSheduleWindow:hover {
   background-color: #69c3f7;
   color: #fff;
+}
+.cardWrap #categoriesBlock #categoriesList {
+  max-height: 535px;
+  overflow: auto;
 }
 .cardWrap #categoriesBlock #categoriesList .category_item {
   background: linear-gradient(121.4983942deg, #a7cce1 6.140625%, #ecf6ed 95.515625%);
