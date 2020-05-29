@@ -605,31 +605,6 @@ th {
 #signInFormWrap #faq #closeEditingWindow,
 #signUpFormWrap #faq #closeEditingWindow,
 #faqWrap #faq #closeEditingWindow,
-#wordsSectionWrap #wordsSection #closeSignInWindow,
-#editingSectionWrap #wordsSection #closeSignInWindow,
-#signInFormWrap #wordsSection #closeSignInWindow,
-#signUpFormWrap #wordsSection #closeSignInWindow,
-#faqWrap #wordsSection #closeSignInWindow,
-#wordsSectionWrap #editingSection #closeSignInWindow,
-#editingSectionWrap #editingSection #closeSignInWindow,
-#signInFormWrap #editingSection #closeSignInWindow,
-#signUpFormWrap #editingSection #closeSignInWindow,
-#faqWrap #editingSection #closeSignInWindow,
-#wordsSectionWrap #signInForm #closeSignInWindow,
-#editingSectionWrap #signInForm #closeSignInWindow,
-#signInFormWrap #signInForm #closeSignInWindow,
-#signUpFormWrap #signInForm #closeSignInWindow,
-#faqWrap #signInForm #closeSignInWindow,
-#wordsSectionWrap #signUpForm #closeSignInWindow,
-#editingSectionWrap #signUpForm #closeSignInWindow,
-#signInFormWrap #signUpForm #closeSignInWindow,
-#signUpFormWrap #signUpForm #closeSignInWindow,
-#faqWrap #signUpForm #closeSignInWindow,
-#wordsSectionWrap #faq #closeSignInWindow,
-#editingSectionWrap #faq #closeSignInWindow,
-#signInFormWrap #faq #closeSignInWindow,
-#signUpFormWrap #faq #closeSignInWindow,
-#faqWrap #faq #closeSignInWindow,
 #wordsSectionWrap #wordsSection #closeSignUpWindow,
 #editingSectionWrap #wordsSection #closeSignUpWindow,
 #signInFormWrap #wordsSection #closeSignUpWindow,
@@ -4404,15 +4379,19 @@ ul.wordsList {
   max-height: 450px;
   overflow-y: auto;
 }
+#openMenuBtnsWrap {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
 #mainButtons {
   position: absolute;
-  left: 20px;
-  top: 10px;
+  right: 150px;
+  top: 20px;
   display: flex;
   flex-direction: column;
   font-size: 10px;
   max-height: 130px;
-  flex-wrap: wrap;
 }
 #mainButtons button {
   width: 100%;
@@ -4424,6 +4403,15 @@ ul.wordsList {
 }
 #mainButtons #deleteUser {
   background: linear-gradient(90deg, #020024 0%, #ff7c7c 0%, #ffffff 100%);
+}
+#openAddingWindow {
+  background: linear-gradient(121.4983942deg, #a7cce1 6.140625%, #ecf6ed 95.515625%);
+}
+#categoriesList {
+  margin-top: 20px;
+}
+#openMenuBtns {
+  background: linear-gradient(121.4983942deg, #a7cce1 6.140625%, #ecf6ed 95.515625%);
 }
 .mainButtonsWrap {
   display: none;
@@ -4544,7 +4532,6 @@ ul.wordsList {
   #wordInputsEditingWrap label input {
     margin-bottom: 10px !important;
   }
-  #closeSignInWindow,
   #closeSignUpWindow,
   #closeAddingWindow,
   #closeEditingWindow,

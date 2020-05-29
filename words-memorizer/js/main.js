@@ -92,14 +92,17 @@ $('#closeAddingWindow').on('click', () => {
   closeAddingWindow();
 })
 
-$('#closeSignInWindow').on('click', () => {
-  closeSignInWindow();
-})
+
 
 $('#closeFaq').on('click', () => {
+  closeFaqWindow();
+})
+
+function closeFaqWindow() {
   $('#faq').css({ top: '-200px' }).slideUp(100);
   $('#faqWrap').fadeOut('slow');
-})
+}
+
 
 $('#closeSignUpWindow').on('click', () => {
   closeSignUpWindow();
@@ -131,12 +134,15 @@ $('#openSheduleWindow').on('click', () => {
   } else {
     $('#tableWrap table').slideDown(100, () => { $('#tableWrap table').css({ top: '0px' }) });
   }
-
 })
 
-$('#closeSheduleWindow').on('click', () => {
+function closeShedultWindow() {
   $('#tableWrap table').css({ top: '-200px' }).slideUp(100);
   $('#tableWrap').fadeOut('slow');
+}
+
+$('#closeSheduleWindow').on('click', () => {
+  closeShedultWindow();
 })
 
 $('#addExampleFormBtn').on('click', () => {
@@ -991,7 +997,7 @@ function checkStorage() {
           fillCategories();
 
           if (screen.width > 899) {
-            $('#mainButtons').show();
+            $('#openMenuBtnsWrap').show();
           }
         } else {
           localStorage.clear();
@@ -1027,7 +1033,7 @@ $('#signIn').on('click', () => {
           }
           closeSignInWindow();
           if (screen.width > 899) {
-            $('#mainButtons').show();
+            $('#openMenuBtnsWrap').show();
           }
         } else {
           alert('Пароль не верный!');
@@ -1095,7 +1101,7 @@ function addUserToDB() {
           closeSignInWindow();
           closeSignUpWindow();
           if (screen.width > 899) {
-            $('#mainButtons').show();
+            $('#openMenuBtnsWrap').show();
           }
           fillCategories();
           $('#loadingWindowWrap').hide();
@@ -1106,6 +1112,9 @@ function addUserToDB() {
   });
 }
 
+$('#openMenuBtns').on('click', () => {
+  $('#mainButtons').toggle(150);
+})
 
 $('#changeUser').on('click', () => {
   if (JSON.parse(localStorage.getItem('userName'))) {
@@ -1127,8 +1136,15 @@ $('#guideBtn').on('click', () => {
   openGuideWindow();
 })
 
-
-
+$('body').on('keydown', key => {
+  if (key.keyCode == 27) {
+    closeAddingWindow();
+    closeEditingWindow();
+    closeSignUpWindow();
+    closeFaqWindow();
+    closeShedultWindow();
+  }
+});
 // Список фич:
 
 // сброс прогресса по всей категории
