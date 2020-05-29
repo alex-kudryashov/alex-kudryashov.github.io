@@ -321,6 +321,9 @@ th {
   max-height: 535px;
   overflow: auto;
 }
+.cardWrap #categoriesBlock #categoriesList::-webkit-scrollbar {
+  width: 0;
+}
 .cardWrap #categoriesBlock #categoriesList .category_item {
   background: linear-gradient(121.4983942deg, #a7cce1 6.140625%, #ecf6ed 95.515625%);
   margin: 5px;
