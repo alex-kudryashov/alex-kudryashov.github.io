@@ -4609,4 +4609,7 @@ ul.wordsList {
     position: absolute;
     height: 100vh;
   }
+  #openAddingWindow {
+    width: 310px;
+  }
 }
