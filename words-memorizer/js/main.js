@@ -46,6 +46,7 @@ let
   allWords,
   categories,
   currentUser,
+  firstLang,
   tempUserData = {};
 
 $('#resetWordFromCard').on('click', () => {
@@ -88,46 +89,8 @@ $('#openAddingWindow').on('click', () => {
   openAddingWindow();
 })
 
-$('#closeAddingWindow').on('click', () => {
-  closeAddingWindow();
-})
-
-
-
-$('#closeFaq').on('click', () => {
-  closeFaqWindow();
-})
-
-function closeFaqWindow() {
-  $('#faq').css({ top: '-200px' }).slideUp(100);
-  $('#faqWrap').fadeOut('slow');
-}
-
-
-$('#closeSignUpWindow').on('click', () => {
-  closeSignUpWindow();
-})
-
-$('#cardOpenBtn').on('click', () => {
-  $('#card').show(100);
-  $('#categoriesBlock').hide(100);
-  $('#mainButtons').hide(100);
-})
-
-
-$('#categoriesOpenBtn').on('click', () => {
-  $('#card').hide(100);
-  $('#categoriesBlock').show(100);
-  $('#mainButtons').hide(100);
-})
-
-$('#mainMenuBtn').on('click', () => {
-  $('#card').hide(100);
-  $('#categoriesBlock').hide(100);
-  $('#mainButtons').show(100);
-})
-
 $('#openSheduleWindow').on('click', () => {
+  closeMenuBtns();
   $('#tableWrap').fadeIn('slow');
   if (screen.width > 899) {
     $('#tableWrap table').slideDown(100, () => { $('#tableWrap table').css({ top: '100px' }) });
@@ -136,10 +99,39 @@ $('#openSheduleWindow').on('click', () => {
   }
 })
 
-function closeShedultWindow() {
-  $('#tableWrap table').css({ top: '-200px' }).slideUp(100);
-  $('#tableWrap').fadeOut('slow');
-}
+$('#closeAddingWindow').on('click', () => {
+  closeAddingWindow();
+})
+
+$('#closeFaq').on('click', () => {
+  closeFaqWindow();
+})
+
+$('#closeSignUpWindow').on('click', () => {
+  closeSignUpWindow();
+})
+
+$('#closeMainBtns').on('click', () => {
+  closeMenuBtns();
+})
+
+$('#cardOpenBtn').on('click', () => {
+  $('#card').show(100);
+  $('#categoriesBlock').hide(100);
+  $('#desktopBtnsWrap').hide(100);
+})
+
+$('#categoriesOpenBtn').on('click', () => {
+  $('#card').hide(100);
+  $('#categoriesBlock').show(100);
+  $('#desktopBtnsWrap').hide(100);
+})
+
+$('#mainMenuBtn').on('click', () => {
+  $('#card').hide(100);
+  $('#categoriesBlock').hide(100);
+  $('#desktopBtnsWrap').show(100);
+})
 
 $('#closeSheduleWindow').on('click', () => {
   closeShedultWindow();
@@ -152,6 +144,59 @@ $('#addExampleFormBtn').on('click', () => {
 $('#addWordBtn').on('click', () => {
   addWord();
 })
+
+$('#guideBtn').on('click', () => {
+  closeMenuBtns();
+  openGuideWindow();
+})
+
+$('body').on('keydown', key => {
+  if (key.keyCode == 27) {
+    closeAddingWindow();
+    closeEditingWindow();
+    closeSignUpWindow();
+    closeFaqWindow();
+    closeShedultWindow();
+    closeMenuBtns();
+  }
+});
+
+$('#openMenuBtns').on('click', () => {
+  $('#desktopBtnsWrap').fadeIn('slow');
+  $('#mainButtons').slideDown(100, () => { $('#mainButtons').css({ top: '100px' }) });
+  $("[name=firstLang]")[firstLang].checked = true;
+})
+
+$('#changeUser').on('click', () => {
+  if (JSON.parse(localStorage.getItem('userName'))) {
+    localStorage.clear();
+  }
+  closeMenuBtns();
+  openSignInWindow();
+})
+
+$('#goTosignUp').on('click', () => {
+  openSignUpWindow();
+})
+
+$("[name=firstLang]").on('click', (e) => {
+  firstLang = e.target.value;
+  refreshStorage()
+})
+
+$('#deleteUser').on('click', () => {
+  closeMenuBtns();
+  deleteUser();
+})
+
+$('#signIn').on('click', () => {
+  signIn();
+})
+
+$('#signUp').on('click', () => {
+  signUp();
+})
+
 
 $chooseCategory.on('change', () => {
   chooseCategory.call($chooseCategory);
@@ -180,6 +225,9 @@ $learnedBtn.on('click', () => {
       word.forgotInThisSession = false;
 
       switch (word.learnedCount) {
+        case 0:
+          word.learned = "true";
+          break;
         case 1:
           word.date = now.setMinutes(now.getMinutes() + 15);
           break;
@@ -208,7 +256,7 @@ $learnedBtn.on('click', () => {
           word.date = now.setMonth(now.getMonth() + 1)
           break;
         case 10:
-          word.learned = true;
+          word.learned = "true";
           break;
       }
       word.date = new Date(word.date)
@@ -222,6 +270,9 @@ $forgotBtn.on('click', () => {
     if (word.wordId == currentWord && word.learnedCount > 1 && !word.forgotInThisSession) {
       word.learnedCount--;
       word.forgotInThisSession = true;
+    }
+    if (word.wordId == currentWord && word.learnedCount == -1) {
+      word.learnedCount = 0;
     }
   })
   nextWord();
@@ -279,8 +330,8 @@ function Word() {
   })
   this.rus = $rusWordInput.val();
   this.eng = $engWordInput.val();
-  this.learned = false;
-  this.learnedCount = 0;
+  this.learned = "false";
+  this.learnedCount = -1;
   this.date = new Date();
   this.category = Array.from(chosenCategories);
   if (allWords.length == 0) {
@@ -590,16 +641,36 @@ function nextWord() {
   }
 
   wordCounter = getRandomInteger(0, availableWords.length - 1);
+
   currentWord = availableWords[wordCounter].wordId;
-  langNum = getRandomInteger(0, 1);
+  if (availableWords[wordCounter].learnedCount == '-1') {
+    $learnedBtn.html('Знаю');
+    $forgotBtn.html('Изучить');
+  } else {
+    $learnedBtn.html('Запомнил');
+    $forgotBtn.html('Забыл');
+  }
+
+  if (firstLang == 2) {
+    langNum = getRandomInteger(0, 1);
+  } else {
+    langNum = firstLang;
+  }
+
+
   $checkWordBtn.show()
   if (langNum == 0) {
     $origWord.html(availableWords[wordCounter].rus)
   } else {
     $origWord.html(`${availableWords[wordCounter].eng}<span class="transcription">${availableWords[wordCounter].transcription || ''}</span>`)
   }
+
   $origWord.slideDown(300);
-  $category.html(`${availableWords[wordCounter].category.join(', ')}  <span title="Запомнено ${availableWords[wordCounter].learnedCount} раз">(${availableWords[wordCounter].learnedCount})</span>`);
+  if (availableWords[wordCounter].learnedCount == -1) {
+    $category.html(`${availableWords[wordCounter].category.join(', ')}  <span title="Новое слово">(New)</span>`);
+  } else {
+    $category.html(`${availableWords[wordCounter].category.join(', ')}  <span title="Запомнено ${availableWords[wordCounter].learnedCount} раз">(${availableWords[wordCounter].learnedCount})</span>`);
+  }
   $examples.html('');
   availableWords[wordCounter].examples.forEach(example => {
     const translatedExample = $(`<p class="ruExample">${example.ru}</p>`);
@@ -744,6 +815,21 @@ function openSignInWindow() {
   }
 }
 
+function closeShedultWindow() {
+  $('#tableWrap table').css({ top: '-200px' }).slideUp(100);
+  $('#tableWrap').fadeOut('slow');
+}
+
+function closeFaqWindow() {
+  $('#faq').css({ top: '-200px' }).slideUp(100);
+  $('#faqWrap').fadeOut('slow');
+}
+
+function closeMenuBtns() {
+  $('#mainButtons').css({ top: '-200px' }).slideUp(100);
+  $('#desktopBtnsWrap').fadeOut('slow');
+}
+
 function openSignUpWindow() {
   $('#signUpFormWrap').fadeIn('slow');
   if (screen.width > 899) {
@@ -867,6 +953,15 @@ function openEditingWindow(word) {
   $chooseCategoryEditing.val(word.category[0]);
 }
 
+function openGuideWindow() {
+  $('#faqWrap').fadeIn('slow');
+  if (screen.width > 899) {
+    $('#faq').slideDown(100, () => { $('#faq').css({ top: '100px' }) });
+  } else {
+    $('#faq').slideDown(100, () => { $('#faq').css({ top: '0px' }) });
+  }
+}
+
 function saveEditing() {
   allWords.forEach(word => {
     if (word.wordId == editingWord) {
@@ -910,35 +1005,13 @@ function closeEditingWindow() {
 
 function resetWordProgress(word) {
   word.learned = false;
-  word.learnedCount = 0;
+  word.learnedCount = -1;
   word.date = new Date();
   word.forgotInThisSession = false;
 }
 
 
 
-
-
-
-
-
-$('#deleteUser').on('click', () => {
-  if (confirm('Вы уверены что хотите удалить аккаунт?')) {
-    $('#loadingWindowWrap').show();
-    $.ajax({
-      type: "DELETE",
-      url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
-      // url: `http://localhost:3000/users/${currentUser._id}`,
-      success: function (response) {
-        if (JSON.parse(localStorage.getItem('userName'))) {
-          localStorage.clear();
-        }
-        $('#loadingWindowWrap').hide();
-        openSignInWindow();
-      }
-    })
-  }
-})
 
 
 
@@ -951,7 +1024,8 @@ function refreshStorage() {
       "words": allWords,
       "categories": categories,
       "name": currentUser.name,
-      "password": currentUser.password
+      "password": currentUser.password,
+      "firstLanguage": firstLang
     },
     success: function (resp) {
       let user = JSON.parse(localStorage.getItem('userName'));
@@ -960,6 +1034,7 @@ function refreshStorage() {
         user = tempUserData.name;
         password = tempUserData.password;
       }
+
       $.ajax({
         type: "GET",
         url: `https://dry-thicket-77260.herokuapp.com/users/${user}/${password}`,
@@ -968,17 +1043,13 @@ function refreshStorage() {
           currentUser = response.data;
           allWords = response.data.words;
           categories = response.data.categories;
+          firstLang = response.data.settings.firstLanguage;
           stopClosingCategoryList();
         }
       })
     }
   })
 }
-
-
-
-
-checkStorage()
 
 function checkStorage() {
   let user = JSON.parse(localStorage.getItem('userName'));
@@ -994,6 +1065,7 @@ function checkStorage() {
           currentUser = response.data;
           allWords = response.data.words;
           categories = response.data.categories;
+          firstLang = response.data.settings.firstLanguage;
           fillCategories();
 
           if (screen.width > 899) {
@@ -1010,68 +1082,6 @@ function checkStorage() {
     openSignInWindow();
   }
 }
-
-$('#signIn').on('click', () => {
-  $('#loadingWindowWrap').show();
-  $.ajax({
-    type: "GET",
-    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginInInput').val()}/${$('#passwordInInput').val()}`,
-    // url: `http://localhost:3000/users/${$('#loginInInput').val()}/${$('#passwordInInput').val()}`,
-    success: function (response) {
-      if (response.correctLogin) {
-        if (response.correctPassword) {
-          currentUser = response.data;
-          allWords = response.data.words;
-          categories = response.data.categories;
-          fillCategories();
-          if ($('#rememberMeIn').prop('checked')) {
-            localStorage.setItem('userName', JSON.stringify(response.data.name));
-            localStorage.setItem('userPass', JSON.stringify(response.data.password));
-          } else {
-            tempUserData.name = response.data.name;
-            tempUserData.password = response.data.password;
-          }
-          closeSignInWindow();
-          if (screen.width > 899) {
-            $('#openMenuBtnsWrap').show();
-          }
-        } else {
-          alert('Пароль не верный!');
-        }
-      } else {
-        alert('Пользователя с таким логином не существует!')
-      }
-      $('#loadingWindowWrap').hide();
-    }
-  })
-})
-
-$('#goTosignUp').on('click', () => {
-  openSignUpWindow();
-})
-
-$('#signUp').on('click', () => {
-  $('#loadingWindowWrap').show();
-  $.ajax({
-    type: "GET",
-    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
-    // url: `http://localhost:3000/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
-    success: function (response) {
-      if (response.correctLogin) {
-        $('#loadingWindowWrap').hide();
-        alert(`Пользователь с логином ${$('#loginUpInput').val()} уже существует, придумайте другой логин.`);
-      } else {
-        if ($('#passwordUpInput').val().length > 4) {
-          addUserToDB();
-        } else {
-          $('#loadingWindowWrap').hide();
-          alert('Пароль слишком короткий!');
-        }
-      }
-    }
-  })
-})
-
 
 function addUserToDB() {
   $.ajax({
@@ -1091,6 +1101,7 @@ function addUserToDB() {
           currentUser = response.data;
           allWords = response.data.words;
           categories = response.data.categories;
+          firstLang = response.data.settings.firstLanguage;
           if ($('#rememberMeUp').prop('checked')) {
             localStorage.setItem('userName', JSON.stringify($('#loginUpInput').val()));
             localStorage.setItem('userPass', JSON.stringify($('#passwordUpInput').val()));
@@ -1112,39 +1123,95 @@ function addUserToDB() {
   });
 }
 
-$('#openMenuBtns').on('click', () => {
-  $('#mainButtons').toggle(150);
-})
-
-$('#changeUser').on('click', () => {
-  if (JSON.parse(localStorage.getItem('userName'))) {
-    localStorage.clear();
-  }
-  openSignInWindow();
-})
-
-function openGuideWindow() {
-  $('#faqWrap').fadeIn('slow');
-  if (screen.width > 899) {
-    $('#faq').slideDown(100, () => { $('#faq').css({ top: '100px' }) });
-  } else {
-    $('#faq').slideDown(100, () => { $('#faq').css({ top: '0px' }) });
+function deleteUser() {
+  if (confirm('Вы уверены что хотите удалить аккаунт?')) {
+    $('#loadingWindowWrap').show();
+    $.ajax({
+      type: "DELETE",
+      url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
+      // url: `http://localhost:3000/users/${currentUser._id}`,
+      success: function (response) {
+        if (JSON.parse(localStorage.getItem('userName'))) {
+          localStorage.clear();
+        }
+        $('#loadingWindowWrap').hide();
+        openSignInWindow();
+      }
+    })
   }
 }
 
-$('#guideBtn').on('click', () => {
-  openGuideWindow();
-})
+function signIn() {
+  $('#loadingWindowWrap').show();
+  $.ajax({
+    type: "GET",
+    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginInInput').val()}/${$('#passwordInInput').val()}`,
+    // url: `http://localhost:3000/users/${$('#loginInInput').val()}/${$('#passwordInInput').val()}`,
+    success: function (response) {
+      if (response.correctLogin) {
+        if (response.correctPassword) {
+          currentUser = response.data;
+          allWords = response.data.words;
+          categories = response.data.categories;
+          firstLang = response.data.settings.firstLanguage;
+          fillCategories();
+          if ($('#rememberMeIn').prop('checked')) {
+            localStorage.setItem('userName', JSON.stringify(response.data.name));
+            localStorage.setItem('userPass', JSON.stringify(response.data.password));
+          } else {
+            tempUserData.name = response.data.name;
+            tempUserData.password = response.data.password;
+          }
+          closeSignInWindow();
+          if (screen.width > 899) {
+            $('#openMenuBtnsWrap').show();
+          }
+        } else {
+          alert('Пароль не верный!');
+        }
+      } else {
+        alert('Пользователя с таким логином не существует!')
+      }
+      $('#loadingWindowWrap').hide();
+    }
+  })
+}
 
-$('body').on('keydown', key => {
-  if (key.keyCode == 27) {
-    closeAddingWindow();
-    closeEditingWindow();
-    closeSignUpWindow();
-    closeFaqWindow();
-    closeShedultWindow();
-  }
-});
+function signUp() {
+  $('#loadingWindowWrap').show();
+  $.ajax({
+    type: "GET",
+    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
+    // url: `http://localhost:3000/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
+    success: function (response) {
+      if (response.correctLogin) {
+        $('#loadingWindowWrap').hide();
+        alert(`Пользователь с логином ${$('#loginUpInput').val()} уже существует, придумайте другой логин.`);
+      } else {
+        if ($('#passwordUpInput').val().length > 4) {
+          addUserToDB();
+        } else {
+          $('#loadingWindowWrap').hide();
+          alert('Пароль слишком короткий!');
+        }
+      }
+    }
+  })
+}
+
+
+
+
+
+
+checkStorage();
+
+
+
+
+
+
+
 // Список фич:
 
 // сброс прогресса по всей категории

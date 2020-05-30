@@ -573,7 +573,8 @@ th {
 #editingSectionWrap,
 #signInFormWrap,
 #signUpFormWrap,
-#faqWrap {
+#faqWrap,
+#desktopBtnsWrap {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   left: 0;
@@ -588,7 +589,8 @@ th {
   #editingSection,
   #signInForm,
   #signUpForm,
-  #faq {
+  #faq,
+  #mainButtons {
     position: absolute;
     left: 50%;
     top: -200px;
@@ -609,7 +611,8 @@ th {
     #closeAddingWindow,
     #closeEditingWindow,
     #closeSignUpWindow,
-    #closeFaq {
+    #closeFaq,
+    #closeMainBtns {
       position: absolute;
       right: -20px;
       top: -20px;
@@ -732,6 +735,7 @@ th {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      margin-bottom: 50px;
 
       figure {
         figcaption {
@@ -831,26 +835,51 @@ ul.wordsList {
 }
 
 #mainButtons {
-  position: absolute;
-  right: 150px;
-  top: 20px;
-  display: flex;
-  flex-direction: column;
   font-size: 10px;
-  max-height: 130px;
 
+  #mainBtnsWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
-  button {
-    width: 100%;
-    background: linear-gradient(121.49839420425917deg, rgba(167, 204, 225, 1) 6.140625%, rgba(236, 246, 237, 1) 95.51562499999999%);
-    margin-bottom: 5px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    margin-right: 5px;
+    #deleteUser {
+      &:hover {
+        background-color: #ff4a4a;
+      }
+    }
   }
 
-  #deleteUser {
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(255, 124, 124, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  #firstLanguage {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    border: 1px dashed #000;
+    border-radius: 10px;
+    padding: 10px 10px 0;
+    width: fit-content;
+    align-items: flex-start;
+    position: relative;
+    border-top: 0;
+    height: fit-content;
+    margin-top: 20px;
+    padding-top: 20px;
+
+    &::after {
+      content: 'Первый язык';
+      display: block;
+      position: absolute;
+      top: -10px;
+      left: 10px;
+    }
+
+    label {
+      margin-bottom: 10px;
+      cursor: pointer;
+
+      input {
+        margin-right: 5px;
+      }
+    }
   }
 }
 
@@ -930,19 +959,28 @@ ul.wordsList {
 }
 
 @media(max-width:900px) {
-  #mainButtons {
-    width: 100%;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 5px;
-    flex-wrap: nowrap;
+  #desktopBtnsWrap {
+    margin-top: 8vh;
 
-    button {
-      margin-bottom: 10px;
-      height: 70px;
+    #mainButtons {
+      top: 0 !important;
+      flex-direction: column-reverse;
+      left: unset !important;
+      transform: unset !important;
+      height: 92vh;
+      width: 100vw !important;
+      justify-content: space-around !important;
+
+      button {
+        text-align: left;
+      }
+
+      #closeMainBtns {
+        display: none;
+      }
     }
   }
+
 
   #copyright {
     font-size: 10px;
@@ -1051,7 +1089,8 @@ ul.wordsList {
   #wordsSection,
   #signInForm,
   #signUpForm,
-  #faq {
+  #faq,
+  #mainButtons {
     margin-bottom: 0 !important;
     border-radius: unset !important;
   }
