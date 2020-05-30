@@ -6039,7 +6039,7 @@ ul.wordsList {
   max-height: 450px;
   overflow-y: auto;
 }
-#openMenuBtnsWrap {
+#openMainMenuWrap {
   position: absolute;
   right: 10px;
   top: 10px;
@@ -6090,7 +6090,7 @@ ul.wordsList {
 #categoriesList {
   margin-top: 20px;
 }
-#openMenuBtns {
+#openMainMenu {
   background: linear-gradient(121.4983942deg, #a7cce1 6.140625%, #ecf6ed 95.515625%);
 }
 .mobileMainBtns {

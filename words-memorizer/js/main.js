@@ -116,6 +116,7 @@ $('#mainMenuOpenBtn').on('click', () => {
   $('#card').hide(100);
   $('#categoriesBlock').hide(100);
   $('#mainMenuWrap').show(100);
+  $("[name=firstLang]")[firstLang].checked = true;
 })
 
 $('body').on('keydown', key => {
@@ -129,7 +130,7 @@ $('body').on('keydown', key => {
   }
 });
 
-$('#openMenuBtns').on('click', () => {
+$('#openMainMenu').on('click', () => {
   $('#mainMenuWrap').fadeIn('slow');
   $('#mainMenu').slideDown(100, () => { $('#mainMenu').css({ top: '100px' }) });
   $("[name=firstLang]")[firstLang].checked = true;
@@ -1038,8 +1039,8 @@ function resetWordProgress(word) {
 function refreshStorage() {
   $.ajax({
     type: "PUT",
-    url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
-    // url: `http://localhost:3000/users/${currentUser._id}`,
+    // url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
+    url: `http://localhost:3000/users/${currentUser._id}`,
     data: {
       "words": allWords,
       "categories": categories,
@@ -1057,8 +1058,8 @@ function refreshStorage() {
 
       $.ajax({
         type: "GET",
-        url: `https://dry-thicket-77260.herokuapp.com/users/${user}/${password}`,
-        // url: `http://localhost:3000/users/${user}/${password}`,
+        // url: `https://dry-thicket-77260.herokuapp.com/users/${user}/${password}`,
+        url: `http://localhost:3000/users/${user}/${password}`,
         success: function (response) {
           currentUser = response.data;
           allWords = response.data.words;
@@ -1078,8 +1079,8 @@ function checkStorage() {
     $('#loadingWindowWrap').show();
     $.ajax({
       type: "GET",
-      url: `https://dry-thicket-77260.herokuapp.com/users/${user}/${password}`,
-      // url: `http://localhost:3000/users/${user}/${password}`,
+      // url: `https://dry-thicket-77260.herokuapp.com/users/${user}/${password}`,
+      url: `http://localhost:3000/users/${user}/${password}`,
       success: function (response) {
         if (response.correctLogin) {
           currentUser = response.data;
@@ -1089,7 +1090,7 @@ function checkStorage() {
           fillCategories();
 
           if (screen.width > 899) {
-            $('#openMenuBtnsWrap').show();
+            $('#openMainMenuWrap').show();
           }
         } else {
           localStorage.clear();
@@ -1105,8 +1106,8 @@ function checkStorage() {
 
 function addUserToDB() {
   $.ajax({
-    url: `https://dry-thicket-77260.herokuapp.com/users/`,
-    // url: `http://localhost:3000/users/`,
+    // url: `https://dry-thicket-77260.herokuapp.com/users/`,
+    url: `http://localhost:3000/users/`,
     type: "POST",
     data: {
       name: $('#loginUpInput').val(),
@@ -1115,8 +1116,8 @@ function addUserToDB() {
     success: function (response) {
       $.ajax({
         type: "GET",
-        url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
-        // url: `http://localhost:3000/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
+        // url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
+        url: `http://localhost:3000/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
         success: function (response) {
           currentUser = response.data;
           allWords = response.data.words;
@@ -1132,7 +1133,7 @@ function addUserToDB() {
           closeSignInWindow();
           closeSignUpWindow();
           if (screen.width > 899) {
-            $('#openMenuBtnsWrap').show();
+            $('#openMainMenuWrap').show();
           }
           fillCategories();
           $('#loadingWindowWrap').hide();
@@ -1148,8 +1149,8 @@ function deleteUser() {
     $('#loadingWindowWrap').show();
     $.ajax({
       type: "DELETE",
-      url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
-      // url: `http://localhost:3000/users/${currentUser._id}`,
+      // url: `https://dry-thicket-77260.herokuapp.com/users/${currentUser._id}`,
+      url: `http://localhost:3000/users/${currentUser._id}`,
       success: function (response) {
         if (JSON.parse(localStorage.getItem('userName'))) {
           localStorage.clear();
@@ -1165,8 +1166,8 @@ function signIn() {
   $('#loadingWindowWrap').show();
   $.ajax({
     type: "GET",
-    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginInInput').val()}/${$('#passwordInInput').val()}`,
-    // url: `http://localhost:3000/users/${$('#loginInInput').val()}/${$('#passwordInInput').val()}`,
+    // url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginInInput').val()}/${$('#passwordInInput').val()}`,
+    url: `http://localhost:3000/users/${$('#loginInInput').val()}/${$('#passwordInInput').val()}`,
     success: function (response) {
       if (response.correctLogin) {
         if (response.correctPassword) {
@@ -1184,7 +1185,7 @@ function signIn() {
           }
           closeSignInWindow();
           if (screen.width > 899) {
-            $('#openMenuBtnsWrap').show();
+            $('#openMainMenuWrap').show();
           }
         } else {
           alert('Пароль не верный!');
@@ -1201,8 +1202,8 @@ function signUp() {
   $('#loadingWindowWrap').show();
   $.ajax({
     type: "GET",
-    url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
-    // url: `http://localhost:3000/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
+    // url: `https://dry-thicket-77260.herokuapp.com/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
+    url: `http://localhost:3000/users/${$('#loginUpInput').val()}/${$('#passwordUpInput').val()}`,
     success: function (response) {
       if (response.correctLogin) {
         $('#loadingWindowWrap').hide();
