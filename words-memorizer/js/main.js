@@ -856,6 +856,9 @@ function closeSignInWindow() {
   if (tempUserData.name || JSON.parse(localStorage.getItem('userName'))) {
     $('#signInForm').css({ top: '-200px' }).slideUp(100);
     $('#signInFormWrap').fadeOut('slow');
+    if (screen.width < 900) {
+      $('#desktopBtnsWrap').show(100);
+    }
   } else {
     alert('Войдите или зарегистрируйтесь!');
   }
