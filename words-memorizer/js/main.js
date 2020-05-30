@@ -61,6 +61,14 @@ $('#editWordFromCard').on('click', () => {
   nextWord();
 })
 
+$('#addExampleFormBtn').on('click', () => {
+  addExampleForm.call($('#addExampleFormBtn'));
+})
+
+$('#addWordBtn').on('click', () => {
+  addWord();
+})
+
 $('#deleteWordFromCard').on('click', () => {
   allWords.splice(allWords.indexOf(allWords.find(word => word.wordId == currentWord)), 1);
   nextWord();
@@ -85,18 +93,54 @@ $('#transcriptionEditingSymbols').on('click', 'span', function () {
   input.focus();
 })
 
+$('#changeUser').on('click', () => {
+  if (JSON.parse(localStorage.getItem('userName'))) {
+    localStorage.clear();
+  }
+  openSignInWindow();
+})
+
+$('#cardOpenBtn').on('click', () => {
+  $('#card').show(100);
+  $('#categoriesBlock').hide(100);
+  $('#mainMenuWrap').hide(100);
+})
+
+$('#categoriesOpenBtn').on('click', () => {
+  $('#card').hide(100);
+  $('#categoriesBlock').show(100);
+  $('#mainMenuWrap').hide(100);
+})
+
+$('#mainMenuOpenBtn').on('click', () => {
+  $('#card').hide(100);
+  $('#categoriesBlock').hide(100);
+  $('#mainMenuWrap').show(100);
+})
+
+$('body').on('keydown', key => {
+  if (key.keyCode == 27) {
+    closeAddingWindow();
+    closeEditingWindow();
+    closeSignUpWindow();
+    closeFaqWindow();
+    closeSheduleWindow();
+    closeMainMenu();
+  }
+});
+
+$('#openMenuBtns').on('click', () => {
+  $('#mainMenuWrap').fadeIn('slow');
+  $('#mainMenu').slideDown(100, () => { $('#mainMenu').css({ top: '100px' }) });
+  $("[name=firstLang]")[firstLang].checked = true;
+})
+
 $('#openAddingWindow').on('click', () => {
   openAddingWindow();
 })
 
 $('#openSheduleWindow').on('click', () => {
-  closeMenuBtns();
-  $('#tableWrap').fadeIn('slow');
-  if (screen.width > 899) {
-    $('#tableWrap table').slideDown(100, () => { $('#tableWrap table').css({ top: '100px' }) });
-  } else {
-    $('#tableWrap table').slideDown(100, () => { $('#tableWrap table').css({ top: '0px' }) });
-  }
+  openSheduleWindow();
 })
 
 $('#closeAddingWindow').on('click', () => {
@@ -111,72 +155,20 @@ $('#closeSignUpWindow').on('click', () => {
   closeSignUpWindow();
 })
 
-$('#closeMainBtns').on('click', () => {
-  closeMenuBtns();
-})
-
-$('#cardOpenBtn').on('click', () => {
-  $('#card').show(100);
-  $('#categoriesBlock').hide(100);
-  $('#desktopBtnsWrap').hide(100);
-})
-
-$('#categoriesOpenBtn').on('click', () => {
-  $('#card').hide(100);
-  $('#categoriesBlock').show(100);
-  $('#desktopBtnsWrap').hide(100);
-})
-
-$('#mainMenuBtn').on('click', () => {
-  $('#card').hide(100);
-  $('#categoriesBlock').hide(100);
-  $('#desktopBtnsWrap').show(100);
-})
-
 $('#closeSheduleWindow').on('click', () => {
-  closeShedultWindow();
-})
-
-$('#addExampleFormBtn').on('click', () => {
-  addExampleForm.call($('#addExampleFormBtn'));
-})
-
-$('#addWordBtn').on('click', () => {
-  addWord();
+  closeSheduleWindow();
 })
 
 $('#guideBtn').on('click', () => {
-  closeMenuBtns();
   openGuideWindow();
-})
-
-$('body').on('keydown', key => {
-  if (key.keyCode == 27) {
-    closeAddingWindow();
-    closeEditingWindow();
-    closeSignUpWindow();
-    closeFaqWindow();
-    closeShedultWindow();
-    closeMenuBtns();
-  }
-});
-
-$('#openMenuBtns').on('click', () => {
-  $('#desktopBtnsWrap').fadeIn('slow');
-  $('#mainButtons').slideDown(100, () => { $('#mainButtons').css({ top: '100px' }) });
-  $("[name=firstLang]")[firstLang].checked = true;
-})
-
-$('#changeUser').on('click', () => {
-  if (JSON.parse(localStorage.getItem('userName'))) {
-    localStorage.clear();
-  }
-  closeMenuBtns();
-  openSignInWindow();
 })
 
 $('#goTosignUp').on('click', () => {
   openSignUpWindow();
+})
+
+$('#closeMainMenu').on('click', () => {
+  closeMainMenu();
 })
 
 $("[name=firstLang]").on('click', (e) => {
@@ -185,7 +177,6 @@ $("[name=firstLang]").on('click', (e) => {
 })
 
 $('#deleteUser').on('click', () => {
-  closeMenuBtns();
   deleteUser();
 })
 
@@ -197,6 +188,9 @@ $('#signUp').on('click', () => {
   signUp();
 })
 
+$closeEditingWindowBtn.on('click', () => {
+  closeEditingWindow();
+})
 
 $chooseCategory.on('change', () => {
   chooseCategory.call($chooseCategory);
@@ -295,10 +289,6 @@ $categoriesList.on('click', e => {
 
 $addExampleEditingFormBtn.on('click', () => {
   addExampleForm.call($addExampleEditingFormBtn);
-})
-
-$closeEditingWindowBtn.on('click', () => {
-  closeEditingWindow();
 })
 
 $addNewEditingCategory.on('click', () => {
@@ -443,7 +433,6 @@ function deleteCategory(category) {
 
 function clearCategory(globalCategory) {
   if (confirm('Вы действительно хотите удалить все слова из этой категории?')) {
-    // я не знаю какого х** но обычный массив не перебирается с помощью foreach!!!
     $(allWords).each((index, word) => {
       if (word.category.includes(globalCategory)) {
 
@@ -793,6 +782,66 @@ function addNewCategory() {
   }
 }
 
+function openSheduleWindow() {
+  $('#tableWrap').fadeIn('slow');
+  if (screen.width > 899) {
+    $('#tableWrap table').slideDown(100, () => { $('#tableWrap table').css({ top: '100px' }) });
+    closeMainMenu();
+  } else {
+    $('#tableWrap table').slideDown(100, () => { $('#tableWrap table').css({ top: '0px' }) });
+    $('#mainMenuWrap').hide(100);
+  }
+}
+
+function openEditingWindow(word) {
+  editingWord = word.wordId;
+  editing = true;
+  chosenCategories.clear();
+  word.category.forEach(category => {
+    chosenCategories.add(category);
+  });
+  addOptionToSelect();
+  $chooseCategoryEditing.val(chosenCategories[0]);
+  $editingSectionWrap.fadeIn('slow');
+  if (screen.width > 899) {
+    $editingSection.slideDown(100, () => { $editingSection.css({ top: '100px' }) });
+  } else {
+    $editingSection.slideDown(100, () => { $editingSection.css({ top: '0px' }) });
+  }
+  fillSelect();
+  $rusWordEditingInput.val(word.rus);
+  $engWordEditingInput.val(word.eng);
+  $transcriptionEditingInput.val(word.transcription);
+
+
+  examplesCount = word.examples.length;
+  const $contextFormTemplate = $(document.getElementById('contextFormTemplate').cloneNode(true).content);
+  word.examples.forEach(example => {
+    const newExample = $contextFormTemplate.find('.contextsEditingWrap').clone();
+    newExample[0].querySelector('input[data-added-example-lang="ru"]').value = example.ru;
+    newExample[0].querySelector('input[data-added-example-lang="eng"]').value = example.eng;
+    newExample.children('button').on('click', () => {
+      newExample.slideUp(200, () => newExample.remove());
+      refreshStorage();
+      --examplesCount;
+    })
+    $addExampleEditingFormBtn.before(newExample);
+    newExample.hide().slideDown(200);
+  })
+  $chooseCategoryEditing.val(word.category[0]);
+}
+
+function openGuideWindow() {
+  $('#faqWrap').fadeIn('slow');
+  if (screen.width > 899) {
+    $('#faq').slideDown(100, () => { $('#faq').css({ top: '100px' }) });
+    closeMainMenu();
+  } else {
+    $('#faq').slideDown(100, () => { $('#faq').css({ top: '0px' }) });
+    $('#mainMenuWrap').hide(100);
+  }
+}
+
 function openAddingWindow() {
   chosenCategories.clear();
   addOptionToSelect();
@@ -810,24 +859,11 @@ function openSignInWindow() {
   $('#signInFormWrap').fadeIn('slow');
   if (screen.width > 899) {
     $('#signInForm').slideDown(100, () => { $('#signInForm').css({ top: '100px' }) });
+    closeMainMenu();
   } else {
     $('#signInForm').slideDown(100, () => { $('#signInForm').css({ top: '0px' }) });
+    $('#mainMenuWrap').hide(100);
   }
-}
-
-function closeShedultWindow() {
-  $('#tableWrap table').css({ top: '-200px' }).slideUp(100);
-  $('#tableWrap').fadeOut('slow');
-}
-
-function closeFaqWindow() {
-  $('#faq').css({ top: '-200px' }).slideUp(100);
-  $('#faqWrap').fadeOut('slow');
-}
-
-function closeMenuBtns() {
-  $('#mainButtons').css({ top: '-200px' }).slideUp(100);
-  $('#desktopBtnsWrap').fadeOut('slow');
 }
 
 function openSignUpWindow() {
@@ -836,6 +872,37 @@ function openSignUpWindow() {
     $('#signUpForm').slideDown(100, () => { $('#signUpForm').css({ top: '100px' }) });
   } else {
     $('#signUpForm').slideDown(100, () => { $('#signUpForm').css({ top: '0px' }) });
+  }
+}
+
+function closeEditingWindow() {
+  editing = false;
+  $editingSection.css({ top: '-200px' }).slideUp(100);
+  $editingSectionWrap.fadeOut('slow');
+
+  $rusWordEditingInput.val('');
+  $engWordEditingInput.val('');
+  $newEditingCategoryTitle.val('');
+  $transcriptionEditingInput.val('');
+  document.querySelectorAll('.contextsEditingWrap').forEach(element => {
+    element.remove();
+    examplesCount = 0;
+  });
+}
+
+function closeSheduleWindow() {
+  $('#tableWrap table').css({ top: '-200px' }).slideUp(100);
+  $('#tableWrap').fadeOut('slow');
+  if (screen.width < 900) {
+    $('#mainMenuWrap').show(100);
+  }
+}
+
+function closeFaqWindow() {
+  $('#faq').css({ top: '-200px' }).slideUp(100);
+  $('#faqWrap').fadeOut('slow');
+  if (screen.width < 900) {
+    $('#mainMenuWrap').show(100);
   }
 }
 
@@ -857,7 +924,7 @@ function closeSignInWindow() {
     $('#signInForm').css({ top: '-200px' }).slideUp(100);
     $('#signInFormWrap').fadeOut('slow');
     if (screen.width < 900) {
-      $('#desktopBtnsWrap').show(100);
+      $('#mainMenuWrap').show(100);
     }
   } else {
     alert('Войдите или зарегистрируйтесь!');
@@ -867,7 +934,19 @@ function closeSignInWindow() {
 function closeSignUpWindow() {
   $('#signUpForm').css({ top: '-200px' }).slideUp(100);
   $('#signUpFormWrap').fadeOut('slow');
+  if (screen.width < 900) {
+    $('#mainMenuWrap').hide(100);
+  } else {
+    closeMainMenu();
+  }
 }
+
+function closeMainMenu() {
+  $('#mainMenu').css({ top: '-200px' }).slideUp(100);
+  $('#mainMenuWrap').fadeOut('slow');
+}
+
+
 
 function chooseCategory() {
   if (chosenCategories.size < 5) {
@@ -918,53 +997,6 @@ function showTranslationAndExamples() {
   })
 }
 
-function openEditingWindow(word) {
-  editingWord = word.wordId;
-  editing = true;
-  chosenCategories.clear();
-  word.category.forEach(category => {
-    chosenCategories.add(category);
-  });
-  addOptionToSelect();
-  $chooseCategoryEditing.val(chosenCategories[0]);
-  $editingSectionWrap.fadeIn('slow');
-  if (screen.width > 899) {
-    $editingSection.slideDown(100, () => { $editingSection.css({ top: '100px' }) });
-  } else {
-    $editingSection.slideDown(100, () => { $editingSection.css({ top: '0px' }) });
-  }
-  fillSelect();
-  $rusWordEditingInput.val(word.rus);
-  $engWordEditingInput.val(word.eng);
-  $transcriptionEditingInput.val(word.transcription);
-
-
-  examplesCount = word.examples.length;
-  const $contextFormTemplate = $(document.getElementById('contextFormTemplate').cloneNode(true).content);
-  word.examples.forEach(example => {
-    const newExample = $contextFormTemplate.find('.contextsEditingWrap').clone();
-    newExample[0].querySelector('input[data-added-example-lang="ru"]').value = example.ru;
-    newExample[0].querySelector('input[data-added-example-lang="eng"]').value = example.eng;
-    newExample.children('button').on('click', () => {
-      newExample.slideUp(200, () => newExample.remove());
-      refreshStorage();
-      --examplesCount;
-    })
-    $addExampleEditingFormBtn.before(newExample);
-    newExample.hide().slideDown(200);
-  })
-  $chooseCategoryEditing.val(word.category[0]);
-}
-
-function openGuideWindow() {
-  $('#faqWrap').fadeIn('slow');
-  if (screen.width > 899) {
-    $('#faq').slideDown(100, () => { $('#faq').css({ top: '100px' }) });
-  } else {
-    $('#faq').slideDown(100, () => { $('#faq').css({ top: '0px' }) });
-  }
-}
-
 function saveEditing() {
   allWords.forEach(word => {
     if (word.wordId == editingWord) {
@@ -989,21 +1021,6 @@ function saveEditing() {
       return
     }
   })
-}
-
-function closeEditingWindow() {
-  editing = false;
-  $editingSection.css({ top: '-200px' }).slideUp(100);
-  $editingSectionWrap.fadeOut('slow');
-
-  $rusWordEditingInput.val('');
-  $engWordEditingInput.val('');
-  $newEditingCategoryTitle.val('');
-  $transcriptionEditingInput.val('');
-  document.querySelectorAll('.contextsEditingWrap').forEach(element => {
-    element.remove();
-    examplesCount = 0;
-  });
 }
 
 function resetWordProgress(word) {

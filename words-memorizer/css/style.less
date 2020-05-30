@@ -574,7 +574,7 @@ th {
 #signInFormWrap,
 #signUpFormWrap,
 #faqWrap,
-#desktopBtnsWrap {
+#mainMenuWrap {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   left: 0;
@@ -590,7 +590,7 @@ th {
   #signInForm,
   #signUpForm,
   #faq,
-  #mainButtons {
+  #mainMenu {
     position: absolute;
     left: 50%;
     top: -200px;
@@ -612,7 +612,7 @@ th {
     #closeEditingWindow,
     #closeSignUpWindow,
     #closeFaq,
-    #closeMainBtns {
+    #closeMainMenu {
       position: absolute;
       right: -20px;
       top: -20px;
@@ -834,10 +834,10 @@ ul.wordsList {
   top: 10px;
 }
 
-#mainButtons {
+#mainMenu {
   font-size: 10px;
 
-  #mainBtnsWrap {
+  #mainMenuBtns {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -895,11 +895,11 @@ ul.wordsList {
   background: linear-gradient(121.49839420425917deg, rgba(167, 204, 225, 1) 6.140625%, rgba(236, 246, 237, 1) 95.51562499999999%);
 }
 
-.mainButtonsWrap {
+.mobileMainBtns {
   display: none;
 }
 
-#mainMenuBtn,
+#mainMenuOpenBtn,
 #categoriesOpenBtn,
 #cardOpenBtn {
   border: none;
@@ -959,10 +959,10 @@ ul.wordsList {
 }
 
 @media(max-width:900px) {
-  #desktopBtnsWrap {
+  #mainMenuWrap {
     margin-top: 8vh;
 
-    #mainButtons {
+    #mainMenu {
       top: 0 !important;
       flex-direction: column-reverse;
       left: unset !important;
@@ -975,7 +975,7 @@ ul.wordsList {
         text-align: left;
       }
 
-      #closeMainBtns {
+      #closeMainMenu {
         display: none;
       }
     }
@@ -1011,7 +1011,7 @@ ul.wordsList {
     }
   }
 
-  .mainButtonsWrap {
+  .mobileMainBtns {
     display: flex;
     justify-content: space-around;
     position: absolute;
@@ -1090,7 +1090,7 @@ ul.wordsList {
   #signInForm,
   #signUpForm,
   #faq,
-  #mainButtons {
+  #mainMenu {
     margin-bottom: 0 !important;
     border-radius: unset !important;
   }
