@@ -152,7 +152,7 @@ $('#closeFaq').on('click', () => {
   closeFaqWindow();
 })
 
-$('#closeSignUpWindow').on('click', () => {
+$('#closeSignUpWindow').on('click', (e) => {
   closeSignUpWindow();
 })
 
@@ -164,7 +164,8 @@ $('#guideBtn').on('click', () => {
   openGuideWindow();
 })
 
-$('#goTosignUp').on('click', () => {
+$('#goTosignUp').on('click', (e) => {
+  e.preventDefault();
   openSignUpWindow();
 })
 
@@ -181,11 +182,13 @@ $('#deleteUser').on('click', () => {
   deleteUser();
 })
 
-$('#signIn').on('click', () => {
+$('#signIn').on('click', (e) => {
+  e.preventDefault();
   signIn();
 })
 
-$('#signUp').on('click', () => {
+$('#signUpForm').on('submit', (e) => {
+  e.preventDefault();
   signUp();
 })
 
@@ -600,7 +603,8 @@ function nextWord() {
   $origWord.hide();
   $examples.hide();
   const now = new Date();
-  const availableWords = [];
+  let availableWords = [];
+  const notNewWords = [];
 
   allWords.forEach(el => {
     const catsInWord = new Set();
@@ -616,6 +620,16 @@ function nextWord() {
       availableWords.push(el);
     }
   })
+
+  availableWords.forEach(word => {
+    if (word.learnedCount >= 0) {
+      notNewWords.push(word);
+    }
+  });
+  if (notNewWords.length > 0) {
+    availableWords = notNewWords
+  }
+
 
 
 
@@ -946,8 +960,6 @@ function closeMainMenu() {
   $('#mainMenu').css({ top: '-200px' }).slideUp(100);
   $('#mainMenuWrap').fadeOut('slow');
 }
-
-
 
 function chooseCategory() {
   if (chosenCategories.size < 5) {

@@ -252,38 +252,34 @@
 
   <!-- форма входа -->
   <div id="signInFormWrap" style="display: none;">
-    <div id="signInForm" style="display:none">
+    <form id="signInForm" action="/" method="" style="display:none">
 
       <div id="signInInputsWrap">
-
         <label>Введите логин
           <input type="text" id="loginInInput">
         </label>
 
         <label>Введите пароль
-          <input type="password" id="passwordInInput">
+          <input type="password" autocomplete="off" id="passwordInInput">
         </label>
-
-
-
       </div>
       <div id="signingWrap">
         <label>
           <input type="checkbox" id="rememberMeIn" checked="true">Запомнить меня
         </label>
-        <button id="signIn" class="buttons">Войти</button>
+        <button id="signIn" type="submit" class="buttons">Войти</button>
       </div>
       <div id="goToSignUpBlock">
         <button id="goTosignUp">Зарегистрироваться</button>
       </div>
-    </div>
+    </form>
   </div>
 
   <!-- форма регистрации -->
   <div id="signUpFormWrap" style="display: none;">
-    <div id="signUpForm" style="display:none">
+    <form id="signUpForm" action="/" method="" style="display:none">
 
-      <button id="closeSignUpWindow" class="icon-cancel-circled2"></button>
+      <button id="closeSignUpWindow" type="button" class="icon-cancel-circled2"></button>
 
       <div id="signUpInputsWrap">
 
@@ -292,7 +288,7 @@
         </label>
 
         <label>Введите пароль
-          <input type="password" id="passwordUpInput">
+          <input type="password" autocomplete="off" id="passwordUpInput">
         </label>
 
       </div>
@@ -300,9 +296,9 @@
         <label>
           <input type="checkbox" id="rememberMeUp" checked="true">Запомнить меня
         </label>
-        <button id="signUp" class="buttons">Зарегистрироваться</button>
+        <button id="signUp" type="submit" class="buttons">Зарегистрироваться</button>
       </div>
-    </div>
+    </form>
   </div>
 
   <!-- руководство пользователя -->
@@ -437,12 +433,12 @@
     </div>
   </div>
 
-
   <!-- копирайтинг -->
   <div id="copyright">
     <p>© А. А. Кудряшов, 2020</p>
   </div>
 
+  <!-- кнопка открытия главного меню -->
   <div id="openMainMenuWrap" style="display: none;">
     <button class="buttons icon-cog" id="openMainMenu">Меню</button>
   </div>
