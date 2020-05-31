@@ -6151,13 +6151,14 @@ ul.wordsList {
 @media (max-width: 900px) {
   #mainMenuWrap {
     margin-top: 8vh;
+    height: 90vh;
   }
   #mainMenuWrap #mainMenu {
     top: 0 !important;
     flex-direction: column-reverse;
     left: unset !important;
     transform: unset !important;
-    height: 92vh;
+    height: 90vh;
     width: 100vw !important;
     justify-content: space-around !important;
   }
