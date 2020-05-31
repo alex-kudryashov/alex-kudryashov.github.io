@@ -1135,6 +1135,7 @@ function addUserToDB() {
           allWords = response.data.words;
           categories = response.data.categories;
           firstLang = response.data.settings.firstLanguage;
+          $("[name=firstLang]")[firstLang].checked = true;
           if ($('#rememberMeUp').prop('checked')) {
             localStorage.setItem('userName', JSON.stringify($('#loginUpInput').val()));
             localStorage.setItem('userPass', JSON.stringify($('#passwordUpInput').val()));
