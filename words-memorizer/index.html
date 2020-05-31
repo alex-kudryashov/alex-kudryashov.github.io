@@ -252,7 +252,7 @@
 
   <!-- форма входа -->
   <div id="signInFormWrap" style="display: none;">
-    <form id="signInForm" action="/" method="" style="display:none">
+    <form id="signInForm" autocomplete="on" action="/" method="" style="display:none">
 
       <div id="signInInputsWrap">
         <label>Введите логин
@@ -260,7 +260,7 @@
         </label>
 
         <label>Введите пароль
-          <input type="password" autocomplete="on" id="passwordInInput">
+          <input type="password" id="passwordInInput">
         </label>
       </div>
       <div id="signingWrap">
@@ -277,7 +277,7 @@
 
   <!-- форма регистрации -->
   <div id="signUpFormWrap" style="display: none;">
-    <form id="signUpForm" action="/" method="" style="display:none">
+    <form id="signUpForm" autocomplete="on" action="/" method="" style="display:none">
 
       <button id="closeSignUpWindow" type="button" class="icon-cancel-circled2"></button>
 
@@ -288,7 +288,7 @@
         </label>
 
         <label>Введите пароль
-          <input type="password" autocomplete="on" id="passwordUpInput">
+          <input type="password" id="passwordUpInput">
         </label>
 
       </div>
