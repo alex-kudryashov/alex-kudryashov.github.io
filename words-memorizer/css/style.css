@@ -6143,7 +6143,6 @@ ul.wordsList {
   justify-content: center;
   font-size: 12px;
   align-items: center;
-  line-height: 0;
 }
 #copyright p {
   border-radius: 10px;
@@ -6152,6 +6151,7 @@ ul.wordsList {
   #mainMenuWrap {
     margin-top: 8vh;
     height: 90vh;
+    box-shadow: 0px 0px 22px -2px rgba(0, 13, 64, 0.46);
   }
   #mainMenuWrap #mainMenu {
     top: 0 !important;
@@ -6169,7 +6169,7 @@ ul.wordsList {
     display: none;
   }
   #copyright {
-    font-size: 10px;
+    font-size: 8px;
     background-color: #a7cce1;
   }
   .cardWrap {

@@ -270,7 +270,7 @@ $forgotBtn.on('click', () => {
       word.forgotInThisSession = true;
     }
     if (word.wordId == currentWord && word.learnedCount == -1) {
-      word.learnedCount = 0;
+      word.learnedCount = '0';
     }
   })
   nextWord();
@@ -624,6 +624,7 @@ function nextWord() {
   availableWords.forEach(word => {
     if (word.learnedCount >= 0) {
       notNewWords.push(word);
+      console.log(availableWords)
     }
   });
   if (notNewWords.length > 0) {
@@ -647,7 +648,7 @@ function nextWord() {
   wordCounter = getRandomInteger(0, availableWords.length - 1);
 
   currentWord = availableWords[wordCounter].wordId;
-  if (availableWords[wordCounter].learnedCount == '-1') {
+  if (availableWords[wordCounter].learnedCount == -1) {
     $learnedBtn.html('Знаю');
     $forgotBtn.html('Изучить');
   } else {
@@ -1252,6 +1253,4 @@ checkStorage();
 // добавить окно со статистикой
 // поиск по словам - при вводе слова - выводятся подходящий варианты, которые можно редачить, удалять и сбрасывать прогресс
 // процент изученных слов в каждой категории
-// выбор первого показываемого языка
 // функцию высчитывающую желаемое количество новых слов в день
-// удалять слова если нет категорий
