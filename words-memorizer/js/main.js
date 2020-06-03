@@ -264,6 +264,7 @@ $learnedBtn.on('click', () => {
 })
 
 $forgotBtn.on('click', () => {
+  const now = new Date();
   allWords.forEach(word => {
     if (word.wordId == currentWord && word.learnedCount > 1 && !word.forgotInThisSession) {
       word.learnedCount--;
