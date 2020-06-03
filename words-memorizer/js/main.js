@@ -270,7 +270,8 @@ $forgotBtn.on('click', () => {
       word.forgotInThisSession = true;
     }
     if (word.wordId == currentWord && word.learnedCount == -1) {
-      word.learnedCount = '1';
+      word.learnedCount = '0';
+      word.date = now.setMinutes(now.getMinutes() + 5);
     }
   })
   nextWord();
