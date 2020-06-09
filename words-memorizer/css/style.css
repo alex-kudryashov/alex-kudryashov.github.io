@@ -346,7 +346,7 @@ th {
   border: none;
   color: #27281e;
   position: absolute;
-  right: 5px;
+  right: 58px;
   top: 4px;
   font-size: 25px;
   cursor: pointer;
@@ -356,11 +356,11 @@ th {
   border: none;
   color: #27281e;
   position: absolute;
-  right: 5px;
+  right: 58px;
   top: 4px;
   font-size: 25px;
   cursor: pointer;
-  right: 55px;
+  right: 10px;
   font-size: 20px;
 }
 .cardWrap #categoriesBlock #categoriesList .category_item .clearCategory {
@@ -368,16 +368,15 @@ th {
   border: none;
   color: #27281e;
   position: absolute;
-  right: 5px;
+  right: 58px;
   top: 4px;
   font-size: 25px;
   cursor: pointer;
   right: 35px;
-  top: 3px;
   font-size: 20px;
 }
 .cardWrap #categoriesBlock #categoriesList .category_item .icon-check-empty {
-  right: 9px;
+  right: 60px;
 }
 .cardWrap #categoriesBlock #categoriesList .category_item .wordInCategory {
   background-color: #27281e;
