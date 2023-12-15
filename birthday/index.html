@@ -8,6 +8,13 @@
     <title>С днём рождения!</title>
 
     <style>
+        body {
+            background-image: url("http://s1.1zoom.ru/b5050/28/Tanks_497059_1920x1200.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: left bottom;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -17,32 +24,50 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         .text {
             font-size: 80px;
-            background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
-            color: transparent;
-            background-clip: text;
-            -webkit-background-clip: text;
-            display: inline;
+            color: #FFFFFF;
+            text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
+        }
+
+        @media (max-width: 1023px) {
+            .text {
+                font-size: 50px;
+            }
         }
 
         .text-container {
+            text-align: center;
+            animation: rotateIn 3s infinite ease-in-out;
         }
 
-        .marquee {
-
+        @keyframes rotateIn {
+            0% {
+                transform: rotate(360deg) scale(0);
+            }
+            25% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(0deg) scale(1.5);
+            }
+            75% {
+                transform: rotate(0deg) scale(1);
+            }
+            100% {
+                transform: rotate(360deg) scale(0);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <marquee behavior="" direction="" class="marquee" scrolldelay="0">
-            <div class="text-container">
-                <p class="text">С днём рождения, Полина!</p>
-            </div>
-        </marquee>
+        <div class="text-container">
+            <p class="text">Илюха, <br> C днём рождения!</p>
+        </div>
     </div>
 </body>
 </html>
